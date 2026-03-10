@@ -235,7 +235,7 @@ export default function PlantDetail() {
                         🧪 ปุ๋ยที่แนะนำ
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {currentGuide.fertilizers.map((f, i) => (
+                        {plant.fertilizer.map((f, i) => (
                           <span key={i} className="bg-white text-sky-700 px-4 py-2 rounded-xl text-xs font-black shadow-sm border border-sky-100 group-hover:scale-105 transition-transform">
                             {f}
                           </span>
