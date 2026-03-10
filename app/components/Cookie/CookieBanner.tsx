@@ -1,0 +1,62 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+
+export default function CookieBanner() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // ตรวจสอบตอนโหลดหน้าเว็บว่ามีการตัดสินใจเรื่องคุกกี้ไปหรือยัง
+    const consent = Cookies.get("cookie_consent");
+    // ถ้ายังไม่เคยมีคุกกี้ตัวนี้ แสดงว่าเพิ่งเข้าเว็บครั้งแรก ให้โชว์ Banner
+    if (!consent) {
+      setIsVisible(true);
+    }
+  }, []);
+
+  const handleAccept = () => {
+    // บันทึกว่า "ยอมรับ" คุกกี้ (เก็บไว้ 1 ปี)
+    Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
+    setIsVisible(false);
+    
+    // บังคับให้โหลดหน้าเว็บใหม่ 1 ครั้ง เพื่อให้ AdTracker เริ่มทำงานทันที
+    // หรือถ้าไม่อยาก reload สามารถใช้ React Context มาช่วยจัดการ state ได้ครับ
+    window.location.reload(); 
+  };
+
+  const handleDecline = () => {
+    // บันทึกว่า "ปฏิเสธ" คุกกี้
+    Cookies.set("cookie_consent", "declined", { expires: 365, path: "/" });
+    setIsVisible(false);
+  };
+
+  // ถ้าถูกซ่อนอยู่ ไม่ต้องเรนเดอร์อะไร
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 animate-in slide-in-from-bottom-5 duration-500">
+      <div className="flex-1 text-sm text-gray-600">
+        <h3 className="font-bold text-gray-800 text-base mb-1">🍪 นโยบายการใช้คุกกี้</h3>
+        <p>
+          เว็บไซต์นี้ใช้คุกกี้เพื่อนำเสนอเนื้อหาและโฆษณาที่ตรงกับความสนใจของคุณ รวมถึงวิเคราะห์การเข้าชมเว็บไซต์ 
+          คุณสามารถเลือก "ยอมรับ" เพื่อให้เรามอบประสบการณ์ที่ดีที่สุด หรือคลิก "ปฏิเสธ" หากไม่ต้องการรับโฆษณาที่ปรับแต่ง
+        </p>
+      </div>
+      <div className="flex flex-row gap-3 w-full md:w-auto shrink-0 justify-end">
+        <button
+          onClick={handleDecline}
+          className="px-5 py-2.5 text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors border border-gray-300"
+        >
+          ปฏิเสธคุกกี้โฆษณา
+        </button>
+        <button
+          onClick={handleAccept}
+          className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+        >
+          ยอมรับทั้งหมด
+        </button>
+      </div>
+    </div>
+  );
+}
