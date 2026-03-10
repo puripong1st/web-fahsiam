@@ -38,7 +38,7 @@ const CROP_FERTILIZER_DATA: Record<string, { fertText: string; fertImg: string }
   "ทุเรียน (ยังไม่ให้ผลผลิต) 2-3 ปี": Array(12).fill({ fertText: "ปุ๋ยอินทรีย์เคมี 12-3-5 (เร่งการเจริญเติบโต ดึงใบ)", fertImg: "/image/Fertilizer/12-3-5.png" }),
   "ทุเรียน (ให้ผลผลิต)": [
     { fertText: "ปุ๋ยอินทรีย์เคมี 3-6-15 (สะสมอาหาร บำรุงตาดอก)", fertImg: "/image/Fertilizer/3-6-15.png" },
-    { fertText: "ปุ๋ยอินทรีย์เคมี 3-6-15 (สะสมอาหาร บำรุงตาดอก)", fertImg: "/3-6-15.png" },
+    { fertText: "ปุ๋ยอินทรีย์เคมี 3-6-15 (สะสมอาหาร บำรุงตาดอก)", fertImg: "/image/Fertilizer/3-6-15.png" },
     { fertText: "ปุ๋ยอินทรีย์เคมี 3-6-15 (บำรุงผล)", fertImg: "/image/Fertilizer/3-6-15.png" },
     { fertText: "ปุ๋ยเคมี 0-0-30 (ขยายผล สร้างเนื้อ)", fertImg: "/image/Fertilizer/0-0-30.png" },
     { fertText: "ปุ๋ยเคมี 0-0-30 (เพิ่มความหวาน น้ำหนัก)", fertImg: "/image/Fertilizer/0-0-30.png" },
