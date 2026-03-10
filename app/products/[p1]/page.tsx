@@ -1,4 +1,4 @@
-import { MOCK_PRODUCTS } from "@/data/product";
+import { MOCK_PRODUCTS } from "@/app/data/product2";
 import Link from "next/link";
 
 // ใช้ async function เพื่อรองรับการรับค่า params ใน Next.js 15
