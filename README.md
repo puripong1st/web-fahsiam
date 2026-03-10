@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 Fah Siam - Smart Agriculture Solution
 
-## Getting Started
+**Fah Siam (ฟ้าสยาม)** คือเว็บแอปพลิเคชันสมัยใหม่ที่พัฒนาด้วย Next.js 14+ ออกแบบมาเพื่อช่วยเหลือเกษตรกรไทยในการบริหารจัดการการใช้ปุ๋ยอย่างมีประสิทธิภาพ ระบบจะช่วยวิเคราะห์และแนะนำสูตรปุ๋ยที่เหมาะสมตามช่วงเวลาและชนิดของพืช เพื่อเพิ่มผลผลิตอย่างยั่งยืน
 
-First, run the development server:
+---
 
-```bash
+## ✨ Key Features
+
+* **Smart Fertilizer Scheduler**: ระบบแนะนำสูตรปุ๋ยรายเดือนที่ปรับเปลี่ยนตามชนิดพืช เช่น ทุเรียน, กาแฟ, และปาล์มน้ำมัน
+* **Interactive Agriculture Calendar**: ปฏิทินอัจฉริยะแสดงพืชในฤดูกาลและอัตราการใช้ปุ๋ยที่แม่นยำ
+* **PDPA Compliant**: ระบบจัดการคุกกี้ (Cookie Consent) ที่สอดคล้องกับกฎหมายคุ้มครองข้อมูลส่วนบุคคล
+* **Ads & Analytics Integrated**: รองรับการติดตามข้อมูลผ่าน Meta (Facebook) Pixel และ Google Analytics 4 พร้อมระบบ Console Log ตรวจสอบการทำงาน
+* **SEO Optimized**: ติดตั้ง Metadata API สำหรับการจัดลำดับบน Search Engine และการแชร์ลง Social Media
+
+## 🛠️ Tech Stack
+
+* **Framework**: [Next.js 14+ (App Router)](https://nextjs.org/)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Tracking**: Meta Pixel, Google Analytics 4, js-cookie
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+* Node.js 18.x หรือสูงกว่า
+* npm / yarn / pnpm
+
+### 2. Installation
+
+# Clone the repository
+git clone [https://github.com/puripong1st/web-fahsiam.git](https://github.com/puripong1st/web-fahsiam.git)
+
+# Navigate to the project directory
+cd web-fahsiam
+
+# Install dependencies
+npm install
+
+### 3. Running the Development Server
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+เปิด http://localhost:3000 บนเบราว์เซอร์เพื่อดูผลลัพธ์
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📂 Project Structure
+/app: จัดการ Routing, SEO Metadata และ Page ต่างๆ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+/components: คอมโพเนนต์หลัก เช่น CalendarWidget, AdTracker, และ CookieBanner
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+/public: เก็บ Asset ต่างๆ เช่น รูปภาพปุ๋ยและพืชในฤดูกาล
 
-## Learn More
+### 🛡️ License
+Distributed under the MIT License.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed with ❤️ for Thai Farmers by Puripong
+```bash
