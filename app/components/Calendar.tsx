@@ -156,9 +156,13 @@ export default function CalendarWidget() {
           
           {/* ================= ฝั่งซ้าย: ปฏิทิน ================= */}
           <div className="w-full xl:w-[40%] p-6 flex flex-col">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
+            
+            {/* === ปรับส่วน Header ให้กึ่งกลางบนมือถือ === */}
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-6 gap-4">
+              
+              {/* เดือน และ ปุ่มกลับปัจจุบัน */}
+              <div className="flex flex-col items-center md:items-start w-full md:w-auto">
+                <div className="flex items-center justify-center gap-3 mb-2 w-full">
                   <button 
                     onClick={prevMonth}
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
@@ -179,22 +183,25 @@ export default function CalendarWidget() {
                 </div>
                 <button 
                   onClick={goToToday}
-                  className="text-sm font-medium text-sky-600 hover:text-sky-800 hover:underline px-2"
+                  className="text-sm font-medium text-sky-600 hover:text-sky-800 hover:underline px-2 text-center md:text-left w-full md:w-auto"
                 >
                   กลับไปเดือนปัจจุบัน
                 </button>
               </div>
               
-              <div className="text-left md:text-right flex flex-col md:items-end">
-                <div className="text-3xl font-bold text-sky-800 mb-2 md:mr-2">
+              {/* ปี และ เวลา */}
+              <div className="flex flex-col items-center md:items-end w-full md:w-auto mt-2 md:mt-0">
+                <div className="text-3xl font-bold text-sky-800 mb-2 md:mr-2 text-center md:text-right">
                   {viewDate.toLocaleDateString("th-TH", { year: "numeric" })}
                 </div>
-                <div className="text-xl font-mono font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-lg">
+                <div className="text-xl font-mono font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-lg text-center">
                   เวลา: {currentTime.toLocaleTimeString("th-TH", { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </div>
               </div>
+
             </div>
 
+            {/* ตารางวัน */}
             <div className="bg-gray-200 grid grid-cols-7 gap-px border border-gray-200 rounded-xl overflow-hidden flex-1">
               {daysOfWeek.map((day, idx) => (
                 <div key={day} className={`bg-gray-50 py-2 text-center text-sm font-semibold ${idx === 0 ? 'text-red-500' : 'text-gray-600'}`}>
@@ -248,7 +255,6 @@ export default function CalendarWidget() {
               {/* ซ้ายของฝั่งขวา: รูปภาพ + Dropdown + สูตรปุ๋ย */}
               <div className="w-full md:w-[45%] flex flex-col gap-4">
                 
-                {/* === โซนรูปภาพ ปรับให้สี่เหลี่ยมเป๊ะและรูปเต็มกรอบ === */}
                 <div className="grid grid-cols-2 gap-4">
                   {/* กรอบพืช */}
                   <div className="flex flex-col items-center">
@@ -288,7 +294,6 @@ export default function CalendarWidget() {
                   </div>
                 </div>
                 
-                {/* เลือกพืชและควรใช้ปุ๋ยอะไร */}
                 <div className="text-center bg-white p-4 rounded-xl border border-blue-100 shadow-sm mt-2">
                   <h4 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">เลือกพืชของคุณ</h4>
                   <select 
@@ -310,7 +315,7 @@ export default function CalendarWidget() {
                 </div>
               </div>
 
-              {/* ขวาของฝั่งขวา: ตารางรายละเอียดอัตราการใช้ปุ๋ย (แสดงป้าย Badge ปี/ช่วงเวลา) */}
+              {/* ขวาของฝั่งขวา: ตารางรายละเอียดอัตราการใช้ปุ๋ย */}
               <div className="w-full md:w-[55%] flex flex-col">
                 {currentUsageDetails && currentUsageDetails.length > 0 && (
                   <div className="bg-white p-4 rounded-xl border border-green-100 shadow-sm text-left flex-1 flex flex-col">
@@ -324,7 +329,6 @@ export default function CalendarWidget() {
                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-400 rounded-l-xl"></div>
                           
                           <div className="flex flex-wrap items-center gap-2 mb-1 pl-2">
-                            {/* ป้ายแสดง "ปี" หรือ "ช่วงเวลา" สีส้มเด่นๆ */}
                             {detail.badge && (
                               <span className="bg-orange-100 text-orange-700 border border-orange-200 px-2.5 py-0.5 rounded-md text-xs font-bold tracking-wide">
                                 {detail.badge}
@@ -335,7 +339,6 @@ export default function CalendarWidget() {
                           
                           <div className="flex justify-between items-end mt-2 pl-2 text-xs">
                             <span className="text-gray-600 font-medium">สูตร: <span className="text-blue-600 font-bold">{detail.formula}</span></span>
-                            {/* ป้ายแสดงปริมาณการใช้ปุ๋ย สีเขียว */}
                             <span className="bg-green-100 text-green-800 border border-green-200 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap ml-2 shadow-sm">
                               {detail.rate}
                             </span>
@@ -362,10 +365,9 @@ export default function CalendarWidget() {
       {zoomedImage && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity"
-          onClick={() => setZoomedImage(null)} // กดพื้นที่ว่างเพื่อปิด
+          onClick={() => setZoomedImage(null)}
         >
           <div className="relative w-full max-w-4xl h-full flex justify-center items-center">
-            {/* ปุ่มปิด */}
             <button 
               className="absolute top-4 right-4 text-white hover:text-red-400 bg-black/50 rounded-full p-2 transition-colors z-50"
               onClick={(e) => {
@@ -378,12 +380,11 @@ export default function CalendarWidget() {
               </svg>
             </button>
             
-            {/* รูปภาพขยาย */}
             <img 
               src={zoomedImage} 
               alt="รูปภาพขยาย" 
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-100 animate-in fade-in zoom-in duration-200"
-              onClick={(e) => e.stopPropagation()} // ป้องกันไม่ให้กดที่รูปแล้วปิด
+              onClick={(e) => e.stopPropagation()} 
             />
           </div>
         </div>
