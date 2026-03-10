@@ -35,10 +35,21 @@ export default function HeroSlider() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  // ฟังก์ชันเลื่อนภาพไปทางซ้าย
+  const prevSlide = () => {
+    setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  // ฟังก์ชันเลื่อนภาพไปทางขวา
+  const nextSlide = () => {
+    setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
   const heroHeights = "h-[260px] sm:h-[320px] md:h-[480px] lg:h-[600px] xl:h-[720px]";
 
   return (
     <section className={`relative w-full overflow-hidden ${heroHeights}`}>
+      {/* Container สำหรับภาพ */}
       <div
         className={`flex h-full transition-transform duration-700 ease-in-out`}
         style={{ transform: `translateX(-${current * 100}%)` }}
@@ -69,7 +80,26 @@ export default function HeroSlider() {
         ))}
       </div>
 
-      <div className="absolute bottom-4 sm:bottom-6 w-full flex justify-center gap-2">
+      {/* ปุ่มเลื่อนซ้าย */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/30 text-white transition hover:bg-black/50"
+        aria-label="Previous slide"
+      >
+        &#10094;
+      </button>
+
+      {/* ปุ่มเลื่อนขวา */}
+      <button
+        onClick={nextSlide}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/30 text-white transition hover:bg-black/50"
+        aria-label="Next slide"
+      >
+        &#10095;
+      </button>
+
+      {/* จุดสไลด์ด้านล่าง */}
+      <div className="absolute bottom-4 sm:bottom-6 w-full flex justify-center gap-2 z-20">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -77,6 +107,7 @@ export default function HeroSlider() {
             className={`w-2.5 h-2.5 rounded-full transition ${
               current === i ? "bg-blue-400" : "bg-white/70"
             }`}
+            aria-label={`Go to slide ${i + 1}`}
           />
         ))}
       </div>
