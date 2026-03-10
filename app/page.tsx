@@ -10,7 +10,7 @@ export default function LandingPage() {
     <main>
       <Hero />
       <About />
-      {/* <Products /> */}
+      <Products /> 
       <WhyChoose />
       <Calendar />
       <Testimonials />
