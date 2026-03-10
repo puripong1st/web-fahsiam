@@ -9,43 +9,44 @@ export default function AdTracker() {
   const pathname = usePathname();
   const [hasConsent, setHasConsent] = useState(false);
 
-  // ใส่เลข PIXEL ID ของคุณตรงนี้
-  const FB_PIXEL_ID = "ใส่เลข_PIXEL_ID_ของคุณตรงนี้"; 
+  // 🆔 ใส่ ID ของคุณที่นี่
+  const FB_PIXEL_ID = "ใส่เลข_FB_PIXEL_ID_ของคุณ"; 
+  const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // ใส่เลข Google Analytics ID (Measurement ID)
 
-  // 1. ตรวจสอบสถานะตอนโหลดหน้าเว็บ
   useEffect(() => {
-    console.log("🛠️ [AdTracker] ระบบตรวจสอบคุกกี้เริ่มทำงาน...");
+    console.log("🛠️ [AdTracker] เริ่มระบบตรวจสอบคุกกี้...");
     
     const consent = Cookies.get("cookie_consent");
     
     if (consent === "accepted") {
-      console.log("✅ [AdTracker] ผู้ใช้เคยกดยอมรับคุกกี้แล้ว (อนุญาตให้ยิง Ads)");
+      console.log("✅ [AdTracker] ยอมรับคุกกี้แล้ว: กำลังเปิดใช้งานระบบ Tracking ทั้งหมด");
       setHasConsent(true);
       
+      // การจัดการ User ID ภายใน (ถ้ามี)
       let userTrackId = Cookies.get("my_ad_tracking_id");
       if (!userTrackId) {
         userTrackId = "usr_" + Math.random().toString(36).substring(2, 15);
         Cookies.set("my_ad_tracking_id", userTrackId, { expires: 30, path: "/" });
-        console.log(`🆕 [AdTracker] สร้าง User Tracking ID ใหม่: ${userTrackId}`);
-      } else {
-        console.log(`🔄 [AdTracker] พบ User Tracking ID เดิม: ${userTrackId}`);
       }
     } else {
-      console.log("🚫 [AdTracker] ผู้ใช้ยังไม่กดยอมรับ หรือกดปฏิเสธ (ระงับการทำงาน Pixel)");
+      console.log("🚫 [AdTracker] ยังไม่กดยอมรับคุกกี้: ระงับการโหลด Scripts โฆษณา");
     }
   }, []);
 
-  // 2. ยิง Event เมื่อเปลี่ยนหน้า (ถ้ากดยอมรับแล้ว)
   useEffect(() => {
-    if (hasConsent) {
-      console.log(`📡 [AdTracker] ตรวจพบการเข้าชมหน้า: ${pathname}`);
-      
-      // เช็คว่าโหลด Script ของ Facebook เสร็จหรือยัง
-      if (typeof window !== "undefined" && (window as any).fbq) {
+    if (hasConsent && typeof window !== "undefined") {
+      // 🔵 ยิง Facebook PageView
+      if ((window as any).fbq) {
         (window as any).fbq("track", "PageView");
-        console.log("🚀 [AdTracker] ยิงข้อมูล 'PageView' ไปที่โฆษณาสำเร็จ!");
-      } else {
-        console.log("⏳ [AdTracker] รอระบบโหลด Script โฆษณา...");
+        console.log(`🚀 [FB Pixel] ยิง PageView สำเร็จ: ${pathname}`);
+      }
+
+      // 🟠 ยิง Google Analytics PageView
+      if ((window as any).gtag) {
+        (window as any).gtag("config", GA_MEASUREMENT_ID, {
+          page_path: pathname,
+        });
+        console.log(`🚀 [GA4] ส่งข้อมูลเข้า Google Analytics สำเร็จ: ${pathname}`);
       }
     }
   }, [pathname, hasConsent]);
@@ -54,11 +55,11 @@ export default function AdTracker() {
 
   return (
     <>
+      {/* --- 🔵 Facebook Pixel Script --- */}
       <Script
         id="fb-pixel"
         strategy="afterInteractive"
-        // เพิ่ม onLoad เพื่อให้รู้ว่าโค้ดดึงมาจาก Facebook สำเร็จแล้ว
-        onLoad={() => console.log("📦 [AdTracker] ดาวน์โหลด Script ของ Facebook สำเร็จพร้อมใช้งาน!")}
+        onLoad={() => console.log("📦 [FB Pixel] Script โหลดเสร็จพร้อมใช้")}
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -71,6 +72,27 @@ export default function AdTracker() {
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${FB_PIXEL_ID}');
             fbq('track', 'PageView');
+          `,
+        }}
+      />
+
+      {/* --- 🟠 Google Analytics (GA4) Script --- */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+        onLoad={() => console.log("📦 [GA4] Script โหลดเสร็จพร้อมใช้")}
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}', {
+              page_path: window.location.pathname,
+            });
           `,
         }}
       />
