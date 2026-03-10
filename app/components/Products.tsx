@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { products } from "../data/products";
+import { products } from "../data/products1";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
