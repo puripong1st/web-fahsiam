@@ -42,18 +42,22 @@ export default function Products() {
 >
 
   <div className="relative mx-auto max-w-7xl px-4 text-center w-full mt-28 md:mt-44">
-    <p className="text-cyan-400 font-bold uppercase tracking-widest text-base drop-shadow-sm">
+    {/* 1. สินค้าแนะนำ - ปรับขนาดลงมาเป็น base/lg ให้ดูละมุนขึ้น */}
+    <p className="text-cyan-400 font-extrabold uppercase tracking-[0.15em] text-base md:text-lg drop-shadow-md">
       สินค้าแนะนำ
     </p>
     
-    <h2 className="mt-2 text-3xl md:text-5xl font-bold text-gray-900 drop-shadow-sm">
+    {/* 2. หัวข้อหลัก - ปรับจาก 7xl ลงมาเป็น 6xl เพื่อไม่ให้แน่นเกินไป */}
+    <h2 className="mt-3 text-4xl md:text-6xl font-black text-gray-900 drop-shadow-lg leading-tight">
       ผลิตภัณฑ์ยอดนิยมของเรา
     </h2>
     
-    <p className="mx-auto mt-3 max-w-2xl text-base md:text-lg text-gray-800 drop-shadow-sm">
-      คุณภาพคัดสรร เหมาะกับการเกษตรทุกรูปแบบ พร้อมโปรโมชันพิเศษ
+    {/* 3. คำอธิบาย - ปรับจาก 2xl ลงมาเป็น lg/xl ให้ดูเป็นระเบียบ */}
+    <p className="mx-auto mt-5 max-w-2xl text-lg md:text-xl text-gray-800 font-medium drop-shadow-sm leading-relaxed">
+      คุณภาพคัดสรร เหมาะกับการเกษตรทุกรูปแบบ <br className="hidden md:block" /> 
+      พร้อมโปรโมชันพิเศษสำหรับคุณ
     </p>
-  </div>
+</div>
 </div>
 
       <div className="mx-auto max-w-7xl px-4 -mt-8 relative z-10">
@@ -72,7 +76,7 @@ export default function Products() {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
           {filtered.map(p => (
             <ProductCard key={p.id} p={p} />
           ))}
@@ -125,7 +129,9 @@ function ProductCard({ p }: { p: Product }) {
           <div className="flex flex-col">
             <span className="text-4xl md:text-5xl font-black text-emerald-700">฿{p.price.toLocaleString()}</span>
             {hasDiscount && (
-              <span className="text-2xl md:text-3xl text-gray-400 line-through">฿{p.oldPrice?.toLocaleString()}</span>
+              <span className="text-2xl md:text-3xl text-gray-400 line-through decoration-rose-500 decoration-2 mt-1 font-medium">
+                ฿{p.oldPrice?.toLocaleString()}
+              </span>
             )}
           </div>
         </div>
