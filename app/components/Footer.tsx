@@ -58,7 +58,7 @@ export default function Footer() {
 
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/about">เกี่ยวกับเรา</Link>
+              <Link href="/news">เกี่ยวกับเรา</Link>
             </li>
 
             <li>
@@ -66,7 +66,7 @@ export default function Footer() {
             </li>
 
             <li>
-              <Link href="/blog">บทความ</Link>
+              <Link href="/plants">บทความ</Link>
             </li>
 
             <li>
