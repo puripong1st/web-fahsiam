@@ -86,7 +86,7 @@ export default function Contact() {
         {/* Top cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <InfoCard icon={<FiPhone />} title="โทรศัพท์" value="082-529-8388" href="tel:082-529-8388"/>
-          <InfoCard icon={<FiMail />} title="อีเมล" value="info@example.com" href="mailto:info@example.com" />
+          <InfoCard icon={<FiMail />} title="อีเมล" value="Smarttech.ioniq@gmail.com" href="mailto:Smarttech.ioniq@gmail.com" />
           <InfoCard icon={<FiClock />} title="เวลาทำการ" value="จ.–ศ. 08:30–17:30 น." />
         </div>
 
