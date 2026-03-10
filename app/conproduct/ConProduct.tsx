@@ -109,7 +109,7 @@ function ProductCard({ p }: { p: Product }) {
             {/* ป้ายลดราคา (SALE) */}
             {hasDiscount && (
               <span className="bg-rose-500 text-white text-xs md:text-sm font-extrabold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase text-center">
-                SALE
+                SALEs
               </span>
             )}
         </div>
