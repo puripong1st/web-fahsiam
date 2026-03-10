@@ -82,12 +82,12 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
 
             <li className="flex items-center gap-1">
-              <a href="#">คู่มือการปลูกพืช</a>
+              <a href="/plants">คู่มือการปลูกพืช</a>
               <FiExternalLink />
             </li>
 
             <li className="flex items-center gap-1">
-              <a href="#">บทความข่าวสาร</a>
+              <a href="/news">บทความข่าวสาร</a>
               <FiExternalLink />
             </li>
 
@@ -120,7 +120,7 @@ export default function Footer() {
 
             <li className="flex gap-2">
               <FiMail />
-              info@company.com
+              Smarttech.ioniq@gmail.com
             </li>
 
           </ul>
