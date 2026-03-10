@@ -57,7 +57,7 @@ const CROP_FERTILIZER_DATA: Record<string, { fertText: string; fertImg: string }
   "ยางพาราเริ่มกรีด 7 ปี ขึ้นไป": Array(12).fill({ fertText: "ปุ๋ยอินทรีย์เคมี 12-3-5 (บำรุงต้น เพิ่มน้ำยาง)", fertImg: "/image/Fertilizer/12-3-5.png" }),
 };
 
-// 4. ข้อมูลรายละเอียดอัตราการใช้ปุ๋ยตามระยะ (แยก ปี/ช่วงเวลา เป็น badge)
+// 4. ข้อมูลรายละเอียดอัตราการใช้ปุ๋ยตามระยะ
 const CROP_USAGE_DETAILS: Record<string, { badge: string; stage: string; formula: string; rate: string }[]> = {
   "กาแฟ": [
     { badge: "ก่อนปลูก", stage: "เตรียมดิน", formula: "ปุ๋ยอินทรีย์", rate: "50-100 กรัม/ต้น" },
@@ -117,9 +117,9 @@ export default function CalendarWidget() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [viewDate, setViewDate] = useState(new Date());
   
-  const [selectedCrop, setSelectedCrop] = useState(CROP_OPTIONS[0]);
+  // ✨ แก้ไขส่วนนี้: เปลี่ยนค่าเริ่มต้นให้เป็นค่าว่าง แทนที่จะเลือก index [0]
+  const [selectedCrop, setSelectedCrop] = useState("");
   
-  // State สำหรับจัดการรูปภาพขยาย (Modal)
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -142,31 +142,27 @@ export default function CalendarWidget() {
   const firstDayOfMonth = new Date(viewYear, viewMonth, 1).getDay();
 
   const currentPlantInfo = MONTHLY_PLANTS[viewMonth];
-  const currentFertilizerInfo = CROP_FERTILIZER_DATA[selectedCrop][viewMonth];
-  const currentUsageDetails = CROP_USAGE_DETAILS[selectedCrop]; 
+  
+  // ✨ แก้ไขส่วนนี้: ป้องกัน Error โดยการดึงข้อมูลปุ๋ยเมื่อมีการเลือกพืช (selectedCrop ไม่ว่างเปล่า) เท่านั้น
+  const currentFertilizerInfo = selectedCrop ? CROP_FERTILIZER_DATA[selectedCrop][viewMonth] : null;
+  const currentUsageDetails = selectedCrop ? CROP_USAGE_DETAILS[selectedCrop] : null; 
 
   const totalCells = 42;
   const emptyDaysAfterCount = totalCells - (firstDayOfMonth + daysInMonth);
 
   return (
     <>
-      {/* Container หลัก */}
       <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col xl:flex-row overflow-hidden">
           
           {/* ================= ฝั่งซ้าย: ปฏิทิน ================= */}
           <div className="w-full xl:w-[40%] p-6 flex flex-col">
-            
-            {/* === ปรับส่วน Header ให้กึ่งกลางบนมือถือ === */}
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-6 gap-4">
-              
-              {/* เดือน และ ปุ่มกลับปัจจุบัน */}
               <div className="flex flex-col items-center md:items-start w-full md:w-auto">
                 <div className="flex items-center justify-center gap-3 mb-2 w-full">
                   <button 
                     onClick={prevMonth}
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
-                    aria-label="เดือนก่อนหน้า"
                   >
                     ◀
                   </button>
@@ -176,7 +172,6 @@ export default function CalendarWidget() {
                   <button 
                     onClick={nextMonth}
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
-                    aria-label="เดือนถัดไป"
                   >
                     ▶
                   </button>
@@ -189,7 +184,6 @@ export default function CalendarWidget() {
                 </button>
               </div>
               
-              {/* ปี และ เวลา */}
               <div className="flex flex-col items-center md:items-end w-full md:w-auto mt-2 md:mt-0">
                 <div className="text-3xl font-bold text-sky-800 mb-2 md:mr-2 text-center md:text-right">
                   {viewDate.toLocaleDateString("th-TH", { year: "numeric" })}
@@ -198,10 +192,8 @@ export default function CalendarWidget() {
                   เวลา: {currentTime.toLocaleTimeString("th-TH", { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </div>
               </div>
-
             </div>
 
-            {/* ตารางวัน */}
             <div className="bg-gray-200 grid grid-cols-7 gap-px border border-gray-200 rounded-xl overflow-hidden flex-1">
               {daysOfWeek.map((day, idx) => (
                 <div key={day} className={`bg-gray-50 py-2 text-center text-sm font-semibold ${idx === 0 ? 'text-red-500' : 'text-gray-600'}`}>
@@ -252,11 +244,10 @@ export default function CalendarWidget() {
             
             <div className="flex flex-col md:flex-row gap-6 flex-1">
               
-              {/* ซ้ายของฝั่งขวา: รูปภาพ + Dropdown + สูตรปุ๋ย */}
               <div className="w-full md:w-[45%] flex flex-col gap-4">
                 
                 <div className="grid grid-cols-2 gap-4">
-                  {/* กรอบพืช */}
+                  {/* กรอบพืช (พืชในฤดูกาลโชว์ตามปกติเพราะไม่ได้อิงตาม dropdown) */}
                   <div className="flex flex-col items-center">
                     <div 
                       className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
@@ -275,22 +266,33 @@ export default function CalendarWidget() {
                     <span className="text-xs text-gray-500 text-center">{currentPlantInfo.plant}</span>
                   </div>
 
-                  {/* กรอบปุ๋ย */}
+                  {/* ✨ แก้ไขส่วนนี้: กรอบปุ๋ย ซ่อนจนกว่าจะเลือกพืช */}
                   <div className="flex flex-col items-center">
-                    <div 
-                      className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
-                      onClick={() => setZoomedImage(currentFertilizerInfo.fertImg)}
-                    >
-                      <img 
-                        src={currentFertilizerInfo.fertImg} 
-                        alt="ปุ๋ยแนะนำ" 
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <span className="text-white opacity-0 group-hover:opacity-100 font-medium drop-shadow-md">🔍 ขยายดูรูป</span>
-                      </div>
-                    </div>
-                    <span className="text-sm font-bold text-gray-700 text-center w-full truncate px-1">ปุ๋ยที่เหมาะสม</span>
+                    {selectedCrop && currentFertilizerInfo ? (
+                      <>
+                        <div 
+                          className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
+                          onClick={() => setZoomedImage(currentFertilizerInfo.fertImg)}
+                        >
+                          <img 
+                            src={currentFertilizerInfo.fertImg} 
+                            alt="ปุ๋ยแนะนำ" 
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span className="text-white opacity-0 group-hover:opacity-100 font-medium drop-shadow-md">🔍 ขยายดูรูป</span>
+                          </div>
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 text-center w-full truncate px-1">ปุ๋ยที่เหมาะสม</span>
+                      </>
+                    ) : (
+                      <>
+                         <div className="w-full aspect-square rounded-xl border-2 border-dashed border-gray-300 bg-gray-100 mb-2 flex items-center justify-center">
+                           <span className="text-gray-400 text-xs">รอเลือกพืช</span>
+                         </div>
+                         <span className="text-sm font-bold text-gray-400 text-center w-full truncate px-1">ปุ๋ยที่เหมาะสม</span>
+                      </>
+                    )}
                   </div>
                 </div>
                 
@@ -301,6 +303,8 @@ export default function CalendarWidget() {
                     onChange={(e) => setSelectedCrop(e.target.value)}
                     className="w-full bg-blue-50 text-blue-800 text-base md:text-lg font-bold py-2.5 px-3 rounded-lg border-2 border-transparent hover:border-blue-200 focus:border-blue-500 focus:ring-0 outline-none cursor-pointer transition"
                   >
+                    {/* ✨ แก้ไขส่วนนี้: เพิ่ม Option เริ่มต้นแบบปิดการใช้งานไว้ */}
+                    <option value="" disabled>-- กรุณาเลือกพืช --</option>
                     {CROP_OPTIONS.map((crop) => (
                       <option key={crop} value={crop}>{crop}</option>
                     ))}
@@ -309,44 +313,57 @@ export default function CalendarWidget() {
 
                 <div className="text-center bg-white p-4 rounded-xl border border-blue-100 shadow-sm flex-1 flex flex-col justify-center">
                   <h4 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">ควรใช้ปุ๋ยสูตรอะไร</h4>
-                  <p className="text-lg font-bold text-blue-700 bg-blue-50 py-3 px-2 rounded-lg break-words">
-                    {currentFertilizerInfo.fertText}
-                  </p>
+                  {/* ✨ แก้ไขส่วนนี้: เช็คว่ามีการเลือกพืชหรือยัง ก่อนจะแสดงสูตรปุ๋ย */}
+                  {selectedCrop && currentFertilizerInfo ? (
+                    <p className="text-lg font-bold text-blue-700 bg-blue-50 py-3 px-2 rounded-lg break-words">
+                      {currentFertilizerInfo.fertText}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-medium text-gray-400 py-3 px-2">
+                      กรุณาเลือกพืชเพื่อดูคำแนะนำ
+                    </p>
+                  )}
                 </div>
               </div>
 
               {/* ขวาของฝั่งขวา: ตารางรายละเอียดอัตราการใช้ปุ๋ย */}
               <div className="w-full md:w-[55%] flex flex-col">
-                {currentUsageDetails && currentUsageDetails.length > 0 && (
-                  <div className="bg-white p-4 rounded-xl border border-green-100 shadow-sm text-left flex-1 flex flex-col">
-                    <h4 className="text-sm font-bold text-green-700 mb-3 border-b border-green-100 pb-2 flex items-center gap-2">
-                      📊 อัตราการใช้ปุ๋ยตามระยะ
-                    </h4>
-                    <div className="space-y-3 overflow-y-auto pr-1 flex-1">
-                      {currentUsageDetails.map((detail, idx) => (
-                        <div key={idx} className="flex flex-col bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                          {/* เส้นตกแต่งด้านซ้าย */}
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-400 rounded-l-xl"></div>
-                          
-                          <div className="flex flex-wrap items-center gap-2 mb-1 pl-2">
-                            {detail.badge && (
-                              <span className="bg-orange-100 text-orange-700 border border-orange-200 px-2.5 py-0.5 rounded-md text-xs font-bold tracking-wide">
-                                {detail.badge}
+                {/* ✨ แก้ไขส่วนนี้: แสดงตารางต่อเมื่อเลือกพืชแล้วเท่านั้น หากยังไม่เลือกจะแสดงกล่องเปล่าๆ รอผู้ใช้ */}
+                {selectedCrop ? (
+                  currentUsageDetails && currentUsageDetails.length > 0 && (
+                    <div className="bg-white p-4 rounded-xl border border-green-100 shadow-sm text-left flex-1 flex flex-col">
+                      <h4 className="text-sm font-bold text-green-700 mb-3 border-b border-green-100 pb-2 flex items-center gap-2">
+                        📊 อัตราการใช้ปุ๋ยตามระยะ
+                      </h4>
+                      <div className="space-y-3 overflow-y-auto pr-1 flex-1">
+                        {currentUsageDetails.map((detail, idx) => (
+                          <div key={idx} className="flex flex-col bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-400 rounded-l-xl"></div>
+                            <div className="flex flex-wrap items-center gap-2 mb-1 pl-2">
+                              {detail.badge && (
+                                <span className="bg-orange-100 text-orange-700 border border-orange-200 px-2.5 py-0.5 rounded-md text-xs font-bold tracking-wide">
+                                  {detail.badge}
+                                </span>
+                              )}
+                              <span className="text-sm font-bold text-gray-800">{detail.stage}</span>
+                            </div>
+                            <div className="flex justify-between items-end mt-2 pl-2 text-xs">
+                              <span className="text-gray-600 font-medium">สูตร: <span className="text-blue-600 font-bold">{detail.formula}</span></span>
+                              <span className="bg-green-100 text-green-800 border border-green-200 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap ml-2 shadow-sm">
+                                {detail.rate}
                               </span>
-                            )}
-                            <span className="text-sm font-bold text-gray-800">{detail.stage}</span>
+                            </div>
                           </div>
-                          
-                          <div className="flex justify-between items-end mt-2 pl-2 text-xs">
-                            <span className="text-gray-600 font-medium">สูตร: <span className="text-blue-600 font-bold">{detail.formula}</span></span>
-                            <span className="bg-green-100 text-green-800 border border-green-200 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap ml-2 shadow-sm">
-                              {detail.rate}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-gray-400 mt-3 text-center">*อัตราการใช้ขึ้นอยู่กับอายุและความสมบูรณ์ของต้น</p>
                     </div>
-                    <p className="text-[10px] text-gray-400 mt-3 text-center">*อัตราการใช้ขึ้นอยู่กับอายุและความสมบูรณ์ของต้น</p>
+                  )
+                ) : (
+                  <div className="bg-white p-4 rounded-xl border-2 border-dashed border-gray-200 shadow-sm flex-1 flex flex-col items-center justify-center text-center h-full min-h-[250px]">
+                    <span className="text-4xl mb-3">🌱</span>
+                    <h4 className="text-gray-500 font-bold mb-1">ยังไม่มีข้อมูลแสดงผล</h4>
+                    <p className="text-sm text-gray-400">กรุณาเลือกพืชเพื่อดูอัตราการใช้ปุ๋ยตามระยะ</p>
                   </div>
                 )}
               </div>
