@@ -39,7 +39,7 @@ export default function Products() {
       >
         {MOCK_PRODUCTS.map((p) => (
           <SwiperSlide key={p.id}>
-            <Link href={`/product/${p.id}`}>
+            <Link href={`/products/${p.id}`}>
 
               <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-4 border border-sky-100 cursor-pointer hover:-translate-y-1">
 
