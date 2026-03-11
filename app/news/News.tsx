@@ -173,9 +173,8 @@ export default function NewsPage() {
     <div className="bg-gradient-to-b from-white via-sky-50/30 to-white">
       {/* HERO */}
       <section className="relative">
-        <div className="w-full h-64 md:h-96 overflow-hidden">
-          {/* จุดที่แก้ไขที่ 2: เติม width และ height */}
-          <Image src="/background/background1.png" alt="ข่าวสาร" width={1920} height={400} className="w-full h-full object-cover" />
+        <div className="relative w-full h-64 md:h-96 overflow-hidden">
+          <Image src="/background/background1.png" alt="ข่าวสาร" fill sizes="100vw" className="object-cover" priority />
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">
@@ -251,14 +250,13 @@ export default function NewsPage() {
             >
               <div className="grid md:grid-cols-2">
                 <div className="relative">
-                  <div className="aspect-[16/10] md:aspect-[4/3] w-full">
-                   {/* จุดที่แก้ไขที่ 4: เติม width และ height */}
+                  <div className="relative aspect-[16/10] md:aspect-[4/3] w-full">
                    <Image
                       src={featured.image || featured.cover}
                       alt={featured.title}
-                      width={800}
-                      height={600}
-                      className="h-full w-full object-cover transition group-hover:scale-[1.02]"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition group-hover:scale-[1.02]"
                     />
                   </div>
                   <span className="absolute left-3 top-3 rounded-full bg-sky-600/90 px-3 py-1 text-xs font-semibold text-white">
@@ -373,14 +371,13 @@ function NewsCard({ item }: { item: NewsItem }) {
       className="group block overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-sm hover:shadow-lg transition"
     >
       <div className="relative">
-        <div className="aspect-[16/10] w-full">
-          {/* จุดที่แก้ไขที่ 9: เติม width และ height */}
+        <div className="relative aspect-[16/10] w-full">
           <Image
             src={item.image || item.cover}
             alt={item.title}
-            width={600}
-            height={375}
-            className="h-full w-full object-cover transition group-hover:scale-[1.02]"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition group-hover:scale-[1.02]"
           />
         </div>
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-sky-700">

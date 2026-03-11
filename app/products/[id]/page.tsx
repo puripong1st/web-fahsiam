@@ -36,9 +36,13 @@ export default async function ProductDetailPage({
           {/* รูปภาพสินค้า */}
           <div className="rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
           <Image
-              src={product.image} 
-              alt={product.name} 
-              className="w-full h-auto object-cover" 
+              src={product.image}
+              alt={product.name}
+              width={600}
+              height={600}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="w-full h-auto object-cover"
+              priority
             />
           </div>
 

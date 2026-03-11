@@ -1,7 +1,8 @@
 "use client";
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
-import { plants } from "../../data/datafame"; 
+import { plants } from "../../data/datafame";
+import Image from "next/image";
 
 export default function PlantDetailPage() {
   const params = useParams();
@@ -53,7 +54,9 @@ export default function PlantDetailPage() {
         {/* ฝั่งซ้าย: ข้อมูลสรุป (โทนสีฟ้า) */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div className="bg-white rounded-[2rem] border border-blue-100 p-4 shadow-sm">
-            <img src={plant.image} alt={plant.name} className="w-full aspect-[4/3] object-cover rounded-[1.5rem] mb-5 shadow-inner" />
+            <div className="relative w-full aspect-[4/3] rounded-[1.5rem] mb-5 shadow-inner overflow-hidden">
+              <Image src={plant.image} alt={plant.name} fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover" priority />
+            </div>
             <div className="px-2 mb-6">
               <h1 className="text-4xl font-black text-[#0070BB] mb-2 drop-shadow-sm">{plant.name}</h1>
               <p className="text-sm text-slate-500 leading-relaxed">{plant.desc}</p>

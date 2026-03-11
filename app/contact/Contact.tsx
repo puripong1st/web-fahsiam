@@ -70,14 +70,14 @@ export default function Contact() {
     <div className="bg-gradient-to-b from-white via-sky-50/40 to-white min-h-screen">
       {/* HERO */}
       <section className="relative">
-        <div className="w-full h-64 md:h-96 overflow-hidden">
-          {/* จุดที่แก้ไข: เติม width และ height */}
+        <div className="relative w-full h-64 md:h-96 overflow-hidden">
           <Image 
             src="/background/background1.png" 
-            alt="ข่าวสาร" 
-            width={1920}
-            height={400}
-            className="w-full h-full object-cover" 
+            alt="ติดต่อเรา" 
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
           />
         </div>
         <div className="absolute inset-0 bg-black/30" />
