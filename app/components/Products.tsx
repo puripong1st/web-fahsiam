@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { products } from "../data/products1";
+import { MOCK_PRODUCTS } from "../data/productsdetail";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -37,7 +37,7 @@ export default function Products() {
           1024: { slidesPerView: 4 },
         }}
       >
-        {products.map((p) => (
+        {MOCK_PRODUCTS.map((p) => (
           <SwiperSlide key={p.id}>
             <Link href={`/product/${p.id}`}>
 
@@ -57,9 +57,14 @@ export default function Products() {
                 </h3>
 
                 <p className="text-sky-600 font-black mt-1 text-lg">
-                  ฿{p.price.toLocaleString()}
+                   ฿{p.price.toLocaleString()}
                 </p>
 
+                {p.oldPrice && (
+                  <p className="text-gray-400 font-black mt-1 text-lg line-through">
+                    จากปกติ ฿{p.oldPrice.toLocaleString()}
+                  </p>
+                )}
               </div>
 
             </Link>
