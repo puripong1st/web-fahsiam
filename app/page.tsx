@@ -6,6 +6,7 @@ import WhyChoose from "./components/WhyChoose"; // สมมติว่าแ�
 import Testimonials from "./components/Testimonials";
 import AdTracker from "./components/Cookie/AdTracker";
 import CookieBanner from "./components/Cookie/CookieBanner";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 export default function LandingPage() {
   return (
     <main>
@@ -17,6 +18,7 @@ export default function LandingPage() {
       <AdTracker />
       <Testimonials />
       <CookieBanner />
+      <SpeedInsights/>
     </main>
   );
 }
