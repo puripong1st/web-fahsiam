@@ -10,7 +10,7 @@ const hoverLink =
 const menuItems = [
   { label: "หน้าแรก", path: "/" },
   { label: "เกี่ยวกับเรา", path: "/news" },
-  { label: "ผลิตภัณฑ์", path: "/products" },
+  { label: "ผลิตภัณฑ์", path: "/conproduct" },
   { label: "การดูแลพืช", path: "/plants" },
   { label: "สนใจสั่งซื้อสินค้า", path: "/conproduct" },
   { label: "ติดต่อเรา", path: "/contact" },
