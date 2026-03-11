@@ -3,6 +3,8 @@
 import { Star, Quote } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+
 
 const DATA = [
   { name: "คุณสมชาย เกษตรกร", text: "ผลิตภัณฑ์คุณภาพดี ฟาร์มเติบโตชัดเจน", rating: 5, role: "เกษตรกรนาข้าว", img: "https://i.pravatar.cc/150?u=1" },
@@ -76,7 +78,7 @@ export default function Testimonials() {
                   {/* ข้อมูลลูกค้า */}
                   <div className="flex items-center gap-4 mt-auto">
                     <div className="relative">
-                      <img 
+                      <Image 
                         src={t.img} 
                         alt={t.name} 
                         className="w-12 h-12 rounded-full object-cover border-2 border-sky-100"

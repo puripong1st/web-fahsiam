@@ -37,7 +37,7 @@ const Navbar = () => {
         <div className="hidden md:grid grid-cols-7 items-center p-5"> 
           {/* ปรับ grid-cols จาก 9 เป็น 7 เพื่อให้สัดส่วนพอดีกับจำนวนเมนูที่ลดลง */}
           <div className="col-span-1 flex justify-center">
-            <img
+            <Image
               src="/favicon-32x32.png"
               alt="logo"
               className="fixed top-11 w-24 h-auto object-contain"

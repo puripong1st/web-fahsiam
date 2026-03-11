@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { plants } from "../data/datafame";
+import Image from "next/image";
 
 type Sort = "nameAsc" | "nameDesc" | "steps" | "fert";
 
@@ -30,7 +31,7 @@ export default function PlantsPage() {
       {/* ✅ HERO SECTION - แบบเดียวกับหน้า Products */}
       <section className="relative">
         <div className="w-full h-64 md:h-96 overflow-hidden">
-          <img 
+          <Image
             src="/background/background1.png" 
             alt="พืชทั้งหมด" 
             className="w-full h-full object-cover" 
@@ -116,7 +117,7 @@ export default function PlantsPage() {
             >
               {/* Image & Badges */}
               <div className="relative aspect-[16/11] overflow-hidden">
-                <img
+               <Image
                   src={p.image}
                   alt={p.name}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"

@@ -249,7 +249,7 @@ export default function NewsPage() {
               <div className="grid md:grid-cols-2">
                 <div className="relative">
                   <div className="aspect-[16/10] md:aspect-[4/3] w-full">
-                    <img
+                   <Image
                       src={featured.image || featured.cover}
                       alt={featured.title}
                       className="h-full w-full object-cover transition group-hover:scale-[1.02]"
@@ -314,7 +314,7 @@ export default function NewsPage() {
               {(loading ? [] : [...list]).slice(0, 5).map((n) => (
                 <li key={n.id} className="flex gap-3">
                   <Link to={n.link} className="shrink-0 w-16 h-16 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={n.image || n.cover}
                       alt={n.title}
                       className="w-full h-full object-cover"
@@ -365,7 +365,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     >
       <div className="relative">
         <div className="aspect-[16/10] w-full">
-          <img
+          <Image
             src={item.image || item.cover}
             alt={item.title}
             className="h-full w-full object-cover transition group-hover:scale-[1.02]"

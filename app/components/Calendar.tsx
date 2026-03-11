@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 // 1. ข้อมูลพืชในฤดูกาล
 const MONTHLY_PLANTS = [
@@ -253,7 +254,7 @@ export default function CalendarWidget() {
                       className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
                       onClick={() => setZoomedImage(currentPlantInfo.plantImg)}
                     >
-                      <img 
+                      <Image 
                         src={currentPlantInfo.plantImg} 
                         alt="พืชในฤดูกาล" 
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
@@ -274,7 +275,7 @@ export default function CalendarWidget() {
                           className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
                           onClick={() => setZoomedImage(currentFertilizerInfo.fertImg)}
                         >
-                          <img 
+                          <Image
                             src={currentFertilizerInfo.fertImg} 
                             alt="ปุ๋ยแนะนำ" 
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
@@ -397,7 +398,7 @@ export default function CalendarWidget() {
               </svg>
             </button>
             
-            <img 
+            <Image
               src={zoomedImage} 
               alt="รูปภาพขยาย" 
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-100 animate-in fade-in zoom-in duration-200"

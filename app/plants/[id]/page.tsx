@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useMemo, useEffect } from "react";
 import { plants } from "../../data/datafame";
+import Image from "next/image";
 
 export default function PlantDetail() {
   const params = useParams();
@@ -77,7 +78,7 @@ export default function PlantDetail() {
           {/* Left Column: Image & Basic Info (4 Cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="relative aspect-[4/3] md:aspect-square overflow-hidden rounded-[2.5rem] shadow-2xl shadow-sky-900/10 border-8 border-white">
-              <img
+              <Image
                 src={plant.image}
                 alt={plant.name}
                 className="w-full h-full object-cover transition duration-700 hover:scale-110"

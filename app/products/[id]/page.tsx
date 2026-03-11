@@ -1,5 +1,6 @@
 import { MOCK_PRODUCTS } from "../../data/productsdetail";
 import Link from "next/link";
+import Image from "next/image";
 
 // ใช้ p1 ตามชื่อโฟลเดอร์ของคุณ
 export default async function ProductDetailPage({ 
@@ -34,7 +35,7 @@ export default async function ProductDetailPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* รูปภาพสินค้า */}
           <div className="rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
-            <img 
+          <Image
               src={product.image} 
               alt={product.name} 
               className="w-full h-auto object-cover" 

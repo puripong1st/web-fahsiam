@@ -2,6 +2,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { MOCK_PRODUCTS } from "../data/productsdetail";
+import Image from "next/image";
+
 type Product = {
   id: string
   name: string
@@ -84,7 +86,7 @@ function ProductCard({ p }: { p: Product }) {
       className="group flex flex-col bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden"
     >
       <div className="relative w-full aspect-square bg-[#f9f9f9] p-6 overflow-hidden">
-        <img 
+        <Image
           src={p.image} 
           alt={p.name} 
           className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110" 
