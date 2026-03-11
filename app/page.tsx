@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
 
 // ✅ Lazy load ทุก component ที่อยู่ใต้ fold — ไม่โหลดจนกว่า JS จะ idle
@@ -58,6 +59,7 @@ export default function LandingPage() {
       <AdTracker />
       <CookieBanner />
       <SpeedInsights />
+      <Analytics/>
     </main>
   );
 }
