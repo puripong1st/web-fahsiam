@@ -60,19 +60,21 @@ export default function PlantDetailPage() {
             </div>
 
             <div className="flex flex-col gap-3 px-2 pb-2">
-              <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex items-center gap-4">
-                <div className="text-3xl">☀️</div>
+              <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex items-start gap-4">
+                <div className="text-3xl mt-1">☀️</div>
                 <div>
-                  <h3 className="font-extrabold text-slate-800 text-lg leading-tight">แสงแดด</h3>
-                  <p className="text-sm text-slate-600">6 ชั่วโมง/วัน</p>
+                  <h3 className="font-extrabold text-slate-800 text-lg leading-tight mb-1">แสงแดด</h3>
+                  {/* เปลี่ยนจากข้อความตายตัวเป็นดึงข้อมูลจาก plant.sunlight */}
+                  <p className="text-sm text-slate-600 leading-relaxed">{plant.sunlight}</p>
                 </div>
               </div>
 
-              <div className="bg-sky-50 border border-sky-100 rounded-2xl p-4 flex items-center gap-4">
-                <div className="text-3xl">💧</div>
+              <div className="bg-sky-50 border border-sky-100 rounded-2xl p-4 flex items-start gap-4">
+                <div className="text-3xl mt-1">💧</div>
                 <div>
-                  <h3 className="font-extrabold text-slate-800 text-lg leading-tight">การรดน้ำ</h3>
-                  <p className="text-sm text-slate-600">2 - 3 ครั้งต่อ สัปดาห์</p>
+                  <h3 className="font-extrabold text-slate-800 text-lg leading-tight mb-1">การรดน้ำ</h3>
+                  {/* เปลี่ยนจากข้อความตายตัวเป็นดึงข้อมูลจาก plant.watering */}
+                  <p className="text-sm text-slate-600 leading-relaxed">{plant.watering}</p>
                 </div>
               </div>
 
