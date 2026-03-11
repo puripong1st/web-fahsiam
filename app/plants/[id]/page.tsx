@@ -113,7 +113,12 @@ export default function PlantDetailPage() {
                 return (
                   <div 
                     key={idx} 
-                    onClick={() => !isLocked && setActiveStep(idx)}
+                    onClick={() => {
+                      if (!isLocked) {
+                        handleCheck(idx);   // ✅ คลิกทั้งกล่อง = toggle checkbox
+                        setActiveStep(idx);
+                      }
+                    }}
                     className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 ${
                       isActive 
                         ? "border-[#0070BB] bg-blue-50 shadow-md scale-[1.01]" 
@@ -127,7 +132,7 @@ export default function PlantDetailPage() {
                       checked={isChecked}
                       disabled={isLocked}
                       onChange={() => handleCheck(idx)}
-                      onClick={(e) => e.stopPropagation()} 
+                      onClick={(e) => e.stopPropagation()}  // ✅ กัน trigger ซ้ำจาก div
                       className={`w-5 h-5 rounded border-blue-300 text-[#0070BB] focus:ring-[#0070BB] transition-all ${
                         isLocked ? "cursor-not-allowed bg-slate-100" : "cursor-pointer"
                       }`}
