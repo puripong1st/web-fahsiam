@@ -1,7 +1,7 @@
 // src/layouts/PublicLayout.tsx
 import { Outlet } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
 export default function PublicLayout() {
   return (
