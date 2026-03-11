@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function HeroSlider() {
   const introTitle = "ปุ๋ยตราฟ้าสยาม | อินทรีย์–อินทรีย์เคมี เพื่อผลผลิตยั่งยืน";
@@ -57,9 +58,17 @@ export default function HeroSlider() {
         {slides.map((slide, i) => (
           <div
             key={i}
-            className={`min-w-full h-full bg-center bg-cover flex items-end justify-start relative`}
-            style={{ backgroundImage: `url(${slide.img})` }}
+            className={`min-w-full h-full flex items-end justify-start relative`}
           >
+            {/* ✅ ใช้ <Image> แทน backgroundImage — Next.js optimize + preload รูปแรกได้ */}
+            <Image
+              src={slide.img}
+              alt={slide.title}
+              fill
+              className="object-cover object-center"
+              priority={i === 0}
+              sizes="100vw"
+            />
             <div className="absolute inset-0 bg-black/20 md:bg-black/15" />
 
             <div className="relative z-10 max-w-3xl text-start text-white px-4 sm:px-6 md:px-10 py-6">
