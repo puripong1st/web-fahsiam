@@ -7,31 +7,26 @@ export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // ตรวจสอบตอนโหลดหน้าเว็บว่ามีการตัดสินใจเรื่องคุกกี้ไปหรือยัง
     const consent = Cookies.get("cookie_consent");
-    // ถ้ายังไม่เคยมีคุกกี้ตัวนี้ แสดงว่าเพิ่งเข้าเว็บครั้งแรก ให้โชว์ Banner
     if (!consent) {
       setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    // บันทึกว่า "ยอมรับ" คุกกี้ (เก็บไว้ 1 ปี)
     Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
     setIsVisible(false);
-    
-    // บังคับให้โหลดหน้าเว็บใหม่ 1 ครั้ง เพื่อให้ AdTracker เริ่มทำงานทันที
-    // หรือถ้าไม่อยาก reload สามารถใช้ React Context มาช่วยจัดการ state ได้ครับ
-    window.location.reload(); 
+
+    // ✅ แทน window.location.reload() — dispatch event ให้ AdTracker รับรู้เลย
+    // ไม่ต้อง reload หน้า ไม่เสีย UX
+    window.dispatchEvent(new Event("cookieConsentGranted"));
   };
 
   const handleDecline = () => {
-    // บันทึกว่า "ปฏิเสธ" คุกกี้
     Cookies.set("cookie_consent", "declined", { expires: 365, path: "/" });
     setIsVisible(false);
   };
 
-  // ถ้าถูกซ่อนอยู่ ไม่ต้องเรนเดอร์อะไร
   if (!isVisible) return null;
 
   return (

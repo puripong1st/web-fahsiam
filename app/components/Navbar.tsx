@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import Image from 'next/image'
 const hoverLink =
   "cursor-pointer sm:text-sm md:text-md lg:text-xl text-sky-600 hover:text-sky-700 transform transition duration-300 ease-out hover:-translate-y-0.5 truncate";
 
@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* Mobile Navbar */}
         <div className="md:hidden px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/favicon-32x32.png" alt="logo" className="w-8 h-8" />
+            <Image  src="/favicon-32x32.png" alt="logo" className="w-8 h-8" />
             <span className="font-semibold text-sky-700 text-sm">
               Smart Agri Tech
             </span>

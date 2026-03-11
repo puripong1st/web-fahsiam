@@ -5,61 +5,62 @@ import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import Script from "next/script";
 
+// ใช้ Context หรือ prop drilling เพื่อรับ consent จาก CookieBanner
+// แต่ถ้าอยากให้ standalone ให้ listen cookie change แบบนี้
 export default function AdTracker() {
   const pathname = usePathname();
   const [hasConsent, setHasConsent] = useState(false);
+  const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
   // 🆔 ใส่ ID ของคุณที่นี่
-  const FB_PIXEL_ID = "ใส่เลข_FB_PIXEL_ID_ของคุณ"; 
-  const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // ใส่เลข Google Analytics ID (Measurement ID)
+  const FB_PIXEL_ID = "ใส่เลข_FB_PIXEL_ID_ของคุณ";
+  const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
 
   useEffect(() => {
-    console.log("🛠️ [AdTracker] เริ่มระบบตรวจสอบคุกกี้...");
-    
-    const consent = Cookies.get("cookie_consent");
-    
-    if (consent === "accepted") {
-      console.log("✅ [AdTracker] ยอมรับคุกกี้แล้ว: กำลังเปิดใช้งานระบบ Tracking ทั้งหมด");
-      setHasConsent(true);
-      
-      // การจัดการ User ID ภายใน (ถ้ามี)
-      let userTrackId = Cookies.get("my_ad_tracking_id");
-      if (!userTrackId) {
-        userTrackId = "usr_" + Math.random().toString(36).substring(2, 15);
-        Cookies.set("my_ad_tracking_id", userTrackId, { expires: 30, path: "/" });
+    const checkConsent = () => {
+      const consent = Cookies.get("cookie_consent");
+      if (consent === "accepted") {
+        setHasConsent(true);
+        let userTrackId = Cookies.get("my_ad_tracking_id");
+        if (!userTrackId) {
+          userTrackId = "usr_" + Math.random().toString(36).substring(2, 15);
+          Cookies.set("my_ad_tracking_id", userTrackId, { expires: 30, path: "/" });
+        }
       }
-    } else {
-      console.log("🚫 [AdTracker] ยังไม่กดยอมรับคุกกี้: ระงับการโหลด Scripts โฆษณา");
-    }
+    };
+
+    checkConsent();
+
+    // Listen สำหรับกรณีที่ consent เพิ่งถูก set (จาก CookieBanner)
+    // โดยไม่ต้อง reload หน้า
+    window.addEventListener("cookieConsentGranted", checkConsent);
+    return () => window.removeEventListener("cookieConsentGranted", checkConsent);
   }, []);
 
+  // ยิง PageView เฉพาะตอนเปลี่ยน route — ไม่ยิงตอน init (scripts จะยิงเองอยู่แล้ว)
   useEffect(() => {
-    if (hasConsent && typeof window !== "undefined") {
-      // 🔵 ยิง Facebook PageView
-      if ((window as any).fbq) {
-        (window as any).fbq("track", "PageView");
-        console.log(`🚀 [FB Pixel] ยิง PageView สำเร็จ: ${pathname}`);
-      }
+    if (!hasConsent || !scriptsLoaded) return;
 
-      // 🟠 ยิง Google Analytics PageView
-      if ((window as any).gtag) {
-        (window as any).gtag("config", GA_MEASUREMENT_ID, {
-          page_path: pathname,
-        });
-        console.log(`🚀 [GA4] ส่งข้อมูลเข้า Google Analytics สำเร็จ: ${pathname}`);
-      }
+    if ((window as any).fbq) {
+      (window as any).fbq("track", "PageView");
     }
-  }, [pathname, hasConsent]);
+
+    if ((window as any).gtag) {
+      (window as any).gtag("config", GA_MEASUREMENT_ID, {
+        page_path: pathname,
+      });
+    }
+  }, [pathname]); // ✅ ไม่ใส่ hasConsent — เพื่อกันยิงซ้ำตอน consent เปลี่ยน
 
   if (!hasConsent) return null;
 
   return (
     <>
-      {/* --- 🔵 Facebook Pixel Script --- */}
+      {/* 🔵 Facebook Pixel — init ครั้งเดียว ไม่มี fbq('track', 'PageView') ซ้ำ */}
       <Script
         id="fb-pixel"
         strategy="afterInteractive"
-        onLoad={() => console.log("📦 [FB Pixel] Script โหลดเสร็จพร้อมใช้")}
+        onLoad={() => setScriptsLoaded(true)}
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -76,11 +77,10 @@ export default function AdTracker() {
         }}
       />
 
-      {/* --- 🟠 Google Analytics (GA4) Script --- */}
+      {/* 🟠 Google Analytics (GA4) */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
-        onLoad={() => console.log("📦 [GA4] Script โหลดเสร็จพร้อมใช้")}
       />
       <Script
         id="google-analytics"

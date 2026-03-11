@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../lib/firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import Image from 'next/image'
 type NewsItem = {
   id: string;
   title: string;
@@ -172,7 +172,7 @@ export default function NewsPage() {
       {/* HERO */}
       <section className="relative">
         <div className="w-full h-64 md:h-96 overflow-hidden">
-          <img src="/background/background1.png" alt="ข่าวสาร" className="w-full h-full object-cover" />
+          <Image src="/background/background1.png" alt="ข่าวสาร" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">

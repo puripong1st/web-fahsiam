@@ -2,7 +2,7 @@
 
 import { plants } from "../data/datafame"; 
 import Link from "next/link";
-
+import Image from 'next/image'
 export default function WhyChoose() {
   return (
     <section className="py-16 bg-gray-50" id="why">
@@ -19,7 +19,7 @@ export default function WhyChoose() {
             >
               <div className="relative">
                 <div className="aspect-[4/3] w-full">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover transition group-hover:scale-[1.02]" />
+                  <Image src={p.image} alt={p.name} className="w-full h-full object-cover transition group-hover:scale-[1.02]" />
                 </div>
                 <div className="absolute left-3 top-3 flex flex-wrap gap-2">
                   <span className="rounded-full bg-emerald-600/90 px-3 py-1 text-[11px] font-semibold text-white shadow">

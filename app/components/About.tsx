@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Check, Leaf, Sprout, Factory } from "lucide-react";
-
+import Image from 'next/image'
 const STEPS = [
   {
     icon: <Leaf className="w-5 h-5" />,
@@ -87,7 +87,7 @@ export default function About() {
 
           <div className="relative">
             <div className="relative z-10 mx-auto max-w-sm overflow-hidden ">
-              <img src="/gg1.png" alt="เกษตรกร" className="w-full h-full object-cover" />
+              <Image  src="/gg1.png" alt="เกษตรกร" className="w-full h-full object-cover" />
             </div>
             <span className="hidden md:block absolute top-18 right-11 text-5xl drop-shadow-md">
               🌱

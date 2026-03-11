@@ -8,7 +8,7 @@ import { useState } from "react";
 /* ⬇️ เพิ่มส่วนเชื่อม Firestore */
 import { db } from "../lib/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-
+import Image from 'next/image'
 export default function Contact() {
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
 
@@ -70,7 +70,7 @@ export default function Contact() {
       {/* HERO */}
       <section className="relative">
         <div className="w-full h-64 md:h-96 overflow-hidden">
-          <img src="/background/background1.png" alt="ข่าวสาร" className="w-full h-full object-cover" />
+          <Image src="/background/background1.png" alt="ข่าวสาร" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">
