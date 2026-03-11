@@ -62,7 +62,7 @@ export default function Footer() {
             </li>
 
             <li>
-              <Link href="/products">ผลิตภัณฑ์</Link>
+              <Link href="/conproduct">ผลิตภัณฑ์</Link>
             </li>
 
             <li>
@@ -124,29 +124,56 @@ export default function Footer() {
             </li>
 
           </ul>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="mt-4 flex gap-2"
+          >
+            <input
+              type="email"
+              placeholder="อีเมลของคุณ"
+              className="w-full rounded-lg px-3 py-2 text-sky-900 placeholder:text-sky-400 outline-none
+                         border border-white/20 bg-white focus:border-emerald-300"
+              required
+            />
+            <button
+              type="submit"
+              className="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-white hover:bg-emerald-600 transition"
+            >
+              สมัคร
+            </button>
+          </form>
+          <p className="mt-1 text-xs text-sky-100/80">
+            รับข่าวสาร เคล็ดลับ และโปรโมชันก่อนใคร
+          </p>
 
         </div>
 
       </div>
 
-      {/* bottom */}
       <div className="border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-sky-100">
+          <p>© {year} SiamAgriTech — All rights reserved.</p>
+          
+          <div className="flex items-center gap-4">
+            <a
+              href="tel:021234567"
+              className="inline-flex items-center gap-2 hover:underline"
+            >
+              <FaPhoneAlt /> สายด่วน 082-529-8388
+            </a>
 
-        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between text-sm">
-
-          <p>© {year} SiamAgriTech</p>
-
-          <button
-            onClick={() =>
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            }
-            className="fixed bottom-6 right-6 rounded-full bg-sky-600 p-3"
-          >
-            <FiArrowUp />
-          </button>
-
+            {/* ปุ่มขึ้นบนสุด */}
+            <button
+              aria-label="Back to top"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-1 
+             rounded-full bg-sky-600 px-3 py-3 text-white shadow-lg 
+             hover:bg-sky-700 transition duration-200 animate-bounce"
+            >
+              <FiArrowUp className="font-bold text-2xl" />
+            </button>
+          </div>
         </div>
-
       </div>
 
     </footer>
