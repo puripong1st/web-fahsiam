@@ -12,18 +12,18 @@ export default function HeroSlider() {
     {
       title: introTitle,
       desc: introDesc,
-      img: "/image/hero/Cover1.png",
+      img: "/image/hero/Cover1.webp",
       isPrimary: true,
     },
     {
       title: "ผลิตภัณฑ์คุณภาพเพื่อเกษตรกรไทย",
       desc: "มั่นใจได้ในคุณภาพและการสนับสนุนอย่างมืออาชีพ",
-      img: "/image/hero/2Cover.png",
+      img: "/image/hero/2Cover.webp",
     },
     {
       title: "สิ่งแวดล้อมยั่งยืน คือเป้าหมายของเรา",
       desc: "ร่วมสร้างอนาคตที่มั่นคงกับเรา",
-      img: "/image/hero/3Cover.png",
+      img: "/image/hero/3Cover.webp",
     },
   ];
 
