@@ -30,11 +30,14 @@ export default function PlantsPage() {
       
       {/* ✅ HERO SECTION - แบบเดียวกับหน้า Products */}
       <section className="relative">
-        <div className="w-full h-64 md:h-96 overflow-hidden">
+        <div className="relative w-full h-64 md:h-96 overflow-hidden">
           <Image
             src="/background/background1.png" 
             alt="พืชทั้งหมด" 
-            className="w-full h-full object-cover" 
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
           />
         </div>
         <div className="absolute inset-0 bg-black/30" />
@@ -120,7 +123,9 @@ export default function PlantsPage() {
                <Image
                   src={p.image}
                   alt={p.name}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 

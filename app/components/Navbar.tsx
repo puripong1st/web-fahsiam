@@ -40,6 +40,8 @@ const Navbar = () => {
             <Image
               src="/favicon-32x32.png"
               alt="logo"
+              width={96}
+              height={96}
               className="fixed top-11 w-24 h-auto object-contain"
             />
           </div>
@@ -63,7 +65,7 @@ const Navbar = () => {
         {/* Mobile Navbar */}
         <div className="md:hidden px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image  src="/favicon-32x32.png" alt="logo" className="w-8 h-8" />
+            <Image src="/favicon-32x32.png" alt="logo" width={32} height={32} className="w-8 h-8" priority />
             <span className="font-semibold text-sky-700 text-sm">
               Smart Agri Tech
             </span>

@@ -87,9 +87,11 @@ function ProductCard({ p }: { p: Product }) {
     >
       <div className="relative w-full aspect-square bg-[#f9f9f9] p-6 overflow-hidden">
         <Image
-          src={p.image} 
-          alt={p.name} 
-          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110" 
+          src={p.image}
+          alt={p.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
         />
         
         {/* Badges */}

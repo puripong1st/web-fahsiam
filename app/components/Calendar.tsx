@@ -254,9 +254,12 @@ export default function CalendarWidget() {
                       className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
                       onClick={() => setZoomedImage(currentPlantInfo.plantImg)}
                     >
+                      {/* จุดที่แก้ไขที่ 1: เพิ่ม width และ height */}
                       <Image 
                         src={currentPlantInfo.plantImg} 
                         alt="พืชในฤดูกาล" 
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -275,9 +278,12 @@ export default function CalendarWidget() {
                           className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden cursor-pointer relative group bg-white"
                           onClick={() => setZoomedImage(currentFertilizerInfo.fertImg)}
                         >
+                          {/* จุดที่แก้ไขที่ 2: เพิ่ม width และ height */}
                           <Image
                             src={currentFertilizerInfo.fertImg} 
                             alt="ปุ๋ยแนะนำ" 
+                            width={400}
+                            height={400}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -398,12 +404,16 @@ export default function CalendarWidget() {
               </svg>
             </button>
             
-            <Image
-              src={zoomedImage} 
-              alt="รูปภาพขยาย" 
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-100 animate-in fade-in zoom-in duration-200"
-              onClick={(e) => e.stopPropagation()} 
-            />
+            {/* จุดที่แก้ไขที่ 3: ใช้ fill แทน width/height สำหรับ Modal แบบเต็มจอ */}
+            <div className="relative w-full h-[80vh]">
+              <Image
+                src={zoomedImage} 
+                alt="รูปภาพขยาย" 
+                fill
+                className="object-contain rounded-lg shadow-2xl animate-in fade-in zoom-in duration-200"
+                onClick={(e) => e.stopPropagation()} 
+              />
+            </div>
           </div>
         </div>
       )}

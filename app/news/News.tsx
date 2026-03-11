@@ -1,10 +1,12 @@
 // src/pages/NewsPage.tsx
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+// จุดที่แก้ไขที่ 1: เปลี่ยนจาก react-router-dom เป็น next/link
+import Link from "next/link"; 
 import { db } from "../lib/firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import Image from 'next/image'
+
 type NewsItem = {
   id: string;
   title: string;
@@ -172,7 +174,8 @@ export default function NewsPage() {
       {/* HERO */}
       <section className="relative">
         <div className="w-full h-64 md:h-96 overflow-hidden">
-          <Image src="/background/background1.png" alt="ข่าวสาร" className="w-full h-full object-cover" />
+          {/* จุดที่แก้ไขที่ 2: เติม width และ height */}
+          <Image src="/background/background1.png" alt="ข่าวสาร" width={1920} height={400} className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">
@@ -243,15 +246,18 @@ export default function NewsPage() {
             <SkeletonFeatured />
           ) : featured ? (
             <Link
-              to={featured.link}
+              href={featured.link} // จุดที่แก้ไขที่ 3: เปลี่ยนจาก to เป็น href
               className="group block overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-sm hover:shadow-lg transition"
             >
               <div className="grid md:grid-cols-2">
                 <div className="relative">
                   <div className="aspect-[16/10] md:aspect-[4/3] w-full">
+                   {/* จุดที่แก้ไขที่ 4: เติม width และ height */}
                    <Image
                       src={featured.image || featured.cover}
                       alt={featured.title}
+                      width={800}
+                      height={600}
                       className="h-full w-full object-cover transition group-hover:scale-[1.02]"
                     />
                   </div>
@@ -313,15 +319,18 @@ export default function NewsPage() {
             <ul className="mt-3 space-y-3">
               {(loading ? [] : [...list]).slice(0, 5).map((n) => (
                 <li key={n.id} className="flex gap-3">
-                  <Link to={n.link} className="shrink-0 w-16 h-16 rounded-lg overflow-hidden">
+                  <Link href={n.link} className="shrink-0 w-16 h-16 rounded-lg overflow-hidden"> {/* จุดที่แก้ไขที่ 5: เปลี่ยน to เป็น href */}
+                    {/* จุดที่แก้ไขที่ 6: เติม width และ height ให้ภาพ thumbnail */}
                     <Image
                       src={n.image || n.cover}
                       alt={n.title}
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   </Link>
                   <div>
-                    <Link to={n.link} className="line-clamp-2 font-medium hover:underline">
+                    <Link href={n.link} className="line-clamp-2 font-medium hover:underline"> {/* จุดที่แก้ไขที่ 7: เปลี่ยน to เป็น href */}
                       {n.title}
                     </Link>
                     <p className="text-xs text-gray-500">{formatTHDate(n.date)}</p>
@@ -360,14 +369,17 @@ function NewsCard({ item }: { item: NewsItem }) {
   const reading = estimateReadingMins(item.summary);
   return (
     <Link
-      to={item.link}
+      href={item.link} // จุดที่แก้ไขที่ 8: เปลี่ยน to เป็น href
       className="group block overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-sm hover:shadow-lg transition"
     >
       <div className="relative">
         <div className="aspect-[16/10] w-full">
+          {/* จุดที่แก้ไขที่ 9: เติม width และ height */}
           <Image
             src={item.image || item.cover}
             alt={item.title}
+            width={600}
+            height={375}
             className="h-full w-full object-cover transition group-hover:scale-[1.02]"
           />
         </div>

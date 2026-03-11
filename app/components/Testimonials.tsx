@@ -78,9 +78,12 @@ export default function Testimonials() {
                   {/* ข้อมูลลูกค้า */}
                   <div className="flex items-center gap-4 mt-auto">
                     <div className="relative">
+                      {/* จุดที่แก้ไข: เพิ่ม width={48} และ height={48} */}
                       <Image 
                         src={t.img} 
                         alt={t.name} 
+                        width={48}
+                        height={48}
                         className="w-12 h-12 rounded-full object-cover border-2 border-sky-100"
                       />
                       <div className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white" title="Verified Buyer" />

@@ -81,7 +81,10 @@ export default function PlantDetail() {
               <Image
                 src={plant.image}
                 alt={plant.name}
-                className="w-full h-full object-cover transition duration-700 hover:scale-110"
+                fill
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover transition duration-700 hover:scale-110"
+                priority
               />
               <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-sm border border-white/50">
                 <p className="text-[10px] font-black text-sky-600 uppercase tracking-widest text-center">ความสำเร็จ</p>

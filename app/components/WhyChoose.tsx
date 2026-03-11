@@ -3,6 +3,7 @@
 import { plants } from "../data/datafame"; 
 import Link from "next/link";
 import Image from 'next/image'
+
 export default function WhyChoose() {
   return (
     <section className="py-16 bg-gray-50" id="why">
@@ -19,7 +20,14 @@ export default function WhyChoose() {
             >
               <div className="relative">
                 <div className="aspect-[4/3] w-full">
-                  <Image src={p.image} alt={p.name} className="w-full h-full object-cover transition group-hover:scale-[1.02]" />
+                  {/* จุดที่แก้ไข: เพิ่ม width={400} และ height={300} ให้สอดคล้องกับ aspect-[4/3] */}
+                  <Image 
+                    src={p.image} 
+                    alt={p.name} 
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover transition group-hover:scale-[1.02]" 
+                  />
                 </div>
                 <div className="absolute left-3 top-3 flex flex-wrap gap-2">
                   <span className="rounded-full bg-emerald-600/90 px-3 py-1 text-[11px] font-semibold text-white shadow">
