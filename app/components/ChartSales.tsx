@@ -2,7 +2,7 @@
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import { useWeeklySales } from "@/hooks/useWeeklySales";
+import { useWeeklySales } from "../hooks/useWeeklySales";
 
 export default function ChartSales() {
   const data = useWeeklySales();
