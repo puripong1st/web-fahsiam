@@ -54,7 +54,7 @@ const Navbar = () => {
             
             return (
               <Link
-                key={item.path}
+                key={item.label}
                 href={item.path}
                 className={`${hoverLink} text-center ${
                   isActive ? "font-semibold text-sky-800" : ""
@@ -103,7 +103,7 @@ const Navbar = () => {
 
               return (
                 <Link
-                  key={item.path}
+                  key={item.label}
                   href={item.path}
                   onClick={closeMobileMenu}
                   className={`text-left px-4 py-2 text-sm hover:bg-gray-50 truncate ${
