@@ -174,7 +174,7 @@ export default function NewsPage() {
       {/* HERO */}
       <section className="relative">
         <div className="relative w-full h-64 md:h-96 overflow-hidden">
-          <Image src="/background/background1.png" alt="ข่าวสาร" fill sizes="100vw" className="object-cover" priority />
+          <Image src="/background/background1.webp" alt="ข่าวสาร" fill sizes="100vw" className="object-cover" priority />
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">

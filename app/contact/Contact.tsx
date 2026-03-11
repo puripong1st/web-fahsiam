@@ -72,7 +72,7 @@ export default function Contact() {
       <section className="relative">
         <div className="relative w-full h-64 md:h-96 overflow-hidden">
           <Image 
-            src="/background/background1.png" 
+            src="/background/background1.webp" 
             alt="ติดต่อเรา" 
             fill
             sizes="100vw"
