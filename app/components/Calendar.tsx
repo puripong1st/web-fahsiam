@@ -9,7 +9,6 @@ import {
   MONTHLY_PLANTS,
   CROP_OPTIONS,
   CROP_FERT_SLIDES,
-  CROP_FERTILIZER_DATA,
   CROP_USAGE_DETAILS,
   DAYS_OF_WEEK,
 } from "../data/calendarData";
@@ -29,36 +28,31 @@ export default function CalendarWidget() {
   const [modalIdx, setModalIdx]         = useState(0);
 
   // State สำหรับ Modal พืชในฤดูกาล
-  const [widgetPlantIdx, setWidgetPlantIdx] = useState(0); // Index สำหรับหน้า widget หลัก
+  const [widgetPlantIdx, setWidgetPlantIdx] = useState(0);
   const [plantModalOpen, setPlantModalOpen] = useState(false);
-  const [modalPlantIdx, setModalPlantIdx]   = useState(0); // Index สำหรับพืชที่แสดงใน modal
+  const [modalPlantIdx, setModalPlantIdx]   = useState(0);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const plantTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // mount + นาฬิกา
   useEffect(() => {
     setMounted(true);
     const t = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
 
-  // reset index ปุ๋ยเมื่อเปลี่ยนพืช
   useEffect(() => {
     setThumbIdx(0);
     setModalIdx(0);
   }, [selectedCrop]);
 
-  // reset index พืชเมื่อเปลี่ยนเดือน
   useEffect(() => {
     setWidgetPlantIdx(0);
   }, [viewDate]);
 
-  // slides ของปุ๋ย
   const slides: FertSlide[] = selectedCrop ? (CROP_FERT_SLIDES[selectedCrop] ?? []) : [];
   const totalFert = slides.length;
 
-  // auto-slide ปุ๋ย ทุก 3 วิ
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (totalFert <= 1) return;
@@ -68,7 +62,6 @@ export default function CalendarWidget() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [totalFert, selectedCrop]);
 
-  // ── calendar vars ──
   const viewYear    = viewDate.getFullYear();
   const viewMonth   = viewDate.getMonth();
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
@@ -78,7 +71,6 @@ export default function CalendarWidget() {
   const plantInfo   = MONTHLY_PLANTS[viewMonth];
   const totalPlants = plantInfo?.plants?.length || 1;
 
-  // auto-slide พืชหน้า widget ทุก 3.5 วิ
   useEffect(() => {
     if (plantTimerRef.current) clearInterval(plantTimerRef.current);
     if (totalPlants <= 1) return;
@@ -88,16 +80,13 @@ export default function CalendarWidget() {
     return () => { if (plantTimerRef.current) clearInterval(plantTimerRef.current); };
   }, [totalPlants, viewMonth]);
 
-  const monthFert  = selectedCrop ? CROP_FERTILIZER_DATA[selectedCrop]?.[viewMonth] : null;
   const usageData  = selectedCrop ? CROP_USAGE_DETAILS[selectedCrop] : null;
   const thumbSlide = slides[thumbIdx] ?? null;
   const modalSlide = slides[modalIdx] ?? null;
 
-  // เลื่อน modal ปุ๋ย
   const moveFertModal = (dir: 1 | -1) =>
     setModalIdx((p) => (p + dir + totalFert) % totalFert);
 
-  // เลื่อน modal พืช (สลับชนิดพืชในเดือนเดียวกัน)
   const moveModalPlant = (dir: 1 | -1) => {
     setModalPlantIdx((p) => (p + dir + totalPlants) % totalPlants);
   };
@@ -107,7 +96,6 @@ export default function CalendarWidget() {
   const currentWidgetPlant = plantInfo?.plants[widgetPlantIdx];
   const activeModalPlant   = plantInfo?.plants[modalPlantIdx];
 
-  // ══════════════════════════════════════════════
   return (
     <>
     <section className="py-16 bg-white" id="why">
@@ -115,8 +103,7 @@ export default function CalendarWidget() {
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col xl:flex-row overflow-hidden">
 
           {/* ══════ ซ้าย: ปฏิทิน ══════ */}
-          <div className="w-full xl:w-[40%] p-6 flex flex-col">
-            {/* Header เดือน / ปี / เวลา */}
+          <div className="w-full xl:w-[38%] p-6 flex flex-col">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-6 gap-4">
               <div className="flex flex-col items-center md:items-start w-full md:w-auto">
                 <div className="flex items-center justify-center gap-3 mb-2 w-full">
@@ -149,8 +136,8 @@ export default function CalendarWidget() {
               </div>
             </div>
 
-            {/* Grid วัน */}
-            <div className="bg-gray-200 grid grid-cols-7 gap-px border border-gray-200 rounded-xl overflow-hidden flex-1">
+            {/* Grid วัน (แก้ตรงนี้: ใส่ h-fit ให้ความสูงจบแค่วันสุดท้าย ไม่ยืดพื้นเทาลงไป) */}
+            <div className="bg-gray-200 grid grid-cols-7 gap-px border border-gray-200 rounded-xl overflow-hidden h-fit">
               {DAYS_OF_WEEK.map((d, i) => (
                 <div key={d} className={`bg-gray-50 py-2 text-center text-sm font-semibold ${i === 0 ? "text-red-500" : "text-gray-600"}`}>
                   {d}
@@ -180,24 +167,24 @@ export default function CalendarWidget() {
           </div>
 
           {/* ══════ ขวา: ข้อมูลการเกษตร ══════ */}
-          <div className="w-full xl:w-[60%] bg-gray-50 p-6 border-t xl:border-t-0 xl:border-l border-gray-200 flex flex-col">
+          <div className="w-full xl:w-[62%] bg-gray-50 p-6 border-t xl:border-t-0 xl:border-l border-gray-200 flex flex-col">
             <h3 className="w-full text-lg font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200 flex items-center justify-center gap-2">
               🌿 แนะนำสำหรับเดือนนี้
             </h3>
 
-            <div className="flex flex-col md:flex-row gap-6 flex-1">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 flex-1 items-start">
 
-              {/* ── คอลัมน์ซ้าย: รูป + dropdown + สูตรเดือน ── */}
-              <div className="w-full md:w-[45%] flex flex-col gap-4">
-                <div className="grid grid-cols-2 gap-4">
-
-                  {/* พืชในฤดูกาล (แสดงรูปสลับกัน และกดเปิด Modal ดูพืชชนิดนั้นๆ) */}
+              {/* ── คอลัมน์ซ้าย: รูป + dropdown ── */}
+              <div className="w-full lg:w-[48%] flex flex-col gap-6">
+                
+                <div className="grid grid-cols-2 gap-4 lg:gap-6">
+                  {/* พืชในฤดูกาล */}
                   <div className="flex flex-col items-center">
                     {currentWidgetPlant && (
                       <div 
-                        className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden relative group bg-white cursor-pointer"
+                        className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-3 overflow-hidden relative group bg-white cursor-pointer"
                         onClick={() => {
-                          setModalPlantIdx(widgetPlantIdx); // ให้ Modal เปิดที่พืชรูปเดียวกัน
+                          setModalPlantIdx(widgetPlantIdx);
                           setPlantModalOpen(true);
                         }}
                       >
@@ -209,22 +196,25 @@ export default function CalendarWidget() {
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex flex-col items-center justify-center gap-1">
-                          <span className="text-white text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md">
+                          <span className="text-white text-[15px] font-bold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md">
                             🔍 ดูรายละเอียด
                           </span>
                         </div>
-                        {/* อินดิเคเตอร์หน้า widget */}
                         {totalPlants > 1 && (
-                          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
+                          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
                             {plantInfo.plants.map((_, i) => (
-                              <div key={`dot-${i}`} className={`w-1.5 h-1.5 rounded-full ${i === widgetPlantIdx ? "bg-white" : "bg-white/40"}`} />
+                              <div key={`dot-${i}`} className={`w-2 h-2 rounded-full ${i === widgetPlantIdx ? "bg-white" : "bg-white/40"}`} />
                             ))}
                           </div>
                         )}
                       </div>
                     )}
-                    <span className="text-sm font-bold text-gray-700 text-center w-full truncate px-1">พืชในฤดูกาล</span>
-                    <span className="text-xs text-green-600 font-bold text-center">{currentWidgetPlant?.name}</span>
+                    <div className="flex flex-col items-center justify-start min-h-[3.5rem] w-full">
+                      <span className="text-[14px] xl:text-[15px] font-bold text-gray-700 text-center w-full truncate px-1">พืชในฤดูกาล</span>
+                      <span className="text-[14px] xl:text-[15px] text-green-600 font-bold text-center mt-1 px-1 line-clamp-2 leading-snug">
+                        {currentWidgetPlant?.name}
+                      </span>
+                    </div>
                   </div>
 
                   {/* ── Slideshow ปุ๋ย ── */}
@@ -232,7 +222,7 @@ export default function CalendarWidget() {
                     {selectedCrop && thumbSlide ? (
                       <>
                         <div
-                          className="w-full aspect-square rounded-xl shadow-md border-2 border-blue-200 mb-2 overflow-hidden relative group bg-white cursor-pointer"
+                          className="w-full aspect-square rounded-xl shadow-md border-2 border-blue-200 mb-3 overflow-hidden relative group bg-white cursor-pointer"
                           onClick={() => { setModalIdx(thumbIdx); setModalOpen(true); }}
                         >
                           <Image
@@ -243,7 +233,7 @@ export default function CalendarWidget() {
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex flex-col items-center justify-center gap-1 pointer-events-none">
-                            <span className="text-white text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow px-2 text-center">
+                            <span className="text-white text-[15px] font-bold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow px-2 text-center">
                               🔍 ดูรายละเอียด
                             </span>
                             <span className="text-white/80 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
@@ -251,31 +241,35 @@ export default function CalendarWidget() {
                             </span>
                           </div>
                         </div>
-                        <span className="text-sm font-bold text-[#026EB5] text-center w-full px-1 line-clamp-2 leading-snug">
-                          {thumbSlide.product.productName}
-                        </span>
-                        <span className="text-xs text-gray-400 text-center line-clamp-1 px-1">
-                          {thumbSlide.fertText}
-                        </span>
+                        
+                        <div className="flex flex-col items-center justify-start min-h-[3.5rem] w-full">
+                          <span className="text-[14px] xl:text-[15px] font-bold text-[#026EB5] text-center w-full px-1 line-clamp-2 leading-tight">
+                            {thumbSlide.product.productName}
+                          </span>
+                          <span className="text-[13px] xl:text-[14px] text-gray-500 text-center line-clamp-2 px-1 mt-1 leading-snug">
+                            {thumbSlide.fertText}
+                          </span>
+                        </div>
                       </>
                     ) : (
                       <>
-                        <div className="w-full aspect-square rounded-xl border-2 border-dashed border-gray-300 bg-gray-100 mb-2 flex items-center justify-center">
-                          <span className="text-gray-400 text-xs text-center px-2">รอเลือกพืช</span>
+                        <div className="w-full aspect-square rounded-xl border-2 border-dashed border-gray-300 bg-gray-100 mb-3 flex items-center justify-center">
+                          <span className="text-gray-400 text-sm text-center px-2">รอเลือกพืช</span>
                         </div>
-                        <span className="text-sm font-bold text-gray-400 text-center w-full truncate px-1">ปุ๋ยที่เหมาะสม</span>
+                        <div className="flex flex-col items-center justify-start min-h-[3.5rem] w-full">
+                          <span className="text-[14px] xl:text-[15px] font-bold text-gray-400 text-center w-full truncate px-1">ปุ๋ยที่เหมาะสม</span>
+                        </div>
                       </>
                     )}
                   </div>
                 </div>
 
-                {/* Dropdown เลือกพืช */}
-                <div className="bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
-                  <h4 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide text-center">เลือกพืชของคุณ</h4>
+                <div className="bg-white p-4 xl:p-5 rounded-xl border border-blue-100 shadow-sm w-full">
+                  <h4 className="text-sm xl:text-base font-bold text-gray-500 mb-3 uppercase tracking-wide text-center">เลือกพืชของคุณ</h4>
                   <select
                     value={selectedCrop}
                     onChange={(e) => setSelectedCrop(e.target.value)}
-                    className="w-full bg-blue-50 text-blue-800 text-base font-bold py-2.5 px-3 rounded-lg border-2 border-transparent hover:border-blue-200 focus:border-blue-500 focus:ring-0 outline-none cursor-pointer transition"
+                    className="w-full bg-blue-50 text-blue-800 text-[14px] xl:text-[16px] font-bold py-2.5 px-3 rounded-lg border-2 border-transparent hover:border-blue-200 focus:border-blue-500 focus:ring-0 outline-none cursor-pointer transition"
                   >
                     <option value="" disabled>-- กรุณาเลือกพืช --</option>
                     {CROP_OPTIONS.map((c) => (
@@ -284,66 +278,53 @@ export default function CalendarWidget() {
                   </select>
                 </div>
 
-                {/* สูตรปุ๋ยแนะนำเดือนนี้ */}
-                <div className="bg-white p-4 rounded-xl border border-blue-100 shadow-sm flex-1 flex flex-col justify-center">
-                  <h4 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide text-center">ควรใช้ปุ๋ยสูตรอะไร</h4>
-                  {selectedCrop && monthFert ? (
-                    <p className="text-base font-bold text-blue-700 bg-blue-50 py-3 px-2 rounded-lg break-words text-center">
-                      {monthFert.fertText}
-                    </p>
-                  ) : (
-                    <p className="text-sm font-medium text-gray-400 py-3 px-2 text-center">
-                      กรุณาเลือกพืชเพื่อดูคำแนะนำ
-                    </p>
-                  )}
-                </div>
               </div>
 
-              {/* ── คอลัมน์ขวา: ตารางอัตราการใช้ปุ๋ย ── */}
-              <div className="w-full md:w-[55%] flex flex-col">
+              {/* ── คอลัมน์ขวา: ตารางอัตราการใช้ปุ๋ย (แก้ตรงนี้: ใส่ h-fit ให้ความสูงจบพอดีขอบตาราง ไม่ยืดโหว่) ── */}
+              <div className="w-full lg:w-[52%] flex flex-col h-fit">
                 {selectedCrop && usageData && usageData.length > 0 ? (
-                  <div className="bg-white p-4 rounded-xl border border-blue-100 shadow-sm text-left flex-1 flex flex-col">
-                    <h4 className="text-sm font-bold text-blue-700 mb-3 border-b border-blue-100 pb-2 flex items-center gap-2">
+                  <div className="bg-white p-5 rounded-xl border border-blue-100 shadow-sm text-left flex flex-col h-fit">
+                    <h4 className="text-lg font-bold text-blue-700 mb-4 border-b border-blue-100 pb-3 flex items-center gap-2">
                       📊 อัตราการใช้ปุ๋ยตามระยะ
                     </h4>
-                    <div className="space-y-3 overflow-y-auto pr-1 flex-1">
+                    <div className="space-y-4 pr-1">
                       {usageData.map((d, idx) => (
-                        <div key={idx} className="relative flex flex-col bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-400 rounded-l-xl" />
-                          <div className="flex flex-wrap items-center gap-2 mb-1 pl-2">
+                        <div key={idx} className="relative flex flex-col bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-400 rounded-l-xl" />
+                          <div className="flex flex-wrap items-center gap-3 mb-2 pl-3">
                             {d.badge && (
-                              <span className="bg-orange-100 text-orange-700 border border-orange-200 px-2.5 py-0.5 rounded-md text-xs font-bold">
+                              <span className="bg-orange-100 text-orange-700 border border-orange-200 px-3 py-1 rounded-md text-[13px] font-bold">
                                 {d.badge}
                               </span>
                             )}
-                            <span className="text-sm font-bold text-gray-800">{d.stage}</span>
+                            <span className="text-[16px] xl:text-lg font-bold text-gray-800">{d.stage}</span>
                           </div>
-                          <div className="flex justify-between items-end mt-2 pl-2 text-xs gap-2">
+                          <div className="flex justify-between items-end mt-3 pl-3 text-[15px] xl:text-base gap-3">
                             <span className="text-gray-600">
                               สูตร: <span className="text-blue-600 font-bold">{d.formula}</span>
                             </span>
-                            <span className="bg-blue-100 text-blue-800 border border-blue-200 px-2 py-1 rounded-md font-bold whitespace-nowrap shadow-sm">
+                            <span className="bg-blue-100 text-blue-800 border border-blue-200 px-3 py-1.5 rounded-md text-[13px] xl:text-sm font-bold whitespace-nowrap shadow-sm">
                               {d.rate}
                             </span>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <p className="text-[10px] text-gray-400 mt-3 text-center">
+                    <p className="text-xs text-gray-400 mt-4 text-center">
                       *อัตราการใช้ขึ้นอยู่กับอายุและความสมบูรณ์ของต้น
                     </p>
                   </div>
                 ) : (
-                  <div className="bg-white p-4 rounded-xl border-2 border-dashed border-gray-200 flex-1 flex flex-col items-center justify-center text-center min-h-[250px]">
-                    <span className="text-4xl mb-3">🌱</span>
-                    <h4 className="text-gray-500 font-bold mb-1">ยังไม่มีข้อมูลแสดงผล</h4>
-                    <p className="text-sm text-gray-400">กรุณาเลือกพืชเพื่อดูอัตราการใช้ปุ๋ยตามระยะ</p>
+                  <div className="bg-white p-5 rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center min-h-[300px] h-fit">
+                    <span className="text-5xl mb-4">🌱</span>
+                    <h4 className="text-lg text-gray-500 font-bold mb-2">ยังไม่มีข้อมูลแสดงผล</h4>
+                    <p className="text-base text-gray-400">กรุณาเลือกพืชเพื่อดูอัตราการใช้ปุ๋ยตามระยะ</p>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-gray-200 text-xs text-center text-gray-400 w-full">
+            <div className="mt-6 pt-4 border-t border-gray-200 text-sm text-center text-gray-400 w-full">
               ข้อมูลอ้างอิงสำหรับเดือน {viewDate.toLocaleDateString("th-TH", { month: "long" })}
             </div>
           </div>
@@ -352,7 +333,7 @@ export default function CalendarWidget() {
     </section>
 
     {/* ══════════════════════════════════════════
-        MODAL 1 — รายละเอียดพืชในฤดูกาล (เลื่อนดูพืชในเดือนเดียวกัน)
+        MODAL 1 — รายละเอียดพืชในฤดูกาล
     ══════════════════════════════════════════ */}
     {plantModalOpen && activeModalPlant && (
       <div
@@ -363,7 +344,6 @@ export default function CalendarWidget() {
           className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* ปุ่มปิด */}
           <button
             onClick={() => setPlantModalOpen(false)}
             className="absolute top-3 right-3 z-30 bg-white/90 text-gray-400 hover:text-red-500 rounded-full p-1.5 shadow transition"
@@ -373,7 +353,6 @@ export default function CalendarWidget() {
             </svg>
           </button>
 
-          {/* รูปพืช + ลูกศรเลื่อนเดือน */}
           <div className="relative w-full h-64 bg-green-50/50 select-none">
             <Image
               key={`modal-plant-${modalPlantIdx}`}
@@ -383,7 +362,6 @@ export default function CalendarWidget() {
               className="object-contain p-6"
             />
             
-            {/* ปุ่มเลื่อนซ้ายขวา (แสดงเมื่อพืชในเดือนมีมากกว่า 1) */}
             {totalPlants > 1 && (
               <>
                 <button
@@ -395,7 +373,6 @@ export default function CalendarWidget() {
                   className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/35 hover:bg-black/65 text-white text-2xl flex items-center justify-center transition shadow-lg"
                 >›</button>
 
-                {/* อินดิเคเตอร์ใน modal */}
                 <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
                   {plantInfo.plants.map((_, i) => (
                     <button
@@ -415,7 +392,6 @@ export default function CalendarWidget() {
             </span>
           </div>
 
-          {/* รายละเอียดพืช */}
           <div className="p-6">
             <h2 className="text-xl font-bold text-green-700 leading-tight mb-2">
               {activeModalPlant.name}
@@ -453,7 +429,6 @@ export default function CalendarWidget() {
           className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* ปุ่มปิด */}
           <button
             onClick={() => setModalOpen(false)}
             className="absolute top-3 right-3 z-30 bg-white/90 text-gray-400 hover:text-red-500 rounded-full p-1.5 shadow transition"
@@ -463,7 +438,6 @@ export default function CalendarWidget() {
             </svg>
           </button>
 
-          {/* รูปปุ๋ย + ลูกศรเลื่อน */}
           <div className="relative w-full h-64 bg-gray-50 select-none">
             <Image
               key={`modal-${selectedCrop}-${modalIdx}`}
@@ -507,9 +481,7 @@ export default function CalendarWidget() {
             )}
           </div>
 
-          {/* รายละเอียด */}
           <div className="p-6">
-            {/* ชื่อ + ราคา */}
             <div className="flex items-start justify-between gap-3 mb-2">
               <h2 className="text-xl font-bold text-[#026EB5] leading-tight flex-1">
                 {modalSlide.product.productName}
@@ -532,7 +504,6 @@ export default function CalendarWidget() {
               💡 {modalSlide.fertText}
             </div>
 
-            {/* ปุ่มซื้อ */}
             <div className="flex flex-col sm:flex-row gap-3 mb-4">
               <Link
                 href={`/products/${modalSlide.product.productId}`}
@@ -555,7 +526,6 @@ export default function CalendarWidget() {
               </a>
             </div>
 
-            {/* Thumbnail strip */}
             {totalFert > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1 pt-1 border-t border-gray-100">
                 {slides.map((slide, i) => (
