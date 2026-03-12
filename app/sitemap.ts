@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { plants } from "./data/datafame";
 import { MOCK_PRODUCTS } from "./data/productsdetail";
 
-const BASE_URL = "https://web-fahsiam.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // วันที่อัปเดต static pages ล่าสุด — แก้ตรงนี้เมื่อแก้เนื้อหาจริง
 const STATIC_UPDATED = "2026-03-12";

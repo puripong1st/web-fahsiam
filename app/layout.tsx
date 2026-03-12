@@ -5,8 +5,8 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "ฟ้าสยาม SiamAgriTech",
-  url: "https://web-fahsiam.vercel.app",
-  logo: "https://web-fahsiam.vercel.app/favicon-32x32.png",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/favicon-32x32.png`,
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "082-529-8388",

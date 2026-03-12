@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "การดูแลพืชและแนะนำปุ๋ย | ฟ้าสยาม",
     description: "คู่มือดูแลพืชครบถ้วน พร้อมแนะนำปุ๋ยที่เหมาะสมในแต่ละขั้นตอนการเจริญเติบโต",
-    url: "https://web-fahsiam.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
     siteName: "ฟ้าสยาม",
     images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ฟ้าสยาม" }],
     locale: "th_TH",

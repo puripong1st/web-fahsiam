@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
   description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
   alternates: {
-    canonical: "https://web-fahsiam.vercel.app/conproduct",
+    canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   },
   openGraph: {
     title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
     description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
-    url: "https://web-fahsiam.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
     siteName: "ฟ้าสยาม",
     images: [{ url: "/image/Fertilizer/1.jpg", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
     locale: "th_TH",
