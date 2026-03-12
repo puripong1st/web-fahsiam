@@ -1,64 +1,63 @@
-// app/sitemap.ts
 import type { MetadataRoute } from "next";
 import { plants } from "./data/datafame";
 import { MOCK_PRODUCTS } from "./data/productsdetail";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
-// วันที่อัปเดต static pages ล่าสุด — แก้ตรงนี้เมื่อแก้เนื้อหาจริง
-const STATIC_UPDATED = "2026-03-12";
+function toLastModified(dateString: string | undefined): Date {
+  if (!dateString) return new Date();
+  const d = new Date(dateString);
+  return Number.isNaN(d.getTime()) ? new Date() : d;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-
-  // ── 1. Static Pages ────────────────────────────────────
-  const staticPages: MetadataRoute.Sitemap = [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: BASE_URL,
-      lastModified: new Date(STATIC_UPDATED),
+      url: `${BASE_URL}/`,
       changeFrequency: "weekly",
-      priority: 1.0,
+      priority: 1,
+      lastModified: new Date(),
     },
     {
       url: `${BASE_URL}/conproduct`,
-      lastModified: new Date(STATIC_UPDATED),
       changeFrequency: "weekly",
       priority: 0.9,
+      lastModified: new Date(),
     },
     {
       url: `${BASE_URL}/plants`,
-      lastModified: new Date(STATIC_UPDATED),
       changeFrequency: "weekly",
-      priority: 0.9,
+      priority: 0.8,
+      lastModified: new Date(),
     },
     {
       url: `${BASE_URL}/news`,
-      lastModified: new Date(STATIC_UPDATED),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "weekly",
+      priority: 0.6,
+      lastModified: new Date(),
     },
     {
       url: `${BASE_URL}/contact`,
-      lastModified: new Date(STATIC_UPDATED),
       changeFrequency: "yearly",
       priority: 0.5,
+      lastModified: new Date(),
     },
   ];
 
-  // ── 2. Dynamic: หน้าพืชแต่ละชนิด ──────────────────────
-  const plantPages: MetadataRoute.Sitemap = plants.map((plant) => ({
-    url: `${BASE_URL}/plants/${plant.id}`,
-    lastModified: new Date(plant.updatedAt), // ✅ ใช้วันที่จริงจาก datafame.ts
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
+  const productRoutes: MetadataRoute.Sitemap = MOCK_PRODUCTS.map((p) => ({
+    url: `${BASE_URL}/products/${p.id}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: toLastModified(p.updatedAt),
   }));
 
-  // ── 3. Dynamic: หน้าสินค้าแต่ละชิ้น ───────────────────
-  const productPages: MetadataRoute.Sitemap = MOCK_PRODUCTS.map((product) => ({
-    url: `${BASE_URL}/products/${product.id}`,
-    lastModified: new Date(product.updatedAt), // ✅ ใช้วันที่จริงจาก productsdetail.ts
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
+  const plantRoutes: MetadataRoute.Sitemap = plants.map((p) => ({
+    url: `${BASE_URL}/plants/${p.id}`,
+    changeFrequency: "monthly",
+    priority: 0.65,
+    lastModified: toLastModified(p.updatedAt),
   }));
 
-  return [...staticPages, ...plantPages, ...productPages];
+  return [...staticRoutes, ...productRoutes, ...plantRoutes];
 }
