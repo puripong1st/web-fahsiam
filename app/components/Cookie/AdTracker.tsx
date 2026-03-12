@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+  }
+}
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import Script from "next/script";
@@ -41,16 +48,16 @@ export default function AdTracker() {
   useEffect(() => {
     if (!hasConsent || !scriptsLoaded) return;
 
-    if ((window as any).fbq) {
-      (window as any).fbq("track", "PageView");
+    if (window.fbq) {
+      window.fbq("track", "PageView");
     }
 
-    if ((window as any).gtag) {
-      (window as any).gtag("config", GA_MEASUREMENT_ID, {
+    if (window.gtag) {
+      window.gtag("config", GA_MEASUREMENT_ID, {
         page_path: pathname,
       });
     }
-  }, [pathname]); // ✅ ไม่ใส่ hasConsent — เพื่อกันยิงซ้ำตอน consent เปลี่ยน
+  }, [pathname, hasConsent, scriptsLoaded, GA_MEASUREMENT_ID]);
 
   if (!hasConsent) return null;
 

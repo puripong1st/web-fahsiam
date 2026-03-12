@@ -5,6 +5,12 @@ import { collection, onSnapshot, query, where, Timestamp } from "firebase/firest
 
 export type DaySale = { day: string; sales: number };
 
+// ✅ สร้าง Type มารองรับข้อมูล Order แทน any
+interface OrderDoc {
+  createdAt?: Timestamp;
+  amount?: number | string;
+}
+
 function fmtYMD(d: Date) {
   return d.toISOString().slice(0,10); // YYYY-MM-DD (UTC) — ถ้าอยากตามโซนไทยให้ใช้ lib dayjs/tz
 }
@@ -38,9 +44,13 @@ export function useWeeklySales() {
       }
 
       snap.forEach(doc => {
-        const x = doc.data() as any;
+        // ✅ เปลี่ยนจาก as any เป็น Type ที่เราระบุไว้
+        const x = doc.data() as OrderDoc;
         const ts = x.createdAt;
-        if (!ts?.toDate) return;
+        
+        // เช็คให้แน่ใจว่ามีฟังก์ชัน toDate (เป็น Timestamp จริงๆ)
+        if (!ts || typeof ts.toDate !== 'function') return;
+        
         const d = ts.toDate();
         const key = fmtYMD(d);
         if (buckets.has(key)) {

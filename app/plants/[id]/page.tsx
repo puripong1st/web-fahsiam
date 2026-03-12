@@ -19,11 +19,11 @@ export default function PlantDetailPage() {
   
   const [activeStep, setActiveStep] = useState<number>(0);
 
-  if (!plant) return null;
+
 
   const handleCheck = (index: number) => {
     const newChecked = [...checkedSteps];
-
+    if (!plant) return null;
     if (!newChecked[index]) {
       if (index === 0 || newChecked[index - 1]) {
         newChecked[index] = true;
@@ -49,6 +49,7 @@ export default function PlantDetailPage() {
     return Math.round((completed / checkedSteps.length) * 100);
   }, [checkedSteps]);
 
+  if (!plant) return null;
   const currentPhase = plant.phaseGuides?.[activeStep];
 
   return (

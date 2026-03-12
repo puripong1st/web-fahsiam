@@ -124,6 +124,7 @@ export default function CalendarWidget() {
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const timer = setInterval(() => {
       setCurrentTime(new Date());

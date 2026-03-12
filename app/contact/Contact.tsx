@@ -58,8 +58,14 @@ export default function Contact() {
       });
       setSent("ok");
       setForm({ name: "", phone: "", email: "", subject: "", message: "", website: "" });
-    } catch (err: any) {
-      setErrMsg(err?.message || "ส่งข้อความไม่สำเร็จ");
+    } catch (err: unknown) { 
+      // ✅ เปลี่ยนจาก any เป็น unknown
+      // ✅ เช็คว่าเป็น Error Object จริงๆ ก่อนดึง message ออกมา
+      if (err instanceof Error) {
+        setErrMsg(err.message);
+      } else {
+        setErrMsg("ส่งข้อความไม่สำเร็จ");
+      }
       setSent("err");
     } finally {
       setSending(false);

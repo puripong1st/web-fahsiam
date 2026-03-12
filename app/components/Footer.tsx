@@ -82,12 +82,12 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
 
             <li className="flex items-center gap-1">
-              <a href="/plants">คู่มือการปลูกพืช</a>
+              <Link href="/plants">คู่มือการปลูกพืช</Link>
               <FiExternalLink />
             </li>
 
             <li className="flex items-center gap-1">
-              <a href="/news">บทความข่าวสาร</a>
+              <Link href="/news">บทความข่าวสาร</Link>
               <FiExternalLink />
             </li>
 

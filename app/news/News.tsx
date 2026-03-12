@@ -10,12 +10,12 @@ import Image from 'next/image'
 type NewsItem = {
   id: string;
   title: string;
-  date?: string;           // YYYY-MM-DD สำหรับแสดงผล
-  publishedAt?: any;       // Firestore Timestamp หรือ string
-  cover: string;           // รูปต้นทาง (raw)
-  image?: string;          // รูปที่พร้อมใช้ใน UI
+  date?: string;           
+  publishedAt?: unknown;   // ✅ แก้ไขที่ 1: เปลี่ยนจาก any เป็น unknown
+  cover: string;           
+  image?: string;          
   summary: string;
-  link: string;            // เช่น `/news/${id}` หรือ slug
+  link: string;            
   status?: "published" | "draft";
   featured?: boolean;
   category?: string;
@@ -23,19 +23,40 @@ type NewsItem = {
   author?: string;
 };
 
+// ✅ สร้าง Interface สำหรับข้อมูลที่ดึงจาก Firestore เพื่อแทนที่ any
+interface NewsDoc {
+  title?: string;
+  cover?: string;
+  publishedAt?: unknown;
+  date?: unknown;
+  slug?: string;
+  summary?: string;
+  status?: string;
+  featured?: boolean;
+  category?: string;
+  tags?: string[];
+  author?: string;
+}
+
 const PER_PAGE = 6;
 
 /* ---------- utils ---------- */
-function toISODate(v: any): string | undefined {
+// ✅ แก้ไขที่ 2: เปลี่ยน v: any เป็น v: unknown และเช็ค Type ภายในให้ปลอดภัย
+function toISODate(v: unknown): string | undefined {
   if (!v) return undefined;
+  
   // Firestore Timestamp
-  if (typeof v?.toDate === "function") {
-    try {
-      return v.toDate().toISOString().slice(0, 10);
-    } catch {
-      return undefined;
+  if (typeof v === "object" && v !== null && "toDate" in v) {
+    const ts = v as { toDate: () => Date };
+    if (typeof ts.toDate === "function") {
+      try {
+        return ts.toDate().toISOString().slice(0, 10);
+      } catch {
+        return undefined;
+      }
     }
   }
+  
   // string หรืออย่างอื่นที่แปลงเป็น Date ได้
   if (typeof v === "string") {
     if (/^\d{4}-\d{2}-\d{2}/.test(v)) return v.slice(0, 10);
@@ -80,7 +101,8 @@ export default function NewsPage() {
         const snap = await getDocs(qy);
 
         const rows: NewsItem[] = snap.docs.map((d) => {
-          const x = d.data() as any;
+          // ✅ แก้ไขที่ 3: ใช้ Interface NewsDoc ที่สร้างไว้ แทนคำว่า any
+          const x = d.data() as NewsDoc;
 
           // รูป: ถ้าเป็นชื่อไฟล์ธรรมดา ให้ชี้ไปที่ /image/news/<name>
           const rawCover = String(x.cover || "");
@@ -106,7 +128,8 @@ export default function NewsPage() {
             image: cover,
             summary: x.summary || "",
             link,
-            status: x.status as any,
+            // ✅ แก้ไขที่ 4: ระบุ Type ให้ชัดเจนแทน any
+            status: x.status as "published" | "draft" | undefined,
             featured: Boolean(x.featured),
             category: x.category || "ทั่วไป",
             tags: Array.isArray(x.tags) ? x.tags : [],
@@ -231,7 +254,8 @@ export default function NewsPage() {
 
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                // ✅ แก้ไขที่ 5: บังคับ Type ให้ตรงกับที่ State ต้องการ
+                onChange={(e) => setSortBy(e.target.value as "new" | "old")}
                 className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
               >
                 <option value="new">เรียงจากใหม่ไปเก่า</option>
@@ -245,7 +269,7 @@ export default function NewsPage() {
             <SkeletonFeatured />
           ) : featured ? (
             <Link
-              href={featured.link} // จุดที่แก้ไขที่ 3: เปลี่ยนจาก to เป็น href
+              href={featured.link} 
               className="group block overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-sm hover:shadow-lg transition"
             >
               <div className="grid md:grid-cols-2">
@@ -317,8 +341,7 @@ export default function NewsPage() {
             <ul className="mt-3 space-y-3">
               {(loading ? [] : [...list]).slice(0, 5).map((n) => (
                 <li key={n.id} className="flex gap-3">
-                  <Link href={n.link} className="shrink-0 w-16 h-16 rounded-lg overflow-hidden"> {/* จุดที่แก้ไขที่ 5: เปลี่ยน to เป็น href */}
-                    {/* จุดที่แก้ไขที่ 6: เติม width และ height ให้ภาพ thumbnail */}
+                  <Link href={n.link} className="shrink-0 w-16 h-16 rounded-lg overflow-hidden"> 
                     <Image
                       src={n.image || n.cover}
                       alt={n.title}
@@ -328,7 +351,7 @@ export default function NewsPage() {
                     />
                   </Link>
                   <div>
-                    <Link href={n.link} className="line-clamp-2 font-medium hover:underline"> {/* จุดที่แก้ไขที่ 7: เปลี่ยน to เป็น href */}
+                    <Link href={n.link} className="line-clamp-2 font-medium hover:underline"> 
                       {n.title}
                     </Link>
                     <p className="text-xs text-gray-500">{formatTHDate(n.date)}</p>
@@ -367,7 +390,7 @@ function NewsCard({ item }: { item: NewsItem }) {
   const reading = estimateReadingMins(item.summary);
   return (
     <Link
-      href={item.link} // จุดที่แก้ไขที่ 8: เปลี่ยน to เป็น href
+      href={item.link} 
       className="group block overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-sm hover:shadow-lg transition"
     >
       <div className="relative">

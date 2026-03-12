@@ -5,24 +5,25 @@ import {
   FiBell, FiUser, FiUsers, FiArrowLeftCircle, FiExternalLink,
   FiMessageSquare, FiShoppingBag,
 } from "react-icons/fi";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [names, setNames] = useState<string>("");
-
-   useEffect(() => {
+  const [names] = useState<string>(() => {
     try {
       const raw = localStorage.getItem("adminSession");
       if (raw) {
         const s = JSON.parse(raw);
-        if (s?.names) setNames(s.names);
+        return s?.names ?? "";
       }
     } catch {
-      setNames("");
+      return "";
     }
-  }, []);
+    return "";
+  });
+
+
 
   const logout = () => {
     localStorage.removeItem("adminSession");

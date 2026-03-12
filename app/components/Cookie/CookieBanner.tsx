@@ -1,17 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 
 export default function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const consent = Cookies.get("cookie_consent");
-    if (!consent) {
-      setIsVisible(true);
-    }
-  }, []);
+  // ✅ ใช้ initializer function — ไม่ต้องใช้ useEffect สำหรับ initial state
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !Cookies.get("cookie_consent");
+  });
 
   const handleAccept = () => {
     Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
@@ -35,7 +32,7 @@ export default function CookieBanner() {
         <h3 className="font-bold text-gray-800 text-base mb-1">🍪 นโยบายการใช้คุกกี้</h3>
         <p>
           เว็บไซต์นี้ใช้คุกกี้เพื่อนำเสนอเนื้อหาและโฆษณาที่ตรงกับความสนใจของคุณ รวมถึงวิเคราะห์การเข้าชมเว็บไซต์ 
-          คุณสามารถเลือก "ยอมรับ" เพื่อให้เรามอบประสบการณ์ที่ดีที่สุด หรือคลิก "ปฏิเสธ" หากไม่ต้องการรับโฆษณาที่ปรับแต่ง
+          คุณสามารถเลือก &quot;ยอมรับ&quot; เพื่อให้เรามอบประสบการณ์ที่ดีที่สุด หรือคลิก &quot;ปฏิเสธ&quot; หากไม่ต้องการรับโฆษณาที่ปรับแต่ง
         </p>
       </div>
       <div className="flex flex-row gap-3 w-full md:w-auto shrink-0 justify-end">
