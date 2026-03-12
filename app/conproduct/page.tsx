@@ -3,15 +3,15 @@ import ConProduct from "./ConProduct";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
+  title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม ",
   description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app",
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/conproduct`,
   },
   openGraph: {
-    title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
+    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม",
     description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/conproduct`,
     siteName: "ฟ้าสยาม",
     images: [{ url: "/image/Fertilizer/1.jpg", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
     locale: "th_TH",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี",
+    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม",
     description: "ปุ๋ยฟ้าสยาม เพิ่มผลผลิต ลดต้นทุน",
     images: ["/background/background1.webp"],
   },

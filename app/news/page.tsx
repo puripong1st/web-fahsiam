@@ -3,12 +3,12 @@ import News from "./News";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
-  description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
+  title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม",
+  description: "อัปเดตข่าวสารการเกษตร สาระน่ารู้ เทคนิคการดูแลพืช และกิจกรรมต่างๆ จากฟ้าสยาม เพื่อเกษตรกรไทยก้าวไกลอย่างยั่งยืน",
   openGraph: {
-    title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
-    description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app",
+    title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม",
+    description: "อัปเดตข่าวสารการเกษตร สาระน่ารู้ เทคนิคการดูแลพืช และกิจกรรมต่างๆ จากฟ้าสยาม",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/news`,
     siteName: "ฟ้าสยาม",
     images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ฟ้าสยาม" }],
     locale: "th_TH",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี",
-    description: "ปุ๋ยฟ้าสยาม เพิ่มผลผลิต ลดต้นทุน",
+    title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม",
+    description: "อัปเดตข่าวสารและเทคนิคการเกษตรจากฟ้าสยาม",
     images: ["/background/background1.webp"],
   },
 };
