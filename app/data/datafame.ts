@@ -21,6 +21,7 @@ export type Plant = {
   howToGrow: string[];      // ขั้นตอนการปลูก (ใช้สร้าง checkbox)
   fertilizer: string[];     // รายการปุ๋ยที่ใช้ได้/นิยมใช้ (รวม)
   phaseGuides: PlantPhaseGuide[]; // คำแนะนำตามช่วง
+  updatedAt: string;        // วันที่อัปเดตล่าสุด (YYYY-MM-DD) ใช้ใน sitemap
 };
 
 /* ========= Data ========= */
@@ -28,6 +29,7 @@ export const plants: Plant[] = [
   /* ---------- ข้าว ---------- */
   {
     id: "rice",
+    updatedAt: "2026-03-12",
     name: "ข้าว",
     image: "/image/Tree/rice.jpg",
     desc: "ปลูกด้วยเทคโนโลยีทันสมัย คงคุณภาพและผลผลิตสูง",
@@ -88,6 +90,7 @@ export const plants: Plant[] = [
   /* ---------- อ้อย ---------- */
   {
     id: "sugarcane",
+    updatedAt: "2026-03-12",
     name: "อ้อย",
     image: "/image/Tree/sugarcane.jpg",
     desc: "ผ่านมาตรฐานสากลและการตรวจสอบคุณภาพทุกขั้นตอน",
@@ -143,6 +146,7 @@ export const plants: Plant[] = [
   /* ---------- มันสำปะหลัง ---------- */
   {
     id: "cassava",
+    updatedAt: "2026-03-12",
     name: "มันสำปะหลัง",
     image: "/image/Tree/1-55.jpg",
     desc: "นวัตกรรมการเกษตรช่วยเพิ่มผลผลิตและลดต้นทุน",
@@ -197,6 +201,7 @@ export const plants: Plant[] = [
   /* ---------- ข้าวโพดเลี้ยงสัตว์ ---------- */
   {
     id: "corn",
+    updatedAt: "2026-03-12",
     name: "ข้าวโพดเลี้ยงสัตว์",
     image: "/image/Tree/RP6.jpg",
     desc: "ให้คุณภาพสูง เหมาะสำหรับการเลี้ยงสัตว์ทุกชนิด",
@@ -252,6 +257,7 @@ export const plants: Plant[] = [
   /* ---------- ยางพารา ---------- */
   {
     id: "rubber",
+    updatedAt: "2026-03-12",
     name: "ยางพารา",
     image: "/image/Tree/ya1.jpg",
     desc: "ปลูกและดูแลโดยทีมงานมืออาชีพเพื่อผลผลิตสูง",
@@ -304,6 +310,7 @@ export const plants: Plant[] = [
   /* ---------- ปาล์มน้ำมัน ---------- */
   {
     id: "oilpalm",
+    updatedAt: "2026-03-12",
     name: "ปาล์มน้ำมัน",
     image: "/image/Tree/mo1.jpg",
     desc: "เน้นการจัดการสวนแบบยั่งยืนและได้ผลผลิตต่อเนื่อง",
@@ -359,6 +366,7 @@ export const plants: Plant[] = [
   /* ---------- ทุเรียน ---------- */
   {
     id: "durian",
+    updatedAt: "2026-03-12",
     name: "ทุเรียน",
     image: "/image/Tree/shutterstock.jpg",
     desc: "คัดเกรดผลผลิตคุณภาพ รสชาติหวานมันตามธรรมชาติ",
@@ -412,6 +420,7 @@ export const plants: Plant[] = [
   /* ---------- ลำไย ---------- */
   {
     id: "longan",
+    updatedAt: "2026-03-12",
     name: "ลำไย",
     image: "/image/Tree/rum1.jpg",
     desc: "ดูแลด้วยมาตรฐานสูง เพื่อผลผลิตที่สม่ำเสมอและใหญ่เต็มลูก",
@@ -464,6 +473,7 @@ export const plants: Plant[] = [
   /* ---------- กาแฟ ---------- */
   {
     id: "coffee",
+    updatedAt: "2026-03-12",
     name: "กาแฟ",
     image: "/image/Tree/coffee.jpg",
     desc: "ปลูกในสภาพแวดล้อมที่เหมาะสม ได้กลิ่นและรสชาติเป็นเอกลักษณ์",

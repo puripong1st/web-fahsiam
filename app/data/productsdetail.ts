@@ -18,11 +18,13 @@ export type Product = {
   category: string;
   benefits: string[];
   usages: ProductUsage[];
+  updatedAt: string;        // วันที่อัปเดตล่าสุด (YYYY-MM-DD) ใช้ใน sitemap
 };
 
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: "p1",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 12 - 3 - 5",
     price: 1290,
     oldPrice: 1590,
@@ -77,6 +79,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "p2",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 3 - 6 - 15",
     price: 1390,
     oldPrice: 1590,
@@ -118,6 +121,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "p3",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยเคมี 0 - 0 - 30",
     price: 1390,
     oldPrice: 1590,
@@ -150,6 +154,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "p4",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์ผง OM 25 %",
     price: 690,
     oldPrice: 790,
@@ -186,6 +191,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "p5",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เม็ด OM 20 %",
     price: 790,
     oldPrice: 890,
@@ -222,6 +228,7 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: "p6",
+    updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 6 - 3 - 3",
     price: 1090,
     oldPrice: 1390,
