@@ -6,10 +6,10 @@ import Image from "next/image";
 import { MOCK_PRODUCTS } from "../data/productsdetail";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+// ลบ Pagination ออกตามต้องการ
+import { Autoplay, Navigation } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 export default function Products() {
@@ -21,7 +21,7 @@ export default function Products() {
       </h2>
 
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Navigation]}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -29,12 +29,23 @@ export default function Products() {
         }}
         loop
         spaceBetween={20}
-        pagination={{ clickable: true }}
         navigation
         breakpoints={{
-          0: { slidesPerView: 1.2 },
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 4 },
+          // ตั้งค่าสำหรับมือถือ
+          0: { 
+            slidesPerView: 1.5,     // เปลี่ยนจาก 1.2 เป็น 1.5 เพื่อให้เห็นขอบซ้ายขวา
+            centeredSlides: true    // บังคับให้การ์ดที่ Active อยู่ตรงกลางเสมอ
+          },
+          // ตั้งค่าสำหรับ Tablet
+          640: { 
+            slidesPerView: 2,
+            centeredSlides: false   // จอใหญ่ไม่ต้องอยู่ตรงกลาง
+          },
+          // ตั้งค่าสำหรับ PC
+          1024: { 
+            slidesPerView: 4,
+            centeredSlides: false 
+          },
         }}
       >
         {MOCK_PRODUCTS.map((p) => (
