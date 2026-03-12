@@ -1,7 +1,7 @@
 // app/sitemap.ts
 import type { MetadataRoute } from "next";
 import { plants } from "./data/datafame";
-import { MOCK_PRODUCTS } from "./data/productsdetail";
+import { MOCK_PRODUCTS } from "../app/data/productsdetail";
 
 const BASE_URL = "https://web-fahsiam.vercel.app";
 
