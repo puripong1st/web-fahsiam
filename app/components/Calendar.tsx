@@ -100,10 +100,12 @@ export default function CalendarWidget() {
     <>
     <section className="py-16 bg-white" id="why">
       <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col xl:flex-row overflow-hidden">
+        
+        {/* ── แก้ไขตรงนี้: แยกเป็น 2 การ์ดอิสระ ไม่ดึงความสูงกันและกัน ── */}
+        <div className="flex flex-col xl:flex-row items-start gap-6 w-full">
 
-          {/* ══════ ซ้าย: ปฏิทิน ══════ */}
-          <div className="w-full xl:w-[38%] p-6 flex flex-col">
+          {/* ══════ ซ้าย: การ์ดปฏิทิน ══════ */}
+          <div className="w-full xl:w-[38%] bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col h-fit">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-6 gap-4">
               <div className="flex flex-col items-center md:items-start w-full md:w-auto">
                 <div className="flex items-center justify-center gap-3 mb-2 w-full">
@@ -136,7 +138,6 @@ export default function CalendarWidget() {
               </div>
             </div>
 
-            {/* Grid วัน (แก้ตรงนี้: ใส่ h-fit ให้ความสูงจบแค่วันสุดท้าย ไม่ยืดพื้นเทาลงไป) */}
             <div className="bg-gray-200 grid grid-cols-7 gap-px border border-gray-200 rounded-xl overflow-hidden h-fit">
               {DAYS_OF_WEEK.map((d, i) => (
                 <div key={d} className={`bg-gray-50 py-2 text-center text-sm font-semibold ${i === 0 ? "text-red-500" : "text-gray-600"}`}>
@@ -166,8 +167,8 @@ export default function CalendarWidget() {
             </div>
           </div>
 
-          {/* ══════ ขวา: ข้อมูลการเกษตร ══════ */}
-          <div className="w-full xl:w-[62%] bg-gray-50 p-6 border-t xl:border-t-0 xl:border-l border-gray-200 flex flex-col">
+          {/* ══════ ขวา: การ์ดข้อมูลการเกษตร ══════ */}
+          <div className="w-full xl:w-[62%] bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col h-fit">
             <h3 className="w-full text-lg font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200 flex items-center justify-center gap-2">
               🌿 แนะนำสำหรับเดือนนี้
             </h3>
@@ -280,7 +281,7 @@ export default function CalendarWidget() {
 
               </div>
 
-              {/* ── คอลัมน์ขวา: ตารางอัตราการใช้ปุ๋ย (แก้ตรงนี้: ใส่ h-fit ให้ความสูงจบพอดีขอบตาราง ไม่ยืดโหว่) ── */}
+              {/* ── คอลัมน์ขวา: ตารางอัตราการใช้ปุ๋ย ── */}
               <div className="w-full lg:w-[52%] flex flex-col h-fit">
                 {selectedCrop && usageData && usageData.length > 0 ? (
                   <div className="bg-white p-5 rounded-xl border border-blue-100 shadow-sm text-left flex flex-col h-fit">
