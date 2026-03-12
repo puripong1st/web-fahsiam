@@ -1,7 +1,7 @@
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import type { Metadata } from "next"; // เพิ่มบรรทัดนี้
+import type { Metadata, Viewport } from "next"; // เพิ่มบรรทัดนี้
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
@@ -34,6 +34,12 @@ const organizationJsonLd = {
   sameAs: [
     "https://www.facebook.com/share/p/1ArBAZtMvr/",
   ],
+};
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5, // อนุญาตให้ซูมได้ (ดีต่อ Accessibility/SEO)
+  themeColor: "#00687aff", // สีเขียวของแบรนด์ฟ้าสยาม (จะแสดงบนแถบเบราว์เซอร์มือถือ)
 };
 export default function RootLayout({
   children,
