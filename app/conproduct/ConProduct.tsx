@@ -33,21 +33,19 @@ export default function Products() {
 >
 
   <div className="relative mx-auto max-w-7xl px-4 text-center w-full mt-28 md:mt-44">
-    {/* 1. สินค้าแนะนำ - ปรับขนาดลงมาเป็น base/lg ให้ดูละมุนขึ้น */}
-    <p className="text-cyan-400 font-extrabold uppercase tracking-[0.15em] text-base md:text-lg drop-shadow-md">
-      สินค้าแนะนำ
-    </p>
-    
-    {/* 2. หัวข้อหลัก - ปรับจาก 7xl ลงมาเป็น 6xl เพื่อไม่ให้แน่นเกินไป */}
-    <h2 className="mt-3 text-4xl md:text-6xl font-black text-gray-900 drop-shadow-lg leading-tight">
-      ผลิตภัณฑ์ยอดนิยมของเรา
-    </h2>
-    
-    {/* 3. คำอธิบาย - ปรับจาก 2xl ลงมาเป็น lg/xl ให้ดูเป็นระเบียบ */}
-    <p className="mx-auto mt-5 max-w-2xl text-lg md:text-xl text-gray-800 font-medium drop-shadow-sm leading-relaxed">
-      คุณภาพคัดสรร เหมาะกับการเกษตรทุกรูปแบบ <br className="hidden md:block" /> 
-      พร้อมโปรโมชันพิเศษสำหรับคุณ
-    </p>
+  {/* ปรับขนาดข้อความสินค้าแนะนำที่นี่ */}
+  <p className="font-extrabold uppercase tracking-[0.2em] text-xl md:text-2xl lg:text-3xl drop-shadow-md">
+    สินค้าแนะนำ
+  </p>
+  
+  <h2 className="mt-4 text-4xl md:text-6xl font-black text-gray-900 drop-shadow-lg leading-tight">
+    ผลิตภัณฑ์ยอดนิยมของเรา
+  </h2>
+  
+  <p className="mx-auto mt-6 max-w-2xl text-lg md:text-xl text-gray-800 font-medium drop-shadow-sm leading-relaxed">
+    คุณภาพคัดสรร เหมาะกับการเกษตรทุกรูปแบบ <br className="hidden md:block" /> 
+    พร้อมโปรโมชันพิเศษสำหรับคุณ
+  </p>
 </div>
 </div>
 
