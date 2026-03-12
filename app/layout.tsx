@@ -27,6 +27,7 @@ export default function RootLayout({
       <body>
 
         <Navbar />
+        <meta name="google-site-verification" content="O3pc6KHLALRFMBuOyRKW-XdUb04EdGycLs4Iy--7d70" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
