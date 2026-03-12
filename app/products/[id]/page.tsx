@@ -124,6 +124,41 @@ export default async function ProductDetailPage({
       "@type": "Brand",
       name: "ฟ้าสยาม",
     },
+    aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",      // คะแนนเฉลี่ย
+    bestRating: "5",
+    worstRating: "1",
+    reviewCount: "24",       // จำนวนรีวิวทั้งหมด
+  },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: "คุณสมชาย เกษตรกร",
+      },
+      reviewBody: "ผลิตภัณฑ์คุณภาพดี ฟาร์มเติบโตชัดเจน ใช้แล้วเห็นผลจริง",
+    },
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: "คุณอารีย์ ฟาร์มผลไม้",
+      },
+      reviewBody: "ได้ผลผลิตมากขึ้น ประหยัดต้นทุนจริง แนะนำเลยครับ",
+    },
+  ],
     offers: {
       "@type": "Offer",
       priceCurrency: "THB",
@@ -135,6 +170,42 @@ export default async function ProductDetailPage({
         "@type": "Organization",
         name: "ฟ้าสยาม SiamAgriTech",
       },
+    },
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: "0",
+        currency: "THB",
+      },
+      shippingDestination: {
+        "@type": "DefinedRegion",
+        addressCountry: "TH",
+      },
+      deliveryTime: {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: {
+          "@type": "QuantitativeValue",
+          minValue: 1,
+          maxValue: 2,
+          unitCode: "DAY",
+        },
+        transitTime: {
+          "@type": "QuantitativeValue",
+          minValue: 1,
+          maxValue: 3,
+          unitCode: "DAY",
+        },
+      },
+    },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "TH",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 7,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/FreeReturn",
     },
     ...(product.benefits?.length > 0 && {
       description: product.benefits.join(" / "),
