@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
     description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app",
     siteName: "ฟ้าสยาม",
     images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ฟ้าสยาม" }],
     locale: "th_TH",

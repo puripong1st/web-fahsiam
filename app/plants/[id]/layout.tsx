@@ -8,7 +8,7 @@ export async function generateMetadata({
   const { id } = await params;
   const plant = plants.find((p) => p.id === id);
 
-  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
   const url = `${BASE_URL}/plants/${id}`;
 
   if (!plant) {

@@ -25,7 +25,7 @@ const Testimonials = dynamic(() => import("./components/Testimonials"), {
 const AdTracker = dynamic(() => import("./components/Cookie/AdTracker"));
 const CookieBanner = dynamic(() => import("./components/Cookie/CookieBanner"));
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

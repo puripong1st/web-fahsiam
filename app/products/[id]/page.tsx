@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
 /* ── ข้อมูล SEO แยกไว้ (ใช้ร่วมกันระหว่าง metadata กับ JSON-LD) ── */
 const products: Record<string, { name: string; description: string; price: number; image: string }> = {
