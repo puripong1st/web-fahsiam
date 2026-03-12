@@ -177,7 +177,7 @@ export default function CalendarWidget() {
                     {selectedCrop && thumbSlide ? (
                       <>
                         <div
-                          className="w-full aspect-square rounded-xl shadow-md border-2 border-green-200 mb-2 overflow-hidden relative group bg-white cursor-pointer"
+                          className="w-full aspect-square rounded-xl shadow-md border-2 border-blue-200 mb-2 overflow-hidden relative group bg-white cursor-pointer"
                           onClick={() => { setModalIdx(thumbIdx); setModalOpen(true); }}
                         >
                           <Image
@@ -196,7 +196,7 @@ export default function CalendarWidget() {
                             </span>
                           </div>
                         </div>
-                        <span className="text-sm font-bold text-[#007a33] text-center w-full px-1 line-clamp-2 leading-snug">
+                        <span className="text-sm font-bold text-[#026EB5] text-center w-full px-1 line-clamp-2 leading-snug">
                           {thumbSlide.product.productName}
                         </span>
                         <span className="text-xs text-gray-400 text-center line-clamp-1 px-1">
@@ -247,14 +247,14 @@ export default function CalendarWidget() {
               {/* ── คอลัมน์ขวา: ตารางอัตราการใช้ปุ๋ย ── */}
               <div className="w-full md:w-[55%] flex flex-col">
                 {selectedCrop && usageData && usageData.length > 0 ? (
-                  <div className="bg-white p-4 rounded-xl border border-green-100 shadow-sm text-left flex-1 flex flex-col">
-                    <h4 className="text-sm font-bold text-green-700 mb-3 border-b border-green-100 pb-2 flex items-center gap-2">
+                  <div className="bg-white p-4 rounded-xl border border-blue-100 shadow-sm text-left flex-1 flex flex-col">
+                    <h4 className="text-sm font-bold text-blue-700 mb-3 border-b border-blue-100 pb-2 flex items-center gap-2">
                       📊 อัตราการใช้ปุ๋ยตามระยะ
                     </h4>
                     <div className="space-y-3 overflow-y-auto pr-1 flex-1">
                       {usageData.map((d, idx) => (
                         <div key={idx} className="relative flex flex-col bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-400 rounded-l-xl" />
+                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-400 rounded-l-xl" />
                           <div className="flex flex-wrap items-center gap-2 mb-1 pl-2">
                             {d.badge && (
                               <span className="bg-orange-100 text-orange-700 border border-orange-200 px-2.5 py-0.5 rounded-md text-xs font-bold">
@@ -267,7 +267,7 @@ export default function CalendarWidget() {
                             <span className="text-gray-600">
                               สูตร: <span className="text-blue-600 font-bold">{d.formula}</span>
                             </span>
-                            <span className="bg-green-100 text-green-800 border border-green-200 px-2 py-1 rounded-md font-bold whitespace-nowrap shadow-sm">
+                            <span className="bg-blue-100 text-blue-800 border border-blue-200 px-2 py-1 rounded-md font-bold whitespace-nowrap shadow-sm">
                               {d.rate}
                             </span>
                           </div>
@@ -354,7 +354,7 @@ export default function CalendarWidget() {
                     key={i}
                     onClick={() => setModalIdx(i)}
                     className={`rounded-full transition-all duration-200 ${
-                      i === modalIdx ? "bg-[#007a33] w-5 h-2.5" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500"
+                      i === modalIdx ? "bg-[#026EB5] w-5 h-2.5" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500"
                     }`}
                   />
                 ))}
@@ -366,7 +366,7 @@ export default function CalendarWidget() {
           <div className="p-6">
             {/* ชื่อ + ราคา */}
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h2 className="text-xl font-bold text-[#007a33] leading-tight flex-1">
+              <h2 className="text-xl font-bold text-[#026EB5] leading-tight flex-1">
                 {modalSlide.product.productName}
               </h2>
               <div className="flex flex-col items-end gap-0.5">
@@ -420,7 +420,7 @@ export default function CalendarWidget() {
                     title={slide.product.productName}
                     className={`flex-shrink-0 w-14 h-14 rounded-lg border-2 overflow-hidden transition-all duration-200 ${
                       i === modalIdx
-                        ? "border-[#007a33] scale-110 shadow-md"
+                        ? "border-[#026EB5] scale-110 shadow-md"
                         : "border-gray-200 opacity-55 hover:opacity-90"
                     }`}
                   >
