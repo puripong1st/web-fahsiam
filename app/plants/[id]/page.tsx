@@ -26,7 +26,7 @@ export async function generateMetadata({
   const currentUrl = `${BASE_URL}/plants/${id}`;
 
   return {
-    title: `วิธีปลูก${plant.name} ให้ได้ผลผลิตสูง | ฟ้าสยาม`,
+    title: `วิธีปลูก${plant.name} ให้ได้ผลผลิตสูง `,
     description: plant.desc,
     // ✅ เพิ่ม Keywords เฉพาะเจาะจงสำหรับพืชแต่ละชนิด
     keywords: [`วิธีปลูก${plant.name}`, `ปุ๋ย${plant.name}`, "ฟ้าสยาม", "เกษตรอินทรีย์", "เพิ่มผลผลิต", "SiamAgriTech"],
@@ -34,7 +34,7 @@ export async function generateMetadata({
       canonical: currentUrl,
     },
     openGraph: {
-      title: `คู่มือการปลูก${plant.name} | ฟ้าสยาม`,
+      title: `คู่มือการปลูก${plant.name} `,
       description: plant.desc,
       url: currentUrl,
       type: "article",
@@ -49,7 +49,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `วิธีปลูก${plant.name} | ฟ้าสยาม`,
+      title: `วิธีปลูก${plant.name} `,
       description: plant.desc,
       images: [plant.image],
     },

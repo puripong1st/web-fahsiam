@@ -3,10 +3,10 @@ import Plants from "./Plants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "การดูแลพืชและแนะนำปุ๋ย | ฟ้าสยาม",
+  title: "การดูแลพืชและแนะนำปุ๋ย ",
   description: "คู่มือการดูแลพืชครบถ้วน ข้าว อ้อย มันสำปะหลัง ข้าวโพด ยางพารา ปาล์มน้ำมัน พร้อมแนะนำสูตรปุ๋ยที่เหมาะสมในแต่ละขั้นตอน",
   openGraph: {
-    title: "การดูแลพืชและแนะนำปุ๋ย | ฟ้าสยาม",
+    title: "การดูแลพืชและแนะนำปุ๋ย ",
     description: "คู่มือดูแลพืชครบถ้วน พร้อมแนะนำปุ๋ยที่เหมาะสมในแต่ละขั้นตอนการเจริญเติบโต",
     url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/plants`,
     siteName: "ฟ้าสยาม",

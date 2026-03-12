@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/contact`;
 
 export const metadata: Metadata = {
-  title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+  title: "ติดต่อเรา SiamAgriTech",
   description: "ช่องทางการติดต่อฟ้าสยาม สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือขอรับคำปรึกษาด้านการเกษตร",
   keywords: [
     "ติดต่อฟ้าสยาม",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: currentUrl, // ✅ เพิ่ม Canonical URL ที่ขาดไป
   },
   openGraph: {
-    title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+    title: "ติดต่อเรา SiamAgriTech",
     description: "ช่องทางการติดต่อฟ้าสยาม สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือขอรับคำปรึกษาด้านการเกษตร",
     url: currentUrl, // ✅ แก้ให้ชี้มาที่หน้า /contact แทนหน้าแรก
     siteName: "ฟ้าสยาม SiamAgriTech",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+    title: "ติดต่อเรา SiamAgriTech",
     description: "สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือปรึกษาปัญหาพืช",
     images: ["/background/background1.webp"],
   },
@@ -51,7 +51,7 @@ export default function ContactPage() {
   const contactPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+    "name": "ติดต่อเรา SiamAgriTech",
     "description": "ช่องทางการติดต่อฟ้าสยาม สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า",
     "url": currentUrl,
     "mainEntity": {

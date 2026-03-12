@@ -74,7 +74,7 @@ export async function generateMetadata({
     ],
     alternates: { canonical: url },
     openGraph: {
-      title: `${product.name} | ฟ้าสยาม`,
+      title: `${product.name} `,
       description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
       url,
       type: "website",
@@ -89,7 +89,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} | ฟ้าสยาม`,
+      title: `${product.name} `,
       description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
       images: [product.image],
     },

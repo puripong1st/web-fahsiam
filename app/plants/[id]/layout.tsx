@@ -19,13 +19,13 @@ export async function generateMetadata({
   }
 
   return {
-    title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย | ฟ้าสยาม`,
+    title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย `,
     description: `${plant.desc} — คู่มือการปลูก${plant.name}ครบ ${plant.howToGrow.length} ขั้นตอน พร้อมสูตรปุ๋ยแนะนำ: ${plant.fertilizer.slice(0, 3).join(", ")} โดยฟ้าสยาม`,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย | ฟ้าสยาม`,
+      title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย `,
       description: `${plant.desc} คู่มือครบ ${plant.howToGrow.length} ขั้นตอน พร้อมสูตรปุ๋ยที่เหมาะสม`,
       url,
       type: "website",
@@ -40,7 +40,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย | ฟ้าสยาม`,
+      title: `วิธีดูแล${plant.name} และแนะนำปุ๋ย `,
       description: `${plant.desc} คู่มือครบ ${plant.howToGrow.length} ขั้นตอน พร้อมสูตรปุ๋ยที่เหมาะสม`,
       images: [plant.image],
     },

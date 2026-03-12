@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 // ✅ เพิ่ม Metadata ตรงนี้
 export const metadata: Metadata = {
-  title: "404 ไม่พบหน้าเว็บ | ฟ้าสยาม",
+  title: "404 ไม่พบหน้าเว็บ ",
   description: "ขออภัย ไม่พบหน้าที่คุณต้องการ หรือหน้านี้ยังไม่ได้รับการพัฒนา",
 };
 
