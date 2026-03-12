@@ -4,13 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image'
+
 const hoverLink =
   "cursor-pointer sm:text-sm md:text-md lg:text-xl text-sky-600 hover:text-sky-700 transform transition duration-300 ease-out hover:-translate-y-0.5 truncate";
 
-// ปรับแก้ส่วน menuItems ให้เหลือเฉพาะที่จำเป็น
 const menuItems = [
   { label: "หน้าแรก", path: "/" },
-  { label: "เกี่ยวกับเรา", path: "/news" },
+  // { label: "เกี่ยวกับเรา", path: "/news" },
   { label: "ผลิตภัณฑ์", path: "/conproduct" },
   { label: "การดูแลพืช", path: "/plants" },
   { label: "ติดต่อเรา", path: "/contact" },
@@ -25,17 +25,10 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-50">
-      {/* ส่วน Topbar (Register/Login) */}
-      <div className="hidden md:flex justify-end gap-4 bg-black/70 text-white text-xl p-4">
-        <a className="cursor-pointer">ลงทะเบียน</a>
-        <a className="cursor-pointer">เข้าสู่ระบบ</a>
-        <a className="cursor-pointer">TH</a>
-      </div>
-
-      <div className="bg-white/90 border-b border-gray-200">
+      <div className="bg-white/90 border-b border-gray-200 backdrop-blur-sm">
         {/* Desktop Menu */}
-        <div className="hidden md:grid grid-cols-7 items-center p-5"> 
-          {/* ปรับ grid-cols จาก 9 เป็น 7 เพื่อให้สัดส่วนพอดีกับจำนวนเมนูที่ลดลง */}
+        {/* ปรับจาก p-4 เป็น py-2 px-4 เพื่อลดความหนาด้านบน-ล่าง */}
+        <div className="hidden md:grid grid-cols-5 items-center py-2 px-4"> 
           <div className="col-span-1 flex justify-center">
             <Link href="/">
               <Image
@@ -43,7 +36,8 @@ const Navbar = () => {
                 alt="logo"
                 width={96}
                 height={96}
-                className="fixed top-11 w-24 h-auto object-contain"
+                // ลดขนาดโลโก้ลงมาเป็น w-14 หรือ h-12 เพื่อไม่ให้มันไปดันแถบเมนูให้กว้างเกิน
+                className="w-14 h-auto object-contain" 
                 priority
               />
             </Link>
@@ -66,7 +60,8 @@ const Navbar = () => {
         </div>
         
         {/* Mobile Navbar */}
-        <div className="md:hidden px-4 py-3 flex items-center justify-between">
+        {/* สำหรับมือถือปรับ py-2.5 ให้ดูบางลงนิดหน่อยเช่นกัน */}
+        <div className="md:hidden px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
               <Image src="/favicon-32x32.png" alt="logo" width={32} height={32} className="w-8 h-8" priority />
