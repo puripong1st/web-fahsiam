@@ -97,7 +97,7 @@ export default function About() {
                 className="w-full h-full object-cover" 
               />
             </div>
-            <span className="hidden md:block absolute top-18 right-11 text-5xl drop-shadow-md">
+            <span className="hidden md:block absolute top-27 left-170 text-5xl drop-shadow-md">
               🌱
             </span>
 
