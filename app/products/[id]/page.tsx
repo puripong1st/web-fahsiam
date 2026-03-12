@@ -2,6 +2,10 @@ import { MOCK_PRODUCTS } from "../../data/productsdetail";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+
+const BASE_URL = "https://web-fahsiam.vercel.app";
+
+/* ── ข้อมูล SEO แยกไว้ (ใช้ร่วมกันระหว่าง metadata กับ JSON-LD) ── */
 const products: Record<string, { name: string; description: string; price: number; image: string }> = {
   p1: {
     name: "ปุ๋ยอินทรีย์เคมี 12-3-5",
@@ -40,6 +44,8 @@ const products: Record<string, { name: string; description: string; price: numbe
     image: "/image/Fertilizer/6.jpg",
   },
 };
+
+/* ── generateMetadata ─────────────────────────────────── */
 export async function generateMetadata({
   params,
 }: {
@@ -52,11 +58,10 @@ export async function generateMetadata({
     return { title: "ไม่พบสินค้า" };
   }
 
-  const BASE_URL = "https://web-fahsiam.vercel.app";
   const url = `${BASE_URL}/products/${id}`;
 
   return {
-    title: `${product.name} | ฟ้าสยาม`,
+    title: product.name,
     description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
     alternates: { canonical: url },
     openGraph: {
@@ -81,11 +86,12 @@ export async function generateMetadata({
     },
   };
 }
-// ใช้ p1 ตามชื่อโฟลเดอร์ของคุณ
-export default async function ProductDetailPage({ 
-  params 
-}: { 
-  params: Promise<{ id: string }> 
+
+/* ── Page ─────────────────────────────────────────────── */
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const product = MOCK_PRODUCTS.find((p) => p.id === id);
@@ -101,8 +107,48 @@ export default async function ProductDetailPage({
     );
   }
 
+  /* ── Structured Data (JSON-LD) ──────────────────────── */
+  const seoProduct = products[id];
+  const priceValidUntil = new Date(new Date().getFullYear() + 1, 11, 31)
+    .toISOString()
+    .split("T")[0];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: seoProduct?.description ?? product.name,
+    image: `${BASE_URL}${product.image}`,
+    url: `${BASE_URL}/products/${id}`,
+    brand: {
+      "@type": "Brand",
+      name: "ฟ้าสยาม",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "THB",
+      price: product.price,
+      priceValidUntil,
+      availability: "https://schema.org/InStock",
+      url: `${BASE_URL}/products/${id}`,
+      seller: {
+        "@type": "Organization",
+        name: "ฟ้าสยาม SiamAgriTech",
+      },
+    },
+    ...(product.benefits?.length > 0 && {
+      description: product.benefits.join(" / "),
+    }),
+  };
+
   return (
     <main className="min-h-screen bg-white">
+      {/* ── Structured Data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* ส่วนหัวสีเขียว (Banner) */}
       <div className="bg-[#007a33] text-white py-6 md:py-10 text-center">
         <h1 className="text-2xl md:text-4xl font-bold px-4">
@@ -114,7 +160,7 @@ export default async function ProductDetailPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* รูปภาพสินค้า */}
           <div className="rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
-          <Image
+            <Image
               src={product.image}
               alt={product.name}
               width={600}
@@ -155,19 +201,22 @@ export default async function ProductDetailPage({
             </div>
 
             {/* ปุ่มสั่งซื้อ Facebook */}
-            <a 
-                href="https://www.facebook.com/share/p/1ArBAZtMvr/?mibextid=wwXIf" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="mt-8 bg-[#1877F2] text-white font-bold py-3 px-8 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors w-full md:w-max shadow-lg cursor-pointer"
-                  >
-                  <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                  สั่งซื้อผ่าน Facebook
-                </a>
-            
-            <Link href="/conproduct" className="mt-6 text-gray-500 hover:text-emerald-600 text-sm font-medium transition-colors">
+            <a
+              href="https://www.facebook.com/share/p/1ArBAZtMvr/?mibextid=wwXIf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 bg-[#1877F2] text-white font-bold py-3 px-8 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors w-full md:w-max shadow-lg cursor-pointer"
+            >
+              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+              สั่งซื้อผ่าน Facebook
+            </a>
+
+            <Link
+              href="/conproduct"
+              className="mt-6 text-gray-500 hover:text-emerald-600 text-sm font-medium transition-colors"
+            >
               ← กลับไปเลือกสินค้าอื่น
             </Link>
           </div>
@@ -178,7 +227,7 @@ export default async function ProductDetailPage({
           <h3 className="text-2xl font-bold text-[#007a33] mb-8 border-b-2 border-emerald-200 pb-2 inline-block">
             วิธีใช้
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-12">
             {product.usages.map((usageGroup, index) => (
               <div key={index} className="space-y-3">
