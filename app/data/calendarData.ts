@@ -1,6 +1,4 @@
 // src/data/calendarData.ts
-// ไฟล์นี้เก็บข้อมูลทั้งหมดของ CalendarWidget
-// Calendar.tsx จะ import เฉพาะ types และ constants จากที่นี่
 
 import { MOCK_PRODUCTS } from "./productsdetail";
 
@@ -38,10 +36,11 @@ export type MonthlyPlant = {
   month: number;
   plant: string;
   plantImg: string;
+  reason: string; // เพิ่มฟิลด์เหตุผลที่ควรปลูก
 };
 
 // ═══════════════════════════════════════════════
-// 1. ข้อมูลสินค้าปุ๋ย — แปลงจาก MOCK_PRODUCTS
+// 1. ข้อมูลสินค้าปุ๋ย
 // ═══════════════════════════════════════════════
 
 export const FERTILIZER_PRODUCTS: ProductInfo[] = MOCK_PRODUCTS.map((p) => ({
@@ -53,7 +52,6 @@ export const FERTILIZER_PRODUCTS: ProductInfo[] = MOCK_PRODUCTS.map((p) => ({
   image: p.image,
 }));
 
-// shorthand ดึงด้วย id
 const fp = (id: string): ProductInfo =>
   FERTILIZER_PRODUCTS.find((p) => p.productId === id)!;
 
@@ -67,22 +65,22 @@ const P = {
 };
 
 // ═══════════════════════════════════════════════
-// 2. พืชในฤดูกาลแต่ละเดือน
+// 2. พืชในฤดูกาลแต่ละเดือน พร้อมเหตุผลที่ควรปลูก
 // ═══════════════════════════════════════════════
 
 export const MONTHLY_PLANTS: MonthlyPlant[] = [
-  { month: 0,  plant: "กะหล่ำปลี, ผักกาดขาว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jan+Plant" },
-  { month: 1,  plant: "แตงกวา, ถั่วฝักยาว",    plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Feb+Plant" },
-  { month: 2,  plant: "ผักบุ้ง, ผักกวางตุ้ง",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Mar+Plant" },
-  { month: 3,  plant: "บวบ, ฟักเขียว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Apr+Plant" },
-  { month: 4,  plant: "ข้าวโพด, ข้าว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=May+Plant" },
-  { month: 5,  plant: "พริก, มะเขือ",           plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jun+Plant" },
-  { month: 6,  plant: "ผักชี, ขึ้นฉ่าย",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jul+Plant" },
-  { month: 7,  plant: "คะน้า, กวางตุ้ง",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Aug+Plant" },
-  { month: 8,  plant: "แครอท, หัวไชเท้า",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Sep+Plant" },
-  { month: 9,  plant: "กระเทียม, หอมแดง",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Oct+Plant" },
-  { month: 10, plant: "บรอกโคลี, ผักกาดแก้ว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Nov+Plant" },
-  { month: 11, plant: "ผักกาดหอม, สลัด",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Dec+Plant" },
+  { month: 0,  plant: "กะหล่ำปลี, ผักกาดขาว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jan+Plant", reason: "อากาศเย็นและแห้ง เหมาะสำหรับการห่อหัวของกะหล่ำปลีและผักกาดขาว ทำให้ได้ผลผลิตที่กรอบอร่อยและลดปัญหาโรคพืช" },
+  { month: 1,  plant: "แตงกวา, ถั่วฝักยาว",    plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Feb+Plant", reason: "เริ่มเข้าสู่ฤดูร้อน พืชตระกูลเถาและถั่วสามารถทนสภาพอากาศที่เริ่มแห้งแล้งได้ดี และเจริญเติบโตไว" },
+  { month: 2,  plant: "ผักบุ้ง, ผักกวางตุ้ง",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Mar+Plant", reason: "ฤดูร้อนจัด ผักบุ้งและกวางตุ้งเป็นผักที่ทนความร้อนได้ดี ทนแล้ง ใช้น้ำน้อยและเก็บเกี่ยวได้รวดเร็ว" },
+  { month: 3,  plant: "บวบ, ฟักเขียว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Apr+Plant", reason: "พืชตระกูลแตงและบวบทนต่ออุณหภูมิสูง เถาของพืชจะช่วยคลุมดินกักเก็บความชื้นได้ดีในเดือนที่ร้อนที่สุด" },
+  { month: 4,  plant: "ข้าวโพด, ข้าว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=May+Plant", reason: "เข้าสู่ช่วงต้นฤดูฝน ดินเริ่มมีความชื้นสะสม เหมาะสมอย่างยิ่งกับการเริ่มต้นเพาะปลูกพืชไร่ที่ต้องการน้ำ" },
+  { month: 5,  plant: "พริก, มะเขือ",           plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jun+Plant", reason: "ฝนตกชุก พริกและมะเขือชอบความชื้นแต่ต้องระบายน้ำดี เจริญเติบโตได้ดีเยี่ยมในช่วงที่ได้รับน้ำฝนสม่ำเสมอ" },
+  { month: 6,  plant: "ผักชี, ขึ้นฉ่าย",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jul+Plant", reason: "ช่วงฝนตกต่อเนื่อง ผักรากตื้นอย่างผักชีและขึ้นฉ่ายจะเติบโตได้ดี (ควรทำหลังคากันฝนกระแทกเพื่อป้องกันใบช้ำ)" },
+  { month: 7,  plant: "คะน้า, กวางตุ้ง",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Aug+Plant", reason: "เป็นผักกินใบที่ทนฝน โตเร็ว แนะนำให้ยกแปลงสูงเพื่อป้องกันน้ำขัง จะได้ผลผลิตที่สวยงามในช่วงกลางฤดูฝน" },
+  { month: 8,  plant: "แครอท, หัวไชเท้า",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Sep+Plant", reason: "ปลายฝนต้นหนาว ดินมีความร่วนซุยสูง เหมาะสมกับพืชลงหัวที่ต้องการดินโปร่ง ไม่แฉะจนเกินไป" },
+  { month: 9,  plant: "กระเทียม, หอมแดง",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Oct+Plant", reason: "เข้าสู่ฤดูหนาว อากาศเริ่มเย็นลง กระเทียมและหอมแดงชอบสภาพอากาศที่เย็นและดินที่เริ่มแห้ง ช่วยให้หัวแน่น" },
+  { month: 10, plant: "บรอกโคลี, ผักกาดแก้ว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Nov+Plant", reason: "อากาศหนาวเย็น เหมาะกับการปลูกพืชผักเมืองหนาว ทำให้ได้ดอกและหัวที่ใหญ่ สมบูรณ์ และรสชาติหวานกรอบ" },
+  { month: 11, plant: "ผักกาดหอม, สลัด",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Dec+Plant", reason: "ช่วงที่อากาศเย็นจัด ผักตระกูลสลัดจะเจริญเติบโตได้ดีที่สุด ไม่มียาง ใบไม่ขม และมีความกรอบมากเป็นพิเศษ" },
 ];
 
 // ═══════════════════════════════════════════════
@@ -102,7 +100,7 @@ export const CROP_OPTIONS: string[] = [
 ];
 
 // ═══════════════════════════════════════════════
-// 4. Slides ปุ๋ยแยกตามพืช (ใช้ใน Slideshow + Modal)
+// 4. Slides ปุ๋ยแยกตามพืช
 // ═══════════════════════════════════════════════
 
 export const CROP_FERT_SLIDES: Record<string, FertSlide[]> = {
@@ -160,7 +158,6 @@ export const CROP_FERT_SLIDES: Record<string, FertSlide[]> = {
     { fertText: "บำรุงผลผลิต เพิ่มน้ำยาง (ผสม 1:1 กับ 3-6-15)", product: P["3-6-15"] },
   ],
 };
-
 
 // ═══════════════════════════════════════════════
 // 5. ปุ๋ยที่แนะนำประจำเดือน

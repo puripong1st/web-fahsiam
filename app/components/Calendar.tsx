@@ -12,7 +12,7 @@ import {
   CROP_FERTILIZER_DATA,
   CROP_USAGE_DETAILS,
   DAYS_OF_WEEK,
-} from "..//data/calendarData";
+} from "../data/calendarData";
 
 // ═══════════════════════════════════════════════
 // COMPONENT — UI only, ไม่มี data hardcode
@@ -22,9 +22,14 @@ export default function CalendarWidget() {
   const [currentTime, setCurrentTime]   = useState(new Date());
   const [viewDate, setViewDate]         = useState(new Date());
   const [selectedCrop, setSelectedCrop] = useState("");
+  
+  // State สำหรับ Modal ปุ๋ย
   const [thumbIdx, setThumbIdx]         = useState(0);
   const [modalOpen, setModalOpen]       = useState(false);
   const [modalIdx, setModalIdx]         = useState(0);
+
+  // State สำหรับ Modal พืชในฤดูกาล
+  const [plantModalOpen, setPlantModalOpen] = useState(false);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -45,7 +50,7 @@ export default function CalendarWidget() {
   const slides: FertSlide[] = selectedCrop ? (CROP_FERT_SLIDES[selectedCrop] ?? []) : [];
   const total = slides.length;
 
-  // auto-slide ทุก 3 วิ
+  // auto-slide ปุ๋ย ทุก 3 วิ
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (total <= 1) return;
@@ -55,9 +60,14 @@ export default function CalendarWidget() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [total, selectedCrop]);
 
-  // เลื่อน modal
-  const moveModal = (dir: 1 | -1) =>
+  // เลื่อน modal ปุ๋ย
+  const moveFertModal = (dir: 1 | -1) =>
     setModalIdx((p) => (p + dir + total) % total);
+
+  // เลื่อน modal พืชตามเดือน
+  const movePlantModal = (dir: 1 | -1) => {
+    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + dir, 1));
+  };
 
   if (!mounted) return null;
 
@@ -160,13 +170,21 @@ export default function CalendarWidget() {
 
                   {/* พืชในฤดูกาล */}
                   <div className="flex flex-col items-center">
-                    <div className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden bg-white">
+                    <div 
+                      className="w-full aspect-square rounded-xl shadow-md border border-gray-200 mb-2 overflow-hidden relative group bg-white cursor-pointer"
+                      onClick={() => setPlantModalOpen(true)}
+                    >
                       <Image
                         src={plantInfo.plantImg}
                         alt="พืชในฤดูกาล"
                         width={400} height={400}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex flex-col items-center justify-center gap-1">
+                        <span className="text-white text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md">
+                          🔍 ดูรายละเอียด
+                        </span>
+                      </div>
                     </div>
                     <span className="text-sm font-bold text-gray-700 text-center w-full truncate px-1">พืชในฤดูกาล</span>
                     <span className="text-xs text-gray-500 text-center">{plantInfo.plant}</span>
@@ -297,7 +315,79 @@ export default function CalendarWidget() {
     </section>
 
     {/* ══════════════════════════════════════════
-        MODAL — รายละเอียดปุ๋ย + เลื่อนดูทุกสูตร
+        MODAL 1 — รายละเอียดพืชในฤดูกาล (ซูมและเลื่อนเดือนได้)
+    ══════════════════════════════════════════ */}
+    {plantModalOpen && plantInfo && (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4"
+        onClick={() => setPlantModalOpen(false)}
+      >
+        <div
+          className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* ปุ่มปิด */}
+          <button
+            onClick={() => setPlantModalOpen(false)}
+            className="absolute top-3 right-3 z-30 bg-white/90 text-gray-400 hover:text-red-500 rounded-full p-1.5 shadow transition"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* รูปพืช + ลูกศรเลื่อนเดือน */}
+          <div className="relative w-full h-64 bg-green-50/50 select-none">
+            <Image
+              key={`plant-${viewMonth}`}
+              src={plantInfo.plantImg}
+              alt={plantInfo.plant}
+              fill
+              className="object-contain p-6"
+            />
+            
+            <button
+              onClick={() => movePlantModal(-1)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/35 hover:bg-black/65 text-white text-2xl flex items-center justify-center transition shadow-lg"
+            >‹</button>
+            <button
+              onClick={() => movePlantModal(1)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/35 hover:bg-black/65 text-white text-2xl flex items-center justify-center transition shadow-lg"
+            >›</button>
+
+            <span className="absolute top-3 left-3 z-20 bg-green-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+              เดือน {viewDate.toLocaleDateString("th-TH", { month: "long" })}
+            </span>
+          </div>
+
+          {/* รายละเอียดพืช */}
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-green-700 leading-tight mb-2">
+              {plantInfo.plant}
+            </h2>
+            
+            <div className="bg-green-50 border border-green-100 rounded-xl p-4 mt-4">
+              <h3 className="text-sm font-bold text-green-800 mb-1 flex items-center gap-1.5">
+                <span>💡</span> ทำไมควรปลูกเดือนนี้?
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {plantInfo.reason}
+              </p>
+            </div>
+            
+            <button
+              onClick={() => setPlantModalOpen(false)}
+              className="w-full mt-6 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 px-4 rounded-xl text-center text-sm transition"
+            >
+              ปิดหน้าต่าง
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* ══════════════════════════════════════════
+        MODAL 2 — รายละเอียดปุ๋ย + เลื่อนดูทุกสูตร
     ══════════════════════════════════════════ */}
     {modalOpen && modalSlide && (
       <div
@@ -331,11 +421,11 @@ export default function CalendarWidget() {
             {total > 1 && (
               <>
                 <button
-                  onClick={() => moveModal(-1)}
+                  onClick={() => moveFertModal(-1)}
                   className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/35 hover:bg-black/65 text-white text-2xl flex items-center justify-center transition shadow-lg"
                 >‹</button>
                 <button
-                  onClick={() => moveModal(1)}
+                  onClick={() => moveFertModal(1)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/35 hover:bg-black/65 text-white text-2xl flex items-center justify-center transition shadow-lg"
                 >›</button>
               </>
