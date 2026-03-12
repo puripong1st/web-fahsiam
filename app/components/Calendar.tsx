@@ -201,13 +201,13 @@ export default function CalendarWidget() {
                             🔍 ดูรายละเอียด
                           </span>
                         </div>
-                        {totalPlants > 1 && (
+                        {/* {totalPlants > 1 && (
                           <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
                             {plantInfo.plants.map((_, i) => (
                               <div key={`dot-${i}`} className={`w-2 h-2 rounded-full ${i === widgetPlantIdx ? "bg-white" : "bg-white/40"}`} />
                             ))}
                           </div>
-                        )}
+                        )} */}
                       </div>
                     )}
                     <div className="flex flex-col items-center justify-start min-h-[3.5rem] w-full">
