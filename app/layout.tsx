@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     template: "%s | ฟ้าสยาม", // ทำให้หน้าย่อยต่อท้ายด้วย | ฟ้าสยาม อัตโนมัติ
   },
   description: "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร",
+  verification: {
+    google: "O3pc6KHLALRFMBuOyRKW-XdUb04EdGycLs4Iy--7d70",
+  },
   openGraph: {
     type: "website",
     locale: "th_TH",
@@ -51,7 +54,6 @@ export default function RootLayout({
       <body>
 
         <Navbar />
-        <meta name="google-site-verification" content="O3pc6KHLALRFMBuOyRKW-XdUb04EdGycLs4Iy--7d70" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
