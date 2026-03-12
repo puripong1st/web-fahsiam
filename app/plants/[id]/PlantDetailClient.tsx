@@ -46,7 +46,7 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
   const currentPhase = plant.phaseGuides?.[activeStep];
 
   return (
-    <div className="min-h-screen bg-[#F0F7FF] py-8 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-white py-8 px-4 font-sans text-slate-800">
       
       <div className="max-w-5xl mx-auto mb-6">
         <button 
