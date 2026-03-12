@@ -154,7 +154,8 @@ export default function CalendarWidget() {
 
   return (
     <>
-      <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
+    <section className="py-16 bg-white" id="why">
+      <div className="max-w-[1400px] w-full mx-auto p-4 my-8 ">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col xl:flex-row overflow-hidden">
           
           {/* ================= ฝั่งซ้าย: ปฏิทิน ================= */}
@@ -418,6 +419,7 @@ export default function CalendarWidget() {
           </div>
         </div>
       )}
+      </section>
     </>
   );
 }
