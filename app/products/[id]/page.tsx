@@ -4,7 +4,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { FiAlertCircle, FiHome } from "react-icons/fi";
 
-
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
 /* ── ข้อมูล SEO แยกไว้ (ใช้ร่วมกันระหว่าง metadata กับ JSON-LD) ── */
@@ -65,6 +64,15 @@ export async function generateMetadata({
   return {
     title: product.name,
     description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
+    // ✅ เพิ่ม Keywords สำหรับสินค้าแต่ละชนิด
+    keywords: [
+      `ปุ๋ย${product.name}`,
+      "ปุ๋ยอินทรีย์",
+      "ปุ๋ยอินทรีย์เคมี",
+      "ฟ้าสยาม",
+      "ลดต้นทุนเพิ่มผลผลิต",
+      "SiamAgriTech",
+    ],
     alternates: { canonical: url },
     openGraph: {
       title: `${product.name} | ฟ้าสยาม`,
@@ -101,41 +109,43 @@ export default async function ProductDetailPage({
   if (!product) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gradient-to-b from-white to-sky-50">
-                  <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-sky-100 max-w-md w-full flex flex-col items-center transition-all hover:shadow-md">
-                    
-                    {/* ไอคอนแจ้งเตือน */}
-                    <div className="w-20 h-20 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-inner">
-                      <FiAlertCircle />
-                    </div>
-                    
-                    <h1 className="text-4xl font-black text-gray-900 mb-2 tracking-tight">404</h1>
-                    <h2 className="text-xl font-bold text-sky-700 mb-4">ไม่พบผลิตภัณฑ์ที่คุณต้องการ</h2>
-                    
-                    <p className="text-gray-500 mb-8 text-sm leading-relaxed">
-                      ขออภัย ในส่วนนี้ยังไม่ได้รับการพัฒนา <br /> 
-                      หรือ URL ที่คุณเข้าถึงอาจไม่ถูกต้อง
-                    </p>
-                    
-                    {/* ปุ่มกลับหน้าหลัก */}
-                    <Link
-                      href="/conproduct"
-                      className="inline-flex items-center gap-2 px-8 py-3.5 bg-sky-600 text-white font-bold rounded-xl hover:bg-sky-700 hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-full justify-center"
-                    >
-                      <FiHome className="text-lg" /> กลับสู่หน้าผลิตภัณฑ์
-                    </Link>
-                    
-                  </div>
-                </div>
+        <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-sky-100 max-w-md w-full flex flex-col items-center transition-all hover:shadow-md">
+          {/* ไอคอนแจ้งเตือน */}
+          <div className="w-20 h-20 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-inner">
+            <FiAlertCircle />
+          </div>
+
+          <h1 className="text-4xl font-black text-gray-900 mb-2 tracking-tight">
+            404
+          </h1>
+          <h2 className="text-xl font-bold text-sky-700 mb-4">
+            ไม่พบผลิตภัณฑ์ที่คุณต้องการ
+          </h2>
+
+          <p className="text-gray-500 mb-8 text-sm leading-relaxed">
+            ขออภัย ในส่วนนี้ยังไม่ได้รับการพัฒนา <br />
+            หรือ URL ที่คุณเข้าถึงอาจไม่ถูกต้อง
+          </p>
+
+          {/* ปุ่มกลับหน้าหลัก */}
+          <Link
+            href="/conproduct"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-sky-600 text-white font-bold rounded-xl hover:bg-sky-700 hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-full justify-center"
+          >
+            <FiHome className="text-lg" /> กลับสู่หน้าผลิตภัณฑ์
+          </Link>
+        </div>
+      </div>
     );
   }
 
-  /* ── Structured Data (JSON-LD) ──────────────────────── */
+  /* ── 1. Structured Data (JSON-LD) สำหรับ Product ──────────────────────── */
   const seoProduct = products[id];
   const priceValidUntil = new Date(new Date().getFullYear() + 1, 11, 31)
     .toISOString()
     .split("T")[0];
 
-  const jsonLd = {
+  const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
@@ -146,41 +156,31 @@ export default async function ProductDetailPage({
       "@type": "Brand",
       name: "ฟ้าสยาม",
     },
+    // ⚠️ ซ่อนส่วน Review ไว้ก่อนเพื่อป้องกัน Google Penalty จากการทำ Hardcode
+    /*
     aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",      // คะแนนเฉลี่ย
-    bestRating: "5",
-    worstRating: "1",
-    reviewCount: "24",       // จำนวนรีวิวทั้งหมด
-  },
-  review: [
-    {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-      },
-      author: {
-        "@type": "Person",
-        name: "คุณสมชาย เกษตรกร",
-      },
-      reviewBody: "ผลิตภัณฑ์คุณภาพดี ฟาร์มเติบโตชัดเจน ใช้แล้วเห็นผลจริง",
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      bestRating: "5",
+      worstRating: "1",
+      reviewCount: "24",
     },
-    {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "คุณสมชาย เกษตรกร",
+        },
+        reviewBody: "ผลิตภัณฑ์คุณภาพดี ฟาร์มเติบโตชัดเจน ใช้แล้วเห็นผลจริง",
       },
-      author: {
-        "@type": "Person",
-        name: "คุณอารีย์ ฟาร์มผลไม้",
-      },
-      reviewBody: "ได้ผลผลิตมากขึ้น ประหยัดต้นทุนจริง แนะนำเลยครับ",
-    },
-  ],
+    ],
+    */
     offers: {
       "@type": "Offer",
       priceCurrency: "THB",
@@ -223,8 +223,7 @@ export default async function ProductDetailPage({
     hasMerchantReturnPolicy: {
       "@type": "MerchantReturnPolicy",
       applicableCountry: "TH",
-      returnPolicyCategory:
-        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
       merchantReturnDays: 7,
       returnMethod: "https://schema.org/ReturnByMail",
       returnFees: "https://schema.org/FreeReturn",
@@ -234,12 +233,42 @@ export default async function ProductDetailPage({
     }),
   };
 
+  /* ── 2. Structured Data (JSON-LD) สำหรับ Breadcrumb ───────────────────── */
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "หน้าแรก",
+        item: BASE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "ผลิตภัณฑ์",
+        item: `${BASE_URL}/conproduct`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `${BASE_URL}/products/${id}`,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-white">
-      {/* ── Structured Data ── */}
+      {/* ── ฝัง Schema ── */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* ส่วนหัวสีเขียว (Banner) */}
@@ -282,7 +311,9 @@ export default async function ProductDetailPage({
 
             {/* ดึงข้อมูล "ประโยชน์" มาแสดงแบบอัตโนมัติ */}
             <div className="mt-8">
-              <h3 className="text-xl font-bold text-[#007a33] mb-4">ประโยชน์</h3>
+              <h3 className="text-xl font-bold text-[#007a33] mb-4">
+                ประโยชน์
+              </h3>
               <ul className="space-y-2 text-gray-700">
                 {product.benefits.map((benefit, index) => (
                   <li key={index} className="flex items-start gap-2">

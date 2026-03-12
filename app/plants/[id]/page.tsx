@@ -5,6 +5,8 @@ import PlantDetailClient from "./PlantDetailClient";
 import { FiAlertCircle, FiHome } from "react-icons/fi";
 import Link from "next/link";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
+
 export function generateStaticParams() {
   return plants.map((plant) => ({
     id: plant.id,
@@ -23,12 +25,13 @@ export async function generateMetadata({
     return { title: "ไม่พบข้อมูลพืช" };
   }
 
-  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
   const currentUrl = `${BASE_URL}/plants/${id}`;
 
   return {
     title: `วิธีปลูก${plant.name} ให้ได้ผลผลิตสูง | ฟ้าสยาม`,
     description: plant.desc,
+    // ✅ เพิ่ม Keywords เฉพาะเจาะจงสำหรับพืชแต่ละชนิด
+    keywords: [`วิธีปลูก${plant.name}`, `ปุ๋ย${plant.name}`, "ฟ้าสยาม", "เกษตรอินทรีย์", "เพิ่มผลผลิต", "SiamAgriTech"],
     alternates: {
       canonical: currentUrl,
     },
@@ -64,7 +67,6 @@ export default async function PlantDetailPage({
   const plant = plants.find((p) => p.id === id);
 
   // ✅ ถ้าหาพืชไม่เจอ ให้ return UI แจ้งเตือนออกไปเลย
-  // ตรงนี้ช่วยให้ TypeScript รู้ว่าถ้าโค้ดผ่านจุดนี้ไปได้ plant จะไม่ใช่ undefined แน่นอน
   if (!plant) {
     return (
        <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gradient-to-b from-white to-sky-50">
@@ -96,6 +98,71 @@ export default async function PlantDetailPage({
     );
   }
 
-  // เส้นแดงจะหายไป เพราะส่งไปแค่ข้อมูลที่ถูกต้องเท่านั้น
-  return <PlantDetailClient plant={plant} />;
+  // ── 1. Structured Data (JSON-LD) สำหรับ Article ────────────────────────
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `วิธีปลูก${plant.name} ให้ได้ผลผลิตสูง`,
+    description: plant.desc,
+    image: `${BASE_URL}${plant.image}`,
+    author: {
+      "@type": "Organization",
+      name: "ฟ้าสยาม SiamAgriTech",
+      url: BASE_URL
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ฟ้าสยาม SiamAgriTech",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon-32x32.png`
+      }
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/plants/${id}`
+    }
+  };
+
+  // ── 2. Structured Data (JSON-LD) สำหรับ Breadcrumb ─────────────────────
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "หน้าแรก",
+        "item": BASE_URL
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "พืชเศรษฐกิจ",
+        "item": `${BASE_URL}/plants`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": plant.name,
+        "item": `${BASE_URL}/plants/${id}`
+      }
+    ]
+  };
+
+  return (
+    <>
+      {/* ฝัง Schema สำหรับ SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      
+      <PlantDetailClient plant={plant} />
+    </>
+  );
 }
