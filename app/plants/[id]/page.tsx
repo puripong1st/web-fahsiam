@@ -1,11 +1,14 @@
 "use client";
 import { useState, useMemo } from "react";
-import { useParams } from "next/navigation";
-import { plants } from "../../data/datafame";
-import Image from "next/image";
+// 1. เพิ่ม useRouter เข้ามา
+import { useParams, useRouter } from "next/navigation";
+import { plants } from "../../data/datafame"; 
 
 export default function PlantDetailPage() {
   const params = useParams();
+  // 2. เรียกใช้งาน router
+  const router = useRouter();
+  
   const id = params?.id || "durian"; 
   const plant = plants.find((p) => p.id === id); 
 
@@ -48,15 +51,24 @@ export default function PlantDetailPage() {
   const currentPhase = plant.phaseGuides?.[activeStep];
 
   return (
-    <div className="min-h-screen bg-[#F0F7FF] py-10 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#F0F7FF] py-8 px-4 font-sans text-slate-800">
+      
+      {/* 3. เพิ่มปุ่มย้อนกลับตรงนี้ (อยู่เหนือ Grid หลัก) */}
+      <div className="max-w-5xl mx-auto mb-6">
+        <button 
+          onClick={() => router.back()} 
+          className="flex items-center gap-2 text-slate-500 hover:text-[#0070BB] font-bold text-sm bg-white px-5 py-2.5 rounded-full shadow-sm border border-slate-200 hover:border-blue-200 transition-all duration-300 hover:-translate-x-1"
+        >
+          <span className="text-lg leading-none">←</span> ย้อนกลับ
+        </button>
+      </div>
+
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* ฝั่งซ้าย: ข้อมูลสรุป (โทนสีฟ้า) */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div className="bg-white rounded-[2rem] border border-blue-100 p-4 shadow-sm">
-            <div className="relative w-full aspect-[4/3] rounded-[1.5rem] mb-5 shadow-inner overflow-hidden">
-              <Image src={plant.image} alt={plant.name} fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover" priority />
-            </div>
+            <img src={plant.image} alt={plant.name} className="w-full aspect-[4/3] object-cover rounded-[1.5rem] mb-5 shadow-inner" />
             <div className="px-2 mb-6">
               <h1 className="text-4xl font-black text-[#0070BB] mb-2 drop-shadow-sm">{plant.name}</h1>
               <p className="text-sm text-slate-500 leading-relaxed">{plant.desc}</p>
@@ -67,7 +79,6 @@ export default function PlantDetailPage() {
                 <div className="text-3xl mt-1">☀️</div>
                 <div>
                   <h3 className="font-extrabold text-slate-800 text-lg leading-tight mb-1">แสงแดด</h3>
-                  {/* เปลี่ยนจากข้อความตายตัวเป็นดึงข้อมูลจาก plant.sunlight */}
                   <p className="text-sm text-slate-600 leading-relaxed">{plant.sunlight}</p>
                 </div>
               </div>
@@ -76,7 +87,6 @@ export default function PlantDetailPage() {
                 <div className="text-3xl mt-1">💧</div>
                 <div>
                   <h3 className="font-extrabold text-slate-800 text-lg leading-tight mb-1">การรดน้ำ</h3>
-                  {/* เปลี่ยนจากข้อความตายตัวเป็นดึงข้อมูลจาก plant.watering */}
                   <p className="text-sm text-slate-600 leading-relaxed">{plant.watering}</p>
                 </div>
               </div>
@@ -113,12 +123,7 @@ export default function PlantDetailPage() {
                 return (
                   <div 
                     key={idx} 
-                    onClick={() => {
-                      if (!isLocked) {
-                        handleCheck(idx);   // ✅ คลิกทั้งกล่อง = toggle checkbox
-                        setActiveStep(idx);
-                      }
-                    }}
+                    onClick={() => !isLocked && setActiveStep(idx)}
                     className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 ${
                       isActive 
                         ? "border-[#0070BB] bg-blue-50 shadow-md scale-[1.01]" 
@@ -132,7 +137,7 @@ export default function PlantDetailPage() {
                       checked={isChecked}
                       disabled={isLocked}
                       onChange={() => handleCheck(idx)}
-                      onClick={(e) => e.stopPropagation()}  // ✅ กัน trigger ซ้ำจาก div
+                      onClick={(e) => e.stopPropagation()} 
                       className={`w-5 h-5 rounded border-blue-300 text-[#0070BB] focus:ring-[#0070BB] transition-all ${
                         isLocked ? "cursor-not-allowed bg-slate-100" : "cursor-pointer"
                       }`}
