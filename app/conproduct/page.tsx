@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/conproduct`;
 
 export const metadata: Metadata = {
-  title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม", // ลบช่องว่างส่วนเกิน
+  title: "ผลิตภัณฑ์ปุ๋ย | ฟ้าสยาม", // ลบช่องว่างส่วนเกิน
   description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
   keywords: [
     "ปุ๋ยฟ้าสยาม",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: currentUrl,
   },
   openGraph: {
-    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม",
+    title: "ผลิตภัณฑ์ปุ๋ย | ฟ้าสยาม",
     description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
     url: currentUrl,
     siteName: "ฟ้าสยาม SiamAgriTech",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ฟ้าสยาม",
+    title: "ผลิตภัณฑ์ปุ๋ย | ฟ้าสยาม",
     description: "ปุ๋ยฟ้าสยาม เพิ่มผลผลิต ลดต้นทุน",
     images: ["/background/background1.webp"],
   },
