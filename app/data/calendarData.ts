@@ -32,11 +32,16 @@ export type UsageDetail = {
   rate: string;
 };
 
+// --- ปรับปรุง Type ของพืช ---
+export type PlantDetail = {
+  name: string;
+  image: string;
+  reason: string;
+};
+
 export type MonthlyPlant = {
   month: number;
-  plant: string;
-  plantImg: string;
-  reason: string; // เพิ่มฟิลด์เหตุผลที่ควรปลูก
+  plants: PlantDetail[];
 };
 
 // ═══════════════════════════════════════════════
@@ -69,18 +74,90 @@ const P = {
 // ═══════════════════════════════════════════════
 
 export const MONTHLY_PLANTS: MonthlyPlant[] = [
-  { month: 0,  plant: "กะหล่ำปลี, ผักกาดขาว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jan+Plant", reason: "อากาศเย็นและแห้ง เหมาะสำหรับการห่อหัวของกะหล่ำปลีและผักกาดขาว ทำให้ได้ผลผลิตที่กรอบอร่อยและลดปัญหาโรคพืช" },
-  { month: 1,  plant: "แตงกวา, ถั่วฝักยาว",    plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Feb+Plant", reason: "เริ่มเข้าสู่ฤดูร้อน พืชตระกูลเถาและถั่วสามารถทนสภาพอากาศที่เริ่มแห้งแล้งได้ดี และเจริญเติบโตไว" },
-  { month: 2,  plant: "ผักบุ้ง, ผักกวางตุ้ง",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Mar+Plant", reason: "ฤดูร้อนจัด ผักบุ้งและกวางตุ้งเป็นผักที่ทนความร้อนได้ดี ทนแล้ง ใช้น้ำน้อยและเก็บเกี่ยวได้รวดเร็ว" },
-  { month: 3,  plant: "บวบ, ฟักเขียว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Apr+Plant", reason: "พืชตระกูลแตงและบวบทนต่ออุณหภูมิสูง เถาของพืชจะช่วยคลุมดินกักเก็บความชื้นได้ดีในเดือนที่ร้อนที่สุด" },
-  { month: 4,  plant: "ข้าวโพด, ข้าว",          plantImg: "https://placehold.co/400x400/dcfce7/166534?text=May+Plant", reason: "เข้าสู่ช่วงต้นฤดูฝน ดินเริ่มมีความชื้นสะสม เหมาะสมอย่างยิ่งกับการเริ่มต้นเพาะปลูกพืชไร่ที่ต้องการน้ำ" },
-  { month: 5,  plant: "พริก, มะเขือ",           plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jun+Plant", reason: "ฝนตกชุก พริกและมะเขือชอบความชื้นแต่ต้องระบายน้ำดี เจริญเติบโตได้ดีเยี่ยมในช่วงที่ได้รับน้ำฝนสม่ำเสมอ" },
-  { month: 6,  plant: "ผักชี, ขึ้นฉ่าย",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Jul+Plant", reason: "ช่วงฝนตกต่อเนื่อง ผักรากตื้นอย่างผักชีและขึ้นฉ่ายจะเติบโตได้ดี (ควรทำหลังคากันฝนกระแทกเพื่อป้องกันใบช้ำ)" },
-  { month: 7,  plant: "คะน้า, กวางตุ้ง",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Aug+Plant", reason: "เป็นผักกินใบที่ทนฝน โตเร็ว แนะนำให้ยกแปลงสูงเพื่อป้องกันน้ำขัง จะได้ผลผลิตที่สวยงามในช่วงกลางฤดูฝน" },
-  { month: 8,  plant: "แครอท, หัวไชเท้า",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Sep+Plant", reason: "ปลายฝนต้นหนาว ดินมีความร่วนซุยสูง เหมาะสมกับพืชลงหัวที่ต้องการดินโปร่ง ไม่แฉะจนเกินไป" },
-  { month: 9,  plant: "กระเทียม, หอมแดง",      plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Oct+Plant", reason: "เข้าสู่ฤดูหนาว อากาศเริ่มเย็นลง กระเทียมและหอมแดงชอบสภาพอากาศที่เย็นและดินที่เริ่มแห้ง ช่วยให้หัวแน่น" },
-  { month: 10, plant: "บรอกโคลี, ผักกาดแก้ว",  plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Nov+Plant", reason: "อากาศหนาวเย็น เหมาะกับการปลูกพืชผักเมืองหนาว ทำให้ได้ดอกและหัวที่ใหญ่ สมบูรณ์ และรสชาติหวานกรอบ" },
-  { month: 11, plant: "ผักกาดหอม, สลัด",       plantImg: "https://placehold.co/400x400/dcfce7/166534?text=Dec+Plant", reason: "ช่วงที่อากาศเย็นจัด ผักตระกูลสลัดจะเจริญเติบโตได้ดีที่สุด ไม่มียาง ใบไม่ขม และมีความกรอบมากเป็นพิเศษ" },
+  {
+    month: 0,
+    plants: [
+      { name: "กะหล่ำปลี", image: "https://placehold.co/400x400/dcfce7/166534?text=Cabbage", reason: "อากาศเย็นและแห้ง เหมาะสำหรับการห่อหัวของกะหล่ำปลี ทำให้ได้ผลผลิตที่กรอบอร่อย" },
+      { name: "ผักกาดขาว", image: "https://placehold.co/400x400/dcfce7/166534?text=Chinese+Cabbage", reason: "ช่วงหน้าหนาวจะช่วยลดปัญหาโรคพืชและแมลง ทำให้เข้าหัวได้แน่นและสวยงาม" }
+    ]
+  },
+  {
+    month: 1,
+    plants: [
+      { name: "แตงกวา", image: "https://placehold.co/400x400/dcfce7/166534?text=Cucumber", reason: "เริ่มเข้าสู่ฤดูร้อน เป็นพืชตระกูลเถาที่ทนสภาพอากาศเริ่มแห้งแล้งได้ดี เจริญเติบโตไว" },
+      { name: "ถั่วฝักยาว", image: "https://placehold.co/400x400/dcfce7/166534?text=Yardlong+Bean", reason: "ชอบแสงแดดจัดและทนแล้งได้ดี ออกฝักดกในช่วงที่อากาศเริ่มร้อน" }
+    ]
+  },
+  {
+    month: 2,
+    plants: [
+      { name: "ผักบุ้ง", image: "https://placehold.co/400x400/dcfce7/166534?text=Morning+Glory", reason: "ฤดูร้อนจัด ผักบุ้งทนความร้อนได้ดีเยี่ยม โตไว สามารถเก็บเกี่ยวได้รวดเร็ว" },
+      { name: "ผักกวางตุ้ง", image: "https://placehold.co/400x400/dcfce7/166534?text=Choy+Sum", reason: "ทนแล้ง ใช้น้ำน้อย เจริญเติบโตได้ดีแม้ในสภาพอากาศที่มีอุณหภูมิสูง" }
+    ]
+  },
+  {
+    month: 3,
+    plants: [
+      { name: "บวบ", image: "https://placehold.co/400x400/dcfce7/166534?text=Luffa", reason: "ทนต่ออุณหภูมิสูงได้ดี เถาของบวบช่วยคลุมดินกักเก็บความชื้นในเดือนที่ร้อนที่สุด" },
+      { name: "ฟักเขียว", image: "https://placehold.co/400x400/dcfce7/166534?text=Winter+Melon", reason: "พืชตระกูลแตงที่ชอบอากาศร้อนจัด เก็บผลผลิตได้นานและทนทานต่อสภาพอากาศ" }
+    ]
+  },
+  {
+    month: 4,
+    plants: [
+      { name: "ข้าวโพด", image: "https://placehold.co/400x400/dcfce7/166534?text=Corn", reason: "เข้าสู่ช่วงต้นฤดูฝน ดินเริ่มมีความชื้นสะสม เหมาะสมกับการลงพืชไร่ที่ต้องการน้ำ" },
+      { name: "ข้าว", image: "https://placehold.co/400x400/dcfce7/166534?text=Rice", reason: "เริ่มเข้าสู่ฤดูทำนา น้ำฝนเริ่มตกลงมาช่วยให้ดินพร้อมสำหรับการไถหว่าน" }
+    ]
+  },
+  {
+    month: 5,
+    plants: [
+      { name: "พริก", image: "https://placehold.co/400x400/dcfce7/166534?text=Chili", reason: "ฝนตกชุก พริกชอบความชื้น เจริญเติบโตได้ดีเยี่ยมในช่วงที่ได้รับน้ำฝนสม่ำเสมอ" },
+      { name: "มะเขือ", image: "https://placehold.co/400x400/dcfce7/166534?text=Eggplant", reason: "ชอบน้ำแต่ต้องระบายน้ำดี ได้รับฝนต่อเนื่องจะทำให้ติดดอกและออกผลได้ดีมาก" }
+    ]
+  },
+  {
+    month: 6,
+    plants: [
+      { name: "ผักชี", image: "https://placehold.co/400x400/dcfce7/166534?text=Coriander", reason: "รากตื้น โตได้ดีเมื่อมีความชื้นสูง (ควรทำหลังคาตาข่ายเพื่อลดแรงกระแทกจากเม็ดฝน)" },
+      { name: "ขึ้นฉ่าย", image: "https://placehold.co/400x400/dcfce7/166534?text=Celery", reason: "เป็นผักที่ชอบความเย็นและความชื้นสูง ช่วงกลางฤดูฝนจะทำให้ลำต้นอวบน้ำและกรอบ" }
+    ]
+  },
+  {
+    month: 7,
+    plants: [
+      { name: "คะน้า", image: "https://placehold.co/400x400/dcfce7/166534?text=Chinese+Kale", reason: "เป็นผักกินใบที่ทนฝน โตเร็ว แนะนำให้ยกแปลงสูงป้องกันน้ำขังจะได้ผลผลิตสวยงาม" },
+      { name: "กวางตุ้ง", image: "https://placehold.co/400x400/dcfce7/166534?text=Bok+Choy", reason: "ทนฝนได้ดี ดูแลรักษาง่าย และสามารถเก็บเกี่ยวได้ไวในฤดูฝน" }
+    ]
+  },
+  {
+    month: 8,
+    plants: [
+      { name: "แครอท", image: "https://placehold.co/400x400/dcfce7/166534?text=Carrot", reason: "ปลายฝนต้นหนาว ดินมีความร่วนซุยสูง เหมาะสมกับพืชลงหัวที่ต้องการดินโปร่ง" },
+      { name: "หัวไชเท้า", image: "https://placehold.co/400x400/dcfce7/166534?text=Radish", reason: "อากาศเริ่มเย็นลงและดินไม่แฉะจนเกินไป ทำให้หัวไชเท้าลงหัวได้ขนาดใหญ่และไม่เน่า" }
+    ]
+  },
+  {
+    month: 9,
+    plants: [
+      { name: "กระเทียม", image: "https://placehold.co/400x400/dcfce7/166534?text=Garlic", reason: "เข้าสู่ฤดูหนาว กระเทียมชอบสภาพอากาศที่เย็นและดินที่เริ่มแห้ง ช่วยให้หัวแน่นและเก็บได้นาน" },
+      { name: "หอมแดง", image: "https://placehold.co/400x400/dcfce7/166534?text=Shallot", reason: "เติบโตได้ดีในอากาศเย็น ลดปัญหาเชื้อราในดินจากหน้าฝน ทำให้ได้ผลผลิตที่มีคุณภาพ" }
+    ]
+  },
+  {
+    month: 10,
+    plants: [
+      { name: "บรอกโคลี", image: "https://placehold.co/400x400/dcfce7/166534?text=Broccoli", reason: "อากาศหนาวเย็น เหมาะกับการปลูกผักเมืองหนาว ทำให้ได้ดอกที่ใหญ่และสมบูรณ์" },
+      { name: "ผักกาดแก้ว", image: "https://placehold.co/400x400/dcfce7/166534?text=Iceberg+Lettuce", reason: "อุณหภูมิที่ลดลงช่วยให้ผักกาดแก้วเข้าหัวได้กลมสวยงาม และมีรสชาติหวานกรอบ" }
+    ]
+  },
+  {
+    month: 11,
+    plants: [
+      { name: "ผักกาดหอม", image: "https://placehold.co/400x400/dcfce7/166534?text=Lettuce", reason: "ช่วงที่อากาศเย็นจัด จะเจริญเติบโตได้ดีที่สุด ไม่มียาง ใบไม่ขม และกรอบมาก" },
+      { name: "สลัด", image: "https://placehold.co/400x400/dcfce7/166534?text=Salad+Greens", reason: "พืชตระกูลสลัดทุกชนิดจะให้ผลผลิตสูง ใบสีสวยสดใส ทนทานโรคได้ดีในฤดูหนาว" }
+    ]
+  }
 ];
 
 // ═══════════════════════════════════════════════
