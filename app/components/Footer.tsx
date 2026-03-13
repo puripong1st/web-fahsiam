@@ -57,16 +57,16 @@ export default function Footer() {
           <h4 className="font-semibold text-lg mb-3">ลิงก์ด่วน</h4>
 
           <ul className="space-y-2 text-sm">
-            <li>
+            {/* <li>
               <Link href="/news">เกี่ยวกับเรา</Link>
-            </li>
+            </li> */}
 
             <li>
               <Link href="/conproduct">ผลิตภัณฑ์</Link>
             </li>
 
             <li>
-              <Link href="/plants">บทความ</Link>
+              <Link href="/plants">การดูแลพืช</Link>
             </li>
 
             <li>
@@ -86,10 +86,10 @@ export default function Footer() {
               <FiExternalLink />
             </li>
 
-            <li className="flex items-center gap-1">
+            {/* <li className="flex items-center gap-1">
               <Link href="/news">บทความข่าวสาร</Link>
               <FiExternalLink />
-            </li>
+            </li> */}
 
             <li>
               <a href="#">คำถามที่พบบ่อย</a>
