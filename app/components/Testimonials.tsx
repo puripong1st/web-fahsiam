@@ -56,7 +56,7 @@ export default function Testimonials() {
 
                     {/* ข้อความรีวิว */}
                     <p className="text-gray-600 italic leading-relaxed mb-6 relative z-10">
-                      "{t.text}"
+                      &ldquo;{t.text}&rdquo;
                     </p>
                   </div>
 
