@@ -34,7 +34,7 @@ export default function About() {
             <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 text-xs font-semibold">
               เกี่ยวกับเรา
             </span>
-            <h2 className="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+            <h2 className="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900 leading-relaxed">
               ปุ๋ยอินทรีย์พืชมาตรฐานโรงงาน{" "}
               <span className="text-emerald-600">ผ่านการรับรองจากกรมวิชาการเกษตร</span>
             </h2>

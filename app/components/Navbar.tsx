@@ -24,11 +24,11 @@ const Navbar = () => {
   const closeMobileMenu = () => setMobileOpen(false);
 
   return (
-    <div className="sticky top-0 z-50">
-      <div className="bg-white/90 border-b border-gray-200 backdrop-blur-sm">
+    <div className="sticky top-0 z-50 overflow-visible">
+      <div className="bg-white/90 border-b border-gray-200 backdrop-blur-sm overflow-visible">
         {/* Desktop Menu */}
         {/* ปรับจาก p-4 เป็น py-2 px-4 เพื่อลดความหนาด้านบน-ล่าง */}
-        <div className="hidden md:grid grid-cols-5 items-center py-2 px-4"> 
+        <div className="hidden md:grid grid-cols-5 items-center py-2 px-4 overflow-visible"> 
           <div className="col-span-1 flex justify-center">
             <Link href="/">
               <Image
@@ -36,8 +36,7 @@ const Navbar = () => {
                 alt="logo"
                 width={96}
                 height={96}
-                // ลดขนาดโลโก้ลงมาเป็น w-14 หรือ h-12 เพื่อไม่ให้มันไปดันแถบเมนูให้กว้างเกิน
-                className="w-14 h-auto object-contain" 
+                className="absolute top-15 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-auto object-contain relative -my-6" 
                 priority
               />
             </Link>
