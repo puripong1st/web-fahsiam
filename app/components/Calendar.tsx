@@ -300,14 +300,14 @@ export default function CalendarWidget() {
                             )}
                             <span className="text-[16px] xl:text-lg font-bold text-gray-800">{d.stage}</span>
                           </div>
-                          <div className="flex justify-between items-end mt-3 pl-3 text-[15px] xl:text-base gap-3">
+                          <div className="flex justify-between items-end mt-3 pl-3 text-[13px] xl:text-sm gap-3">
                             <span className="text-gray-600">
-                              สูตร: <span className="text-blue-600 font-bold">{d.formula}</span>
-                            </span>
-                            <span className="bg-blue-100 text-blue-800 border border-blue-200 px-3 py-1.5 rounded-md text-[13px] xl:text-sm font-bold whitespace-nowrap shadow-sm">
-                              {d.rate}
-                            </span>
-                          </div>
+                               สูตร: <span className="text-blue-600 font-bold">{d.formula}</span>
+                               </span>
+                            <span className="bg-blue-100 text-blue-800 border border-blue-200 px-3 py-1.5 rounded-md text-[11px] xl:text-xs font-bold whitespace-nowrap shadow-sm">
+                               {d.rate}
+                              </span>
+                            </div>
                         </div>
                       ))}
                     </div>
