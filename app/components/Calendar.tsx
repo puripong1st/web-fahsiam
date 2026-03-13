@@ -273,7 +273,7 @@ export default function CalendarWidget() {
                     className="w-full bg-blue-50 text-blue-800 text-[14px] xl:text-[16px] font-bold py-2.5 px-3 rounded-lg border-2 border-transparent hover:border-blue-200 focus:border-blue-500 focus:ring-0 outline-none cursor-pointer transition"
                   >
                     <option value="" disabled>-- กรุณาเลือกพืช --</option>
-                    {[...CROP_OPTIONS].sort((a, b) => a.localeCompare(b, "th")).map((c) => (
+                    {[...CROP_OPTIONS].map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
