@@ -38,7 +38,7 @@ export default function Contact() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {/* Row 1: Contact Info */}
           <InfoCard icon={<FiPhone />} title="โทรศัพท์" value="082-529-8388" href="tel:082-529-8388"/>
-          <InfoCard icon={<FiMail />} title="อีเมล" value="Smarttech.ioniq@gmail.com" href="mailto:Smarttech.ioniq@gmail.com" />
+          <InfoCard icon={<FiMail />} title="อีเมล" value="admin@smartagritech.co.th" href="mailto:admin@smartagritech.co.th" />
           <InfoCard icon={<FiClock />} title="เวลาทำการ" value="จ.–ศ. 08:30–17:30 น." />
 
           {/* Row 2: Social Media */}

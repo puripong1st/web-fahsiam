@@ -17,7 +17,8 @@ import {
 // COMPONENT — UI only
 // ═══════════════════════════════════════════════
 export default function CalendarWidget() {
-  const [currentTime, setCurrentTime]   = useState(new Date());
+  // ✅ currentTime เริ่มเป็น null → ป้องกัน hydration mismatch
+  const [currentTime, setCurrentTime]   = useState<Date | null>(null);
   const [viewDate, setViewDate]         = useState(new Date());
   const [selectedCrop, setSelectedCrop] = useState("");
 
@@ -31,23 +32,29 @@ export default function CalendarWidget() {
   const [plantModalOpen, setPlantModalOpen] = useState(false);
   const [modalPlantIdx, setModalPlantIdx]   = useState(0);
 
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timerRef      = useRef<ReturnType<typeof setInterval> | null>(null);
   const plantTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // นาฬิกา — setState ใน callback ของ setInterval ไม่ใช่ใน body ของ effect โดยตรง
+  // ✅ ไม่เรียก setState ตรงๆ ใน body ของ effect
+  // ใช้ setTimeout delay 0 สำหรับ set เวลาครั้งแรก (อยู่ใน callback ไม่ใช่ body)
+  // จากนั้น setInterval 1000ms อัปเดตต่อเนื่อง
   useEffect(() => {
-    const t = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(t);
+    const init = setTimeout(() => setCurrentTime(new Date()), 0);
+    const t    = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => {
+      clearTimeout(init);
+      clearInterval(t);
+    };
   }, []);
 
-  // handler เปลี่ยนพืช: reset index ทันทีใน event handler (ไม่ต้องใช้ effect)
+  // handler เปลี่ยนพืช
   const handleSelectCrop = (crop: string) => {
     setSelectedCrop(crop);
     setThumbIdx(0);
     setModalIdx(0);
   };
 
-  // handler เปลี่ยนเดือน: reset index ทันทีใน event handler (ไม่ต้องใช้ effect)
+  // handler เปลี่ยนเดือน
   const handleSetViewDate = (date: Date) => {
     setViewDate(date);
     setWidgetPlantIdx(0);
@@ -102,7 +109,6 @@ export default function CalendarWidget() {
     <section className="py-16 bg-white" id="why">
       <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
         
-        {/* ── แก้ไขตรงนี้: แยกเป็น 2 การ์ดอิสระ ไม่ดึงความสูงกันและกัน ── */}
         <div className="flex flex-col xl:flex-row items-start gap-6 w-full">
 
           {/* ══════ ซ้าย: การ์ดปฏิทิน ══════ */}
@@ -133,8 +139,11 @@ export default function CalendarWidget() {
                 <div className="text-3xl font-bold text-sky-800 mb-2 md:mr-2">
                   {viewDate.toLocaleDateString("th-TH", { year: "numeric" })}
                 </div>
+                {/* ✅ currentTime เป็น null ตอน SSR → แสดง "--:--:--" ป้องกัน hydration error */}
                 <div className="text-xl font-mono font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-lg">
-                  เวลา: {currentTime.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                  เวลา: {currentTime
+                    ? currentTime.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+                    : "--:--:--"}
                 </div>
               </div>
             </div>
@@ -150,10 +159,12 @@ export default function CalendarWidget() {
               ))}
               {Array.from({ length: daysInMonth }).map((_, i) => {
                 const day = i + 1;
-                const isToday =
-                  day === currentTime.getDate() &&
-                  viewMonth === currentTime.getMonth() &&
-                  viewYear === currentTime.getFullYear();
+                // ✅ currentTime เป็น null ตอน SSR → isToday false เสมอ ป้องกัน hydration error
+                const isToday = currentTime
+                  ? day === currentTime.getDate() &&
+                    viewMonth === currentTime.getMonth() &&
+                    viewYear === currentTime.getFullYear()
+                  : false;
                 return (
                   <div key={day} className={`p-2 min-h-[4rem] md:min-h-[5rem] hover:bg-sky-50 ${isToday ? "bg-sky-50" : "bg-white"}`}>
                     <div className={`w-7 h-7 mx-auto flex items-center justify-center rounded-full text-sm font-medium ${isToday ? "bg-sky-600 text-white shadow" : "text-gray-700"}`}>
@@ -202,13 +213,6 @@ export default function CalendarWidget() {
                             🔍 ดูรายละเอียด
                           </span>
                         </div>
-                        {/* {totalPlants > 1 && (
-                          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
-                            {plantInfo.plants.map((_, i) => (
-                              <div key={`dot-${i}`} className={`w-2 h-2 rounded-full ${i === widgetPlantIdx ? "bg-white" : "bg-white/40"}`} />
-                            ))}
-                          </div>
-                        )} */}
                       </div>
                     )}
                     <div className="flex flex-col items-center justify-start min-h-[3.5rem] w-full">

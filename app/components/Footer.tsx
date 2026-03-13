@@ -120,7 +120,7 @@ export default function Footer() {
 
             <li className="flex gap-2">
               <FiMail />
-              Smarttech.ioniq@gmail.com
+              admin@smartagritech.co.th
             </li>
 
           </ul>
