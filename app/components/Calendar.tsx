@@ -17,11 +17,10 @@ import {
 // COMPONENT — UI only
 // ═══════════════════════════════════════════════
 export default function CalendarWidget() {
-  const [mounted, setMounted]           = useState(false);
   const [currentTime, setCurrentTime]   = useState(new Date());
   const [viewDate, setViewDate]         = useState(new Date());
   const [selectedCrop, setSelectedCrop] = useState("");
-  
+
   // State สำหรับ Modal ปุ๋ย
   const [thumbIdx, setThumbIdx]         = useState(0);
   const [modalOpen, setModalOpen]       = useState(false);
@@ -35,20 +34,24 @@ export default function CalendarWidget() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const plantTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // นาฬิกา — setState ใน callback ของ setInterval ไม่ใช่ใน body ของ effect โดยตรง
   useEffect(() => {
-    setMounted(true);
     const t = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
+  // handler เปลี่ยนพืช: reset index ทันทีใน event handler (ไม่ต้องใช้ effect)
+  const handleSelectCrop = (crop: string) => {
+    setSelectedCrop(crop);
     setThumbIdx(0);
     setModalIdx(0);
-  }, [selectedCrop]);
+  };
 
-  useEffect(() => {
+  // handler เปลี่ยนเดือน: reset index ทันทีใน event handler (ไม่ต้องใช้ effect)
+  const handleSetViewDate = (date: Date) => {
+    setViewDate(date);
     setWidgetPlantIdx(0);
-  }, [viewDate]);
+  };
 
   const slides: FertSlide[] = selectedCrop ? (CROP_FERT_SLIDES[selectedCrop] ?? []) : [];
   const totalFert = slides.length;
@@ -91,8 +94,6 @@ export default function CalendarWidget() {
     setModalPlantIdx((p) => (p + dir + totalPlants) % totalPlants);
   };
 
-  if (!mounted) return null;
-
   const currentWidgetPlant = plantInfo?.plants[widgetPlantIdx];
   const activeModalPlant   = plantInfo?.plants[modalPlantIdx];
 
@@ -110,19 +111,19 @@ export default function CalendarWidget() {
               <div className="flex flex-col items-center md:items-start w-full md:w-auto">
                 <div className="flex items-center justify-center gap-3 mb-2 w-full">
                   <button
-                    onClick={() => setViewDate(new Date(viewYear, viewMonth - 1, 1))}
+                    onClick={() => handleSetViewDate(new Date(viewYear, viewMonth - 1, 1))}
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
                   >◀</button>
                   <h2 className="text-3xl font-bold text-sky-800 w-40 text-center">
                     {viewDate.toLocaleDateString("th-TH", { month: "long" })}
                   </h2>
                   <button
-                    onClick={() => setViewDate(new Date(viewYear, viewMonth + 1, 1))}
+                    onClick={() => handleSetViewDate(new Date(viewYear, viewMonth + 1, 1))}
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
                   >▶</button>
                 </div>
                 <button
-                  onClick={() => setViewDate(new Date())}
+                  onClick={() => handleSetViewDate(new Date())}
                   className="text-sm font-medium text-sky-600 hover:text-sky-800 hover:underline px-2 text-center md:text-left w-full md:w-auto"
                 >
                   กลับไปเดือนปัจจุบัน
@@ -269,11 +270,11 @@ export default function CalendarWidget() {
                   <h4 className="text-sm xl:text-base font-bold text-gray-500 mb-3 uppercase tracking-wide text-center">เลือกพืชของคุณ</h4>
                   <select
                     value={selectedCrop}
-                    onChange={(e) => setSelectedCrop(e.target.value)}
+                    onChange={(e) => handleSelectCrop(e.target.value)}
                     className="w-full bg-blue-50 text-blue-800 text-[14px] xl:text-[16px] font-bold py-2.5 px-3 rounded-lg border-2 border-transparent hover:border-blue-200 focus:border-blue-500 focus:ring-0 outline-none cursor-pointer transition"
                   >
                     <option value="" disabled>-- กรุณาเลือกพืช --</option>
-                    {CROP_OPTIONS.map((c) => (
+                    {[...CROP_OPTIONS].map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
