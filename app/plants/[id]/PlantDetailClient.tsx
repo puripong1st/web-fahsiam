@@ -2,8 +2,7 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-// ✅ 1. Import Link เข้ามาใช้งาน
-import Link from "next/link";
+import Link from "next/link"; // ✅ Import Link เข้ามาใช้งาน
 
 import type { Plant } from "../../data/datafame";
 
@@ -45,15 +44,14 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
 
   const currentPhase = plant.phaseGuides?.[activeStep];
 
-  // ✅ 2. สร้างฟังก์ชันเพื่อเช็คชื่อปุ๋ยแล้วส่งไปยัง Link สินค้าที่ถูกต้อง
-  // (คุณสามารถแก้ไขรหัส p1, p2, p3 ให้ตรงกับฐานข้อมูลสินค้าจริงๆ ของคุณได้เลย)
+  // ✅ แก้ไขรหัสสินค้าให้ตรงตามที่คุณกำหนด
   const getFertilizerLink = (name: string) => {
-    if (name.includes("OM 25%")) return "/products/p1";
-    if (name.includes("OM 20%")) return "/products/p2";
-    if (name.includes("6-3-3")) return "/products/p3";
-    if (name.includes("12-3-5")) return "/products/p4";
-    if (name.includes("3-6-15")) return "/products/p5";
-    if (name.includes("0-0-30")) return "/products/p6";
+    if (name.includes("12-3-5")) return "/products/p1";
+    if (name.includes("3-6-15")) return "/products/p2";
+    if (name.includes("0-0-30")) return "/products/p3";
+    if (name.includes("OM 25%")) return "/products/p4";
+    if (name.includes("OM 20%")) return "/products/p5";
+    if (name.includes("6-3-3")) return "/products/p6";
     return "/products"; // ถ้าหาไม่เจอให้กลับไปหน้าสินค้าทั้งหมด
   };
 
@@ -71,7 +69,6 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* คอลัมน์ซ้าย: ข้อมูลพืช */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div className="bg-white rounded-[2rem] border border-blue-100 p-4 shadow-sm">
             <div className="relative w-full aspect-[4/3] rounded-[1.5rem] mb-5 shadow-inner overflow-hidden">
@@ -99,7 +96,6 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
                 </div>
               </div>
 
-              {/* ✅ 3. แก้ไขส่วนแสดงผล "ปุ๋ยแนะนำสำหรับคุณ" โดยครอบแท็ก Link */}
               <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 mt-2">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="text-2xl">💎</div>
@@ -108,6 +104,7 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
                 <ul className="list-disc list-inside text-sm text-slate-700 space-y-1.5 ml-2 font-medium">
                   {plant.fertilizer.map((fert, idx) => (
                     <li key={idx} className="marker:text-blue-400">
+                      {/* ✅ ใช้ Link ครอบและเรียกฟังก์ชัน getFertilizerLink */}
                       <Link 
                         href={getFertilizerLink(fert)} 
                         className="hover:text-[#0070BB] hover:underline transition-colors"
@@ -122,7 +119,6 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
           </div>
         </div>
 
-        {/* คอลัมน์ขวา: คู่มือการปลูก (เหมือนเดิมทุกประการ) */}
         <div className="lg:col-span-8 flex flex-col gap-6">
           <div className="bg-white rounded-[2rem] border border-blue-100 p-8 shadow-sm flex-1">
             <div className="mb-8">
