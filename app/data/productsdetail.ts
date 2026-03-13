@@ -28,7 +28,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยอินทรีย์เคมี 12 - 3 - 5",
     price: 1290,
     oldPrice: 1590,
-    image: "/image/Fertilizer/1.jpg",
+    image: "/image/Fertilizer/1.webp",
     category: "ปุ๋ย",
     benefits: [
       "ช่วยบำรุงต้นและใบ",
@@ -84,7 +84,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยอินทรีย์เคมี 3 - 6 - 15",
     price: 1390,
     oldPrice: 1590,
-    image: "/image/Fertilizer/2.jpg",
+    image: "/image/Fertilizer/2.webp",
     category: "ปุ๋ย",
     benefits: [
       "ปรับปรุงดินด้วยอินทรียวัตถุ",
@@ -127,7 +127,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยเคมี 0 - 0 - 30",
     price: 1390,
     oldPrice: 1590,
-    image: "/image/Fertilizer/3.jpg",
+    image: "/image/Fertilizer/3.webp",
     category: "ปุ๋ย",
     benefits: [
       "เน้นสร้างคุณภาพผลผลิต (Maximum Potassium)",
@@ -160,7 +160,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยอินทรีย์ผง OM 25 %",
     price: 690,
     oldPrice: 790,
-    image: "/image/Fertilizer/4.jpg",
+    image: "/image/Fertilizer/4.webp",
     category: "ปุ๋ย",
     benefits: [
       "เพิ่มจุลินทรีย์ในดิน (Biological Boost)",
@@ -198,7 +198,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยอินทรีย์เม็ด OM 20 %",
     price: 790,
     oldPrice: 890,
-    image: "/image/Fertilizer/5.jpg",
+    image: "/image/Fertilizer/5.webp",
     category: "ปุ๋ย",
     benefits: [
       "ช่วยให้รากเดินดี",
@@ -236,7 +236,7 @@ export const MOCK_PRODUCTS: Product[] = [
     name: "ปุ๋ยอินทรีย์เคมี 6 - 3 - 3",
     price: 1090,
     oldPrice: 1390,
-    image: "/image/Fertilizer/6.jpg",
+    image: "/image/Fertilizer/6.webp",
     category: "ปุ๋ย",
     benefits: [
       "ช่วยบำรุงต้นและใบ",

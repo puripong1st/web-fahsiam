@@ -11,37 +11,37 @@ const products: Record<string, { name: string; description: string; price: numbe
     name: "ปุ๋ยอินทรีย์เคมี 12-3-5",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 12-3-5 เหมาะสำหรับพืชที่ต้องการไนโตรเจนสูง ช่วยส่งเสริมการเจริญเติบโตของลำต้นและใบ",
     price: 1290,
-    image: "/image/Fertilizer/1.jpg",
+    image: "/image/Fertilizer/1.webp",
   },
   p2: {
     name: "ปุ๋ยอินทรีย์เคมี 3-6-15",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 3-6-15 เหมาะสำหรับช่วงออกดอกและติดผล เพิ่มคุณภาพผลผลิต",
     price: 1390,
-    image: "/image/Fertilizer/2.jpg",
+    image: "/image/Fertilizer/2.webp",
   },
   p3: {
     name: "ปุ๋ยเคมี 0-0-30",
     description: "ปุ๋ยโพแทสเซียมสูง 0-0-30 ช่วยเพิ่มความหวาน สีผิว และความแข็งแรงของพืช",
     price: 1390,
-    image: "/image/Fertilizer/3.jpg",
+    image: "/image/Fertilizer/3.webp",
   },
   p4: {
     name: "ปุ๋ยอินทรีย์ผง OM 25%",
     description: "ปุ๋ยอินทรีย์ผงคุณภาพสูง OM 25% ปรับปรุงโครงสร้างดิน เพิ่มจุลินทรีย์ที่เป็นประโยชน์",
     price: 690,
-    image: "/image/Fertilizer/4.jpg",
+    image: "/image/Fertilizer/4.webp",
   },
   p5: {
     name: "ปุ๋ยอินทรีย์เม็ด OM 20%",
     description: "ปุ๋ยอินทรีย์เม็ด OM 20% ใช้งานง่าย ปลดปล่อยธาตุอาหารช้า เหมาะสำหรับไม้ผลและพืชไร่",
     price: 790,
-    image: "/image/Fertilizer/5.jpg",
+    image: "/image/Fertilizer/5.webp",
   },
   p6: {
     name: "ปุ๋ยอินทรีย์เคมี 6-3-3",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 6-3-3 สูตรรวม เหมาะสำหรับบำรุงพืชทั่วไปในระยะเจริญเติบโต",
     price: 1090,
-    image: "/image/Fertilizer/6.jpg",
+    image: "/image/Fertilizer/6.webp",
   },
 };
 

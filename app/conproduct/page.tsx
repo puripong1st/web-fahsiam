@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
     url: currentUrl,
     siteName: "ฟ้าสยาม SiamAgriTech",
-    images: [{ url: "/image/Fertilizer/1.jpg", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
+    images: [{ url: "/image/Fertilizer/1.webp", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
     locale: "th_TH",
     type: "website",
   },
