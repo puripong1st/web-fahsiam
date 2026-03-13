@@ -357,7 +357,7 @@ export const plants: Plant[] = [
   {
     id: "corn",
     updatedAt: "2026-03-12",
-    name: "ข้าวโพดเลี้ยงสัตว์",
+    name: "ข้าวโพด",
     image: "/image/Tree/RP6.jpg",
     desc: "ให้คุณภาพสูง เหมาะสำหรับการเลี้ยงสัตว์ทุกชนิด",
     sunlight: "ต้องการแสงแดดจัดเต็มวัน",
