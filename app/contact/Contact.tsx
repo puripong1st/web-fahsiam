@@ -48,7 +48,7 @@ export default function Contact() {
           <a href="https://www.facebook.com/share/19UpsyudBU/" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 h-[72px] rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-blue-400 hover:bg-blue-50 transition">
             <FaFacebook className="text-[#1877F2] text-3xl" /> <span className="text-lg font-medium text-gray-700">Facebook</span>
           </a>
-          <a href="https://www.tiktok.com/@fhasiam_rerun" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 h-[72px] rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-gray-400 hover:bg-gray-50 transition">
+          <a href="https://www.tiktok.com/@fahsiam0" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 h-[72px] rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-gray-400 hover:bg-gray-50 transition">
             <FaTiktok className="text-black text-3xl" /> <span className="text-lg font-medium text-gray-700">TikTok</span>
           </a>
         </div>
