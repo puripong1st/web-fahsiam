@@ -17,7 +17,8 @@ import {
 // COMPONENT — UI only
 // ═══════════════════════════════════════════════
 export default function CalendarWidget() {
-  const [currentTime, setCurrentTime]   = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const [viewDate, setViewDate]         = useState(new Date());
   const [selectedCrop, setSelectedCrop] = useState("");
 
@@ -36,8 +37,10 @@ export default function CalendarWidget() {
 
   // นาฬิกา — setState ใน callback ของ setInterval ไม่ใช่ใน body ของ effect โดยตรง
   useEffect(() => {
-    const t = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(t);
+  setIsMounted(true);
+  setCurrentTime(new Date());
+  const t = setInterval(() => setCurrentTime(new Date()), 1000);
+  return () => clearInterval(t);
   }, []);
 
   // handler เปลี่ยนพืช: reset index ทันทีใน event handler (ไม่ต้องใช้ effect)
@@ -134,7 +137,9 @@ export default function CalendarWidget() {
                   {viewDate.toLocaleDateString("th-TH", { year: "numeric" })}
                 </div>
                 <div className="text-xl font-mono font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-lg">
-                  เวลา: {currentTime.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                 เวลา: {isMounted && currentTime
+                  ? currentTime.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+                 : "--:--:--"}
                 </div>
               </div>
             </div>
@@ -150,10 +155,11 @@ export default function CalendarWidget() {
               ))}
               {Array.from({ length: daysInMonth }).map((_, i) => {
                 const day = i + 1;
-                const isToday =
-                  day === currentTime.getDate() &&
+                const isToday = isMounted && currentTime
+                  ? day === currentTime.getDate() &&
                   viewMonth === currentTime.getMonth() &&
-                  viewYear === currentTime.getFullYear();
+                  viewYear === currentTime.getFullYear()
+                 : false;
                 return (
                   <div key={day} className={`p-2 min-h-[4rem] md:min-h-[5rem] hover:bg-sky-50 ${isToday ? "bg-sky-50" : "bg-white"}`}>
                     <div className={`w-7 h-7 mx-auto flex items-center justify-center rounded-full text-sm font-medium ${isToday ? "bg-sky-600 text-white shadow" : "text-gray-700"}`}>

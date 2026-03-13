@@ -118,7 +118,6 @@ export const metadata: Metadata = {
 };
 export default function LandingPage() {
   return (
-    <body className={sarabun.className}>
     <main>
       {/* ✅ โหลดทันที — user เห็นตอนเปิดหน้า */}
       <Hero />
@@ -134,6 +133,5 @@ export default function LandingPage() {
       <SpeedInsights />
       <Analytics/>
     </main>
-    </body>
   );
 }
