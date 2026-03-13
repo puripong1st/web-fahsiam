@@ -4,13 +4,7 @@ import About from "./components/About";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
-import { Sarabun } from 'next/font/google';
 
-const sarabun = Sarabun({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
-  subsets: ['thai', 'latin'],
-  display: 'swap',
-});
 // ✅ Lazy load ทุก component ที่อยู่ใต้ fold — ไม่โหลดจนกว่า JS จะ idle
 const Products = dynamic(() => import("./components/Products"), {
   loading: () => <div className="h-64 bg-sky-50 animate-pulse" />,
