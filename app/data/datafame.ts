@@ -250,7 +250,7 @@ export const plants: Plant[] = [
     id: "cassava",
     updatedAt: "2026-03-12",
     name: "มันสำปะหลัง",
-    image: "/image/Tree/1-55.jpg",
+    image: "/image/Tree/cassava.png",
     desc: "นวัตกรรมการเกษตรช่วยเพิ่มผลผลิตและลดต้นทุน",
     sunlight: "ต้องการแสงแดดจัดเต็มวัน (Full Sun)",
     watering:
@@ -553,7 +553,7 @@ export const plants: Plant[] = [
     id: "oilpalm",
     updatedAt: "2026-03-12",
     name: "ปาล์มน้ำมัน",
-    image: "/image/Tree/mo1.jpg",
+    image: "/image/Tree/oilpalm.png",
     desc: "เน้นการจัดการสวนแบบยั่งยืนและได้ผลผลิตต่อเนื่อง",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน วันละ 5-7 ชั่วโมงเป็นอย่างน้อย",
@@ -844,7 +844,7 @@ export const plants: Plant[] = [
     id: "longan",
     updatedAt: "2026-03-12",
     name: "ไม้ผล",
-    image: "/image/Tree/rum1.jpg",
+    image: "/image/Tree/longan.png",
     desc: "ดูแลด้วยมาตรฐานสูง เพื่อผลผลิตที่สม่ำเสมอและใหญ่เต็มลูก",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน ทรงพุ่มต้องโปร่งให้แสงส่องถึง",
@@ -1058,7 +1058,7 @@ export const plants: Plant[] = [
     id: "leafy-vegetable",
     updatedAt: "2026-03-12",
     name: "พืชผัก (กินใบ)",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Leafy Vegetables",
+    image: "/image/Tree/leafy-vegetable.png",
     desc: "ผักกินใบคุณภาพสูง ใบเขียวสด รสชาติดี ปลูกได้ตลอดปี",
     sunlight: "ต้องการแสงแดดจัดเต็มวัน 6-8 ชั่วโมง/วัน บางชนิดทนร่มเงาได้บ้าง",
     watering:
@@ -1148,7 +1148,7 @@ export const plants: Plant[] = [
     id: "fruit-root-vegetable",
     updatedAt: "2026-03-12",
     name: "พืชผัก (กินผล/หัว)",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Fruiting/Rooting Plants",
+    image: "/image/Tree/fruit-root-vegetable.png",
     desc: "ผักกินผลและผักหัวคุณภาพดี ผลใหญ่ หัวอวบ รสชาติดี",
     sunlight: "ต้องการแสงแดดจัดเต็มวัน 6-8 ชั่วโมง/วัน เพื่อให้ผลและหัวได้ขนาด",
     watering:
@@ -1233,7 +1233,7 @@ export const plants: Plant[] = [
     id: "tobacco",
     updatedAt: "2026-03-13",
     name: "ยาสูบ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=tobacco",
+    image: "/image/Tree/tobacco.png",
     desc: "ปลูกในสภาพอากาศเหมาะสม ให้ใบคุณภาพดี กลิ่นหอมเป็นเอกลักษณ์",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน เพื่อให้ใบสมบูรณ์และมีคุณภาพสูง",
