@@ -179,7 +179,7 @@ export const CROP_OPTIONS: string[] = [
   "ข้าวโพด",
   "อ้อย",
   "มันสำปะหลัง",
-  // "ยาสูบ",
+  "ยาสูบ",
   "ยางพาราเริ่มปลูก",
   "ยางพาราเริ่มกรีด 7 ปี ขึ้นไป",
 ];
@@ -225,13 +225,13 @@ export const CROP_FERT_SLIDES: Record<string, FertSlide[]> = {
     { fertText: "ปีที่ 4-5 บำรุงผล เพิ่มทะลาย (สลับ)", product: P["3-6-15"] },
     { fertText: "ปีที่ 5+ เพิ่มน้ำหนักทะลาย",           product: P["0-0-30"] },
   ],
-  // "ยาสูบ": [
-  //   { fertText: "เตรียมดินก่อนปลูก OM ผง",              product: P["OM25"]   },
-  //   { fertText: "เตรียมดินก่อนปลูก OM เม็ด",             product: P["OM20"]   },
-  //   { fertText: "เร่งต้น บำรุงใบ (ครั้งที่ 1)",          product: P["6-3-3"]  },
-  //   { fertText: "เร่งต้น บำรุงใบ (ครั้งที่ 1)",          product: P["12-3-5"]  },
-  //   { fertText: "บำรุงดอก เพิ่มกลิ่น (ครั้งที่ 2)",      product: P["3-6-15"] },
-  // ],
+  "ยาสูบ": [
+    { fertText: "เตรียมดินก่อนปลูก OM ผง",              product: P["OM25"]   },
+    { fertText: "เตรียมดินก่อนปลูก OM เม็ด",             product: P["OM20"]   },
+    { fertText: "เร่งต้น บำรุงใบ (ครั้งที่ 1)",          product: P["6-3-3"]  },
+    { fertText: "เร่งต้น บำรุงใบ (ครั้งที่ 1)",          product: P["12-3-5"]  },
+    { fertText: "บำรุงดอก เพิ่มกลิ่น (ครั้งที่ 2)",      product: P["3-6-15"] },
+  ],
   "ยางพาราเริ่มปลูก": [
     { fertText: "รองก้นหลุมก่อนปลูก OM ผง",                    product: P["OM25"]   },
     { fertText: "รองก้นหลุมก่อนปลูก OM เม็ด",                   product: P["OM20"]   },
@@ -330,7 +330,7 @@ export const CROP_FERTILIZER_DATA: Record<string, MonthlyFert[]> = {
   ],
   "ปาล์มน้ำมัน เริ่มปลูก":             Array(12).fill({ fertText: "OM เม็ด (รองก้นหลุม บำรุงราก)", fertImg: P["OM20"].image   }),
   "ปาล์มน้ำมัน ตั้งแต่ ปี 4 ปีต้นไป": Array(12).fill({ fertText: "3-6-15 (บำรุงผล เพิ่มทะลาย)",  fertImg: P["3-6-15"].image }),
-  // "ยาสูบ":                              Array(12).fill({ fertText: "12-3-5 (บำรุงใบ)",              fertImg: P["12-3-5"].image }),
+  "ยาสูบ":                              Array(12).fill({ fertText: "12-3-5 (บำรุงใบ)",              fertImg: P["12-3-5"].image }),
   "ยางพาราเริ่มปลูก":                  Array(12).fill({ fertText: "6-3-3 (บำรุงรากและลำต้น)",     fertImg: P["6-3-3"].image  }),
   "ยางพาราเริ่มกรีด 7 ปี ขึ้นไป":     Array(12).fill({ fertText: "12-3-5 (บำรุงต้น เพิ่มน้ำยาง)", fertImg: P["12-3-5"].image }),
   "ไม้ผล (ยังไม่ให้ผลผลิต)":          Array(12).fill({ fertText: "6-3-3 หรือ 12-3-5 (เร่งต้น ขยายพุ่ม)", fertImg: P["6-3-3"].image }),
@@ -395,11 +395,11 @@ export const CROP_USAGE_DETAILS: Record<string, UsageDetail[]> = {
     { badge: "ปีที่ 4",        stage: "สลับ 2 สูตร", formula: "12-3-5 สลับ 3-6-15",  rate: "6.5-7 กก./ต้น/ปี" },
     { badge: "ปีที่ 5 ขึ้นไป", stage: "ปาล์มใหญ่",   formula: "3-6-15 หรือ 0-0-30", rate: "1.5-2 กก./ต้น/ปี" },
   ],
-  // "ยาสูบ": [
-  //   { badge: "ก่อนปลูก",   stage: "เตรียมดิน",           formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่" },
-  //   { badge: "ครั้งที่ 1", stage: "เร่งต้น",             formula: "6-3-3 หรือ 12-3-5", rate: "50 กก./ไร่" },
-  //   { badge: "ครั้งที่ 2", stage: "บำรุงดอก เพิ่มกลิ่น", formula: "3-6-15",            rate: "50 กก./ไร่" },
-  // ],
+  "ยาสูบ": [
+    { badge: "ก่อนปลูก",   stage: "เตรียมดิน",           formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่" },
+    { badge: "ครั้งที่ 1", stage: "เร่งต้น",             formula: "6-3-3 หรือ 12-3-5", rate: "50 กก./ไร่" },
+    { badge: "ครั้งที่ 2", stage: "บำรุงดอก เพิ่มกลิ่น", formula: "3-6-15",            rate: "50 กก./ไร่" },
+  ],
   "ยางพาราเริ่มปลูก": [
     { badge: "ก่อนปลูก",  stage: "เตรียมดิน", formula: "OM 25% หรือ OM 20%",  rate: "50-100 กรัม/ต้น"     },
     { badge: "ปีที่ 1",    stage: "สลับกัน",   formula: "6-3-3 สลับ 12-3-5", rate: "400-500 กรัม/ต้น/ปี" },
