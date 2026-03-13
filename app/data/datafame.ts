@@ -553,7 +553,7 @@ export const plants: Plant[] = [
     id: "oilpalm",
     updatedAt: "2026-03-12",
     name: "ปาล์มน้ำมัน",
-    image: "/image/Tree/mo1.jpg",
+    image: "/image/Tree/oilpalm.png",
     desc: "เน้นการจัดการสวนแบบยั่งยืนและได้ผลผลิตต่อเนื่อง",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน วันละ 5-7 ชั่วโมงเป็นอย่างน้อย",
