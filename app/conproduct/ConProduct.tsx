@@ -32,17 +32,17 @@ export default function Products() {
   style={{ backgroundImage: "url('/image/bg-header.jpg')" }} 
 >
 
-  <div className="relative mx-auto max-w-7xl px-4 text-center w-full mt-28 md:mt-44">
+<div className="relative mx-auto max-w-7xl px-4 text-center w-full mt-28 md:mt-44">
   {/* ปรับขนาดข้อความสินค้าแนะนำที่นี่ */}
-  <p className="font-extrabold uppercase tracking-[0.2em] text-xl md:text-2xl lg:text-3xl drop-shadow-md">
+  <p className="font-extrabold uppercase tracking-[0.2em] text-2xl md:text-3xl lg:text-4xl drop-shadow-md [-webkit-text-stroke:1px_black]">
     สินค้าแนะนำ
   </p>
   
-  <h2 className="mt-4 text-4xl md:text-6xl font-black text-gray-900 drop-shadow-lg leading-tight">
+  <h2 className="mt-4 text-5xl md:text-7xl font-black text-gray-900 drop-shadow-lg leading-tight [-webkit-text-stroke:1px_]">
     ผลิตภัณฑ์ยอดนิยมของเรา
   </h2>
   
-  <p className="mx-auto mt-6 max-w-2xl text-lg md:text-xl text-gray-800 font-medium drop-shadow-sm leading-relaxed">
+  <p className="mx-auto mt-6 max-w-2xl text-xl md:text-2xl text-gray-800 font-medium drop-shadow-sm leading-relaxed [-webkit-text-stroke:1px_black]">
     คุณภาพคัดสรร เหมาะกับการเกษตรทุกรูปแบบ <br className="hidden md:block" /> 
     พร้อมโปรโมชันพิเศษสำหรับคุณ
   </p>
