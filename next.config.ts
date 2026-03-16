@@ -58,17 +58,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/products/p3',
+        source: '/products/p4',
         destination: '/products/organic-powder-om-25-soil-booster',
         permanent: true,
       },
       {
-        source: '/products/p4',
+        source: '/products/p5',
         destination: '/products/organic-pellet-om-20-slow-release',
         permanent: true,
       },
       {
-        source: '/products/p5',
+        source: '/products/p6',
         destination: '/products/organic-chemical-6-3-3-all-purpose',
         permanent: true,
       },
