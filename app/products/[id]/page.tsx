@@ -66,6 +66,7 @@ export async function generateMetadata({
     // ✅ เพิ่ม Keywords สำหรับสินค้าแต่ละชนิด
     keywords: [
       `ปุ๋ย${product.name}`,
+      `ปุ๋ย${product.name} ฟ้าสยาม`,
       "ปุ๋ยอินทรีย์",
       "ปุ๋ยอินทรีย์เคมี",
       "ฟ้าสยาม",
