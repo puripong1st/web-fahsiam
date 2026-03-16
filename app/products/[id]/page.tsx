@@ -7,37 +7,37 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 
 /* ── ข้อมูล SEO แยกไว้ (ใช้ร่วมกันระหว่าง metadata กับ JSON-LD) ── */
 const products: Record<string, { name: string; description: string; price: number; image: string }> = {
-  p1: {
+  "organic-chemical-12-3-5-growth": {
     name: "ปุ๋ยอินทรีย์เคมี 12-3-5",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 12-3-5 เหมาะสำหรับพืชที่ต้องการไนโตรเจนสูง ช่วยส่งเสริมการเจริญเติบโตของลำต้นและใบ",
     price: 1290,
     image: "/image/Fertilizer/1.webp",
   },
-  p2: {
+  "organic-chemical-3-6-15-bloom": {
     name: "ปุ๋ยอินทรีย์เคมี 3-6-15",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 3-6-15 เหมาะสำหรับช่วงออกดอกและติดผล เพิ่มคุณภาพผลผลิต",
     price: 1390,
     image: "/image/Fertilizer/2.webp",
   },
-  p3: {
+  "chemical-fertilizer-0-0-30-sweetness": {
     name: "ปุ๋ยเคมี 0-0-30",
     description: "ปุ๋ยโพแทสเซียมสูง 0-0-30 ช่วยเพิ่มความหวาน สีผิว และความแข็งแรงของพืช",
     price: 1390,
     image: "/image/Fertilizer/3.webp",
   },
-  p4: {
+  "organic-powder-om-25-soil-booster": {
     name: "ปุ๋ยอินทรีย์ผง OM 25%",
     description: "ปุ๋ยอินทรีย์ผงคุณภาพสูง OM 25% ปรับปรุงโครงสร้างดิน เพิ่มจุลินทรีย์ที่เป็นประโยชน์",
     price: 690,
     image: "/image/Fertilizer/4.webp",
   },
-  p5: {
+  "organic-pellet-om-20-slow-release": {
     name: "ปุ๋ยอินทรีย์เม็ด OM 20%",
     description: "ปุ๋ยอินทรีย์เม็ด OM 20% ใช้งานง่าย ปลดปล่อยธาตุอาหารช้า เหมาะสำหรับไม้ผลและพืชไร่",
     price: 790,
     image: "/image/Fertilizer/5.webp",
   },
-  p6: {
+  "organic-chemical-6-3-3-all-purpose": {
     name: "ปุ๋ยอินทรีย์เคมี 6-3-3",
     description: "ปุ๋ยอินทรีย์เคมีสูตร 6-3-3 สูตรรวม เหมาะสำหรับบำรุงพืชทั่วไปในระยะเจริญเติบโต",
     price: 1090,

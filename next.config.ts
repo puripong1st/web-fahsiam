@@ -40,6 +40,41 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
 
+  async redirects() {
+    return [
+      {
+        source: '/products/p1',
+        destination: '/products/organic-chemical-12-3-5-growth',
+        permanent: true, // true = 301 Redirect (ดีต่อ SEO บอทจะรู้ว่าย้ายถาวร)
+      },
+      {
+        source: '/products/p2',
+        destination: '/products/organic-chemical-3-6-15-bloom',
+        permanent: true,
+      },
+      {
+        source: '/products/p3',
+        destination: '/products/chemical-fertilizer-0-0-30-sweetness',
+        permanent: true,
+      },
+      {
+        source: '/products/p3',
+        destination: '/products/organic-powder-om-25-soil-booster',
+        permanent: true,
+      },
+      {
+        source: '/products/p4',
+        destination: '/products/organic-pellet-om-20-slow-release',
+        permanent: true,
+      },
+      {
+        source: '/products/p5',
+        destination: '/products/organic-chemical-6-3-3-all-purpose',
+        permanent: true,
+      },
+    ]
+  },
+
 }
 
 export default nextConfig;

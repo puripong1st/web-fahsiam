@@ -23,7 +23,7 @@ export type Product = {
 
 export const MOCK_PRODUCTS: Product[] = [
   {
-    id: "p1",
+    id: "organic-chemical-12-3-5-growth",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 12 - 3 - 5",
     price: 1290,
@@ -79,7 +79,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p2",
+    id: "organic-chemical-3-6-15-bloom",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 3 - 6 - 15",
     price: 1390,
@@ -122,7 +122,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p3",
+    id: "chemical-fertilizer-0-0-30-sweetness",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยเคมี 0 - 0 - 30",
     price: 1390,
@@ -155,7 +155,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p4",
+    id: "organic-powder-om-25-soil-booster",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์ผง OM 25 %",
     price: 690,
@@ -193,7 +193,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p5",
+    id: "organic-pellet-om-20-slow-release",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เม็ด OM 20 %",
     price: 790,
@@ -231,7 +231,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p6",
+    id: "organic-chemical-6-3-3-all-purpose",
     updatedAt: "2026-03-12",
     name: "ปุ๋ยอินทรีย์เคมี 6 - 3 - 3",
     price: 1090,

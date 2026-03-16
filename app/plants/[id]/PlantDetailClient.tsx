@@ -46,12 +46,12 @@ export default function PlantDetailClient({ plant }: { plant: Plant }) {
 
   // ✅ แก้ไขรหัสสินค้าให้ตรงตามที่คุณกำหนด
   const getFertilizerLink = (name: string) => {
-    if (name.includes("12-3-5")) return "/products/p1";
-    if (name.includes("3-6-15")) return "/products/p2";
-    if (name.includes("0-0-30")) return "/products/p3";
-    if (name.includes("OM 25%")) return "/products/p4";
-    if (name.includes("OM 20%")) return "/products/p5";
-    if (name.includes("6-3-3")) return "/products/p6";
+    if (name.includes("12-3-5")) return "/products/organic-chemical-12-3-5-growth";
+    if (name.includes("3-6-15")) return "/products/organic-chemical-3-6-15-bloom";
+    if (name.includes("0-0-30")) return "/products/chemical-fertilizer-0-0-30-sweetness";
+    if (name.includes("OM 25%")) return "/products/organic-powder-om-25-soil-booster";
+    if (name.includes("OM 20%")) return "/products/organic-pellet-om-20-slow-release";
+    if (name.includes("6-3-3")) return "/products/organic-chemical-6-3-3-all-purpose";
     return "/products"; // ถ้าหาไม่เจอให้กลับไปหน้าสินค้าทั้งหมด
   };
 

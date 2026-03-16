@@ -61,12 +61,12 @@ const fp = (id: string): ProductInfo =>
   FERTILIZER_PRODUCTS.find((p) => p.productId === id)!;
 
 const P = {
-  "12-3-5": fp("p1"),
-  "3-6-15": fp("p2"),
-  "0-0-30": fp("p3"),
-  "OM25":   fp("p4"),
-  "OM20":   fp("p5"),
-  "6-3-3":  fp("p6"),
+  "12-3-5": fp("organic-chemical-12-3-5-growth"),
+  "3-6-15": fp("organic-chemical-3-6-15-bloom"),
+  "0-0-30": fp("chemical-fertilizer-0-0-30-sweetness"),
+  "OM25":   fp("organic-powder-om-25-soil-booster"),
+  "OM20":   fp("organic-pellet-om-20-slow-release"),
+  "6-3-3":  fp("organic-chemical-6-3-3-all-purpose"),
 };
 
 // ═══════════════════════════════════════════════
