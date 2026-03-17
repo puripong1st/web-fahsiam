@@ -90,9 +90,9 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
         <Image
           src={p.image}
           alt={p.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+          width={400}
+          height={400}
+          className="object-contain w-full h-full mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Badges */}
