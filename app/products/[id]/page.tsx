@@ -59,40 +59,45 @@ export async function generateMetadata({
   }
 
   const url = `${BASE_URL}/products/${id}`;
+  const seoTitle = `${product.name} ตราฟ้าสยาม | ฿${product.price.toLocaleString()} บาท`;
+  const seoDescription = `${product.description} ราคา ฿${product.price.toLocaleString()} บาท ได้รับการรับรองจากกรมวิชาการเกษตร`;
 
   return {
-    title: product.name,
-    description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
-    // ✅ เพิ่ม Keywords สำหรับสินค้าแต่ละชนิด
+    title: seoTitle,
+    description: seoDescription,
     keywords: [
-      `ปุ๋ย${product.name}`,
-      `ปุ๋ย${product.name} ฟ้าสยาม`,
+      product.name,
+      `${product.name} ฟ้าสยาม`,
       "ปุ๋ยอินทรีย์",
       "ปุ๋ยอินทรีย์เคมี",
       "ฟ้าสยาม",
       "ลดต้นทุนเพิ่มผลผลิต",
       "SiamAgriTech",
     ],
+    robots: {
+      index: true,
+      follow: true,
+    },
     alternates: { canonical: url },
     openGraph: {
-      title: `${product.name} `,
-      description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
+      type: "product",
       url,
-      type: "website",
+      title: seoTitle,
+      description: seoDescription,
       images: [
         {
-          url: product.image,
-          width: 800,
-          height: 600,
+          url: `${BASE_URL}${product.image}`,
+          width: 1200,
+          height: 900,
           alt: `${product.name} ตราฟ้าสยาม`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} `,
-      description: `${product.description} ราคา ฿${product.price.toLocaleString()} บาท`,
-      images: [product.image],
+      title: seoTitle,
+      description: seoDescription,
+      images: [`${BASE_URL}${product.image}`],
     },
   };
 }

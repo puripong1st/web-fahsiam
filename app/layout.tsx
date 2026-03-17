@@ -14,21 +14,40 @@ const sarabun = Sarabun({
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
-// เพิ่ม Global Metadata
+// เพิ่ม Global Metadata ตามมาตรฐาน Elite SEO
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
     default: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
-    template: "%s | ฟ้าสยาม ", // ทำให้หน้าย่อยต่อท้ายด้วย  อัตโนมัติ
+    template: "%s | ฟ้าสยาม",
   },
-  description: "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร",
+  description: "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร เหมาะสำหรับทุเรียน ยางพารา ข้าว เพิ่มผลผลิตยั่งยืน",
+  keywords: ["ปุ๋ยอินทรีย์", "ปุ๋ยอินทรีย์เคมี", "ฟ้าสยาม", "เกษตรอินทรีย์", "SiamAgriTech"],
   verification: {
     google: "O3pc6KHLALRFMBuOyRKW-XdUb04EdGycLs4Iy--7d70",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   openGraph: {
     type: "website",
     locale: "th_TH",
     siteName: "ฟ้าสยาม SiamAgriTech",
+    title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
+    description: "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร",
+    images: [{
+      url: "/image/hero/Cover1.webp",
+      width: 1200,
+      height: 630,
+      alt: "ปุ๋ยตราฟ้าสยาม | อินทรีย์–อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
+    }],
   },
 };
 const organizationJsonLd = {
@@ -37,12 +56,15 @@ const organizationJsonLd = {
   name: "ฟ้าสยาม SiamAgriTech",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/favicon-32x32.png`,
+  description: "บริษัทผลิตและจำหน่ายปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ได้รับการรับรองจากกรมวิชาการเกษตร",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "082-529-8388",
     contactType: "customer service",
     availableLanguage: "Thai",
+    areaServed: "TH",
   },
+  areaServed: "Thailand",
   sameAs: [
     "https://www.facebook.com/share/p/1ArBAZtMvr/",
   ],

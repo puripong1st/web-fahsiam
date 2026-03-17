@@ -24,34 +24,49 @@ export async function generateMetadata({
   }
 
   const currentUrl = `${BASE_URL}/plants/${id}`;
+  const seoTitle = `วิธีปลูก${plant.name}ให้ได้ผลผลิตสูง | ปุ๋ยฟ้าสยาม`;
 
   return {
-    title: `วิธีปลูก${plant.name} ให้ได้ผลผลิตสูง `,
+    title: seoTitle,
     description: plant.desc,
-    // ✅ เพิ่ม Keywords เฉพาะเจาะจงสำหรับพืชแต่ละชนิด
-    keywords: [`วิธีปลูก${plant.name}`, `ปุ๋ย${plant.name}`, "ฟ้าสยาม", "เกษตรอินทรีย์", "เพิ่มผลผลิต", "SiamAgriTech"],
+    keywords: [
+      `วิธีปลูก${plant.name}`,
+      `การดูแล${plant.name}`,
+      `ปุ๋ย${plant.name}`,
+      "ฟ้าสยาม",
+      "เกษตรอินทรีย์",
+      "เพิ่มผลผลิต",
+      "SiamAgriTech",
+      "ปลูกพืชยั่งยืน"
+    ],
+    robots: {
+      index: true,
+      follow: true,
+    },
     alternates: {
       canonical: currentUrl,
     },
     openGraph: {
-      title: `คู่มือการปลูก${plant.name} `,
-      description: plant.desc,
-      url: currentUrl,
       type: "article",
+      url: currentUrl,
+      title: seoTitle,
+      description: plant.desc,
       images: [
         {
-          url: plant.image,
+          url: `${BASE_URL}${plant.image}`,
           width: 1200,
           height: 630,
-          alt: `รูปภาพคู่มือการปลูก ${plant.name} ตราฟ้าสยาม`,
+          alt: `คู่มือการปลูก ${plant.name} ตราฟ้าสยาม`,
         },
       ],
+      publishedTime: new Date().toISOString(),
+      authors: ["ฟ้าสยาม SiamAgriTech"],
     },
     twitter: {
       card: "summary_large_image",
-      title: `วิธีปลูก${plant.name} `,
+      title: seoTitle,
       description: plant.desc,
-      images: [plant.image],
+      images: [`${BASE_URL}${plant.image}`],
     },
   };
 }

@@ -6,36 +6,41 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/news`;
 
 export const metadata: Metadata = {
-  title: "ข่าวสารและสาระน่ารู้การเกษตร ",
-  description: "อัปเดตข่าวสารการเกษตร สาระน่ารู้ เทคนิคการดูแลพืช และกิจกรรมต่างๆ จากฟ้าสยาม เพื่อเกษตรกรไทยก้าวไกลอย่างยั่งยืน",
+  title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม SiamAgriTech",
+  description: "อัปเดตข่าวสารและสาระน่ารู้การเกษตร เทคนิคการดูแลพืช และกิจกรรมจากฟ้าสยาม เพื่อให้เกษตรกรไทยก้าวหน้าอย่างยั่งยืน",
   keywords: [
     "ข่าวสารการเกษตร",
     "สาระน่ารู้การเกษตร",
     "เทคนิคการดูแลพืช",
     "ฟ้าสยาม",
     "เกษตรอินทรีย์",
+    "ปุ๋ยฟ้าสยาม",
     "SiamAgriTech"
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
     canonical: currentUrl,
   },
   openGraph: {
-    title: "ข่าวสารและสาระน่ารู้การเกษตร ",
+    type: "website",
+    title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม",
     description: "อัปเดตข่าวสารการเกษตร สาระน่ารู้ เทคนิคการดูแลพืช และกิจกรรมต่างๆ จากฟ้าสยาม",
     url: currentUrl,
-    siteName: "ฟ้าสยาม",
-    images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ฟ้าสยาม" }],
+    siteName: "ฟ้าสยาม SiamAgriTech",
+    images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ข่าวสารฟ้าสยาม - ปลูกพืชยั่งยืน" }],
     locale: "th_TH",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ข่าวสารและสาระน่ารู้การเกษตร ",
+    title: "ข่าวสารและสาระน่ารู้การเกษตร | ฟ้าสยาม",
     description: "อัปเดตข่าวสารและเทคนิคการเกษตรจากฟ้าสยาม",
     images: ["/background/background1.webp"],
   },
 };
-export default function ContactPage() {
+export default function NewsPage() {
   // ── Structured Data สำหรับ Breadcrumb ─────────────────────
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -46,10 +51,25 @@ export default function ContactPage() {
     ]
   };
 
+  // ── Structured Data สำหรับ CollectionPage (รวมบทความ/ข่าวสาร) ──────
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "ข่าวสารและสาระน่ารู้การเกษตร",
+    "description": "อัปเดตข่าวสารการเกษตร เทคนิคการดูแลพืช และกิจกรรมจากฟ้าสยาม",
+    "url": currentUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": "ฟ้าสยาม SiamAgriTech",
+      "logo": `${BASE_URL}/favicon-32x32.png`
+    }
+  };
+
   return (
     <main>
       {/* ฝัง Schema SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
       
       <News />
     </main>

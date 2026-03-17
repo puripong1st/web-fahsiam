@@ -6,8 +6,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/contact`;
 
 export const metadata: Metadata = {
-  title: "ติดต่อเรา SiamAgriTech",
-  description: "ช่องทางการติดต่อฟ้าสยาม สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือขอรับคำปรึกษาด้านการเกษตร",
+  title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech - ปรึกษาปัญหาการเกษตร",
+  description: "ติดต่อฟ้าสยาม สอบถามข้อมูลปุ๋ยอินทรีย์เคมี สั่งซื้อสินค้า ขอรับคำปรึกษาด้านการเกษตรยั่งยืน เบอร์โทร 082-529-8388",
   keywords: [
     "ติดต่อฟ้าสยาม",
     "เบอร์โทรฟ้าสยาม",
@@ -16,22 +16,26 @@ export const metadata: Metadata = {
     "ปรึกษาการเกษตร",
     "SiamAgriTech"
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
-    canonical: currentUrl, // ✅ เพิ่ม Canonical URL ที่ขาดไป
+    canonical: currentUrl,
   },
   openGraph: {
-    title: "ติดต่อเรา SiamAgriTech",
-    description: "ช่องทางการติดต่อฟ้าสยาม สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือขอรับคำปรึกษาด้านการเกษตร",
-    url: currentUrl, // ✅ แก้ให้ชี้มาที่หน้า /contact แทนหน้าแรก
-    siteName: "ฟ้าสยาม SiamAgriTech",
-    images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ติดต่อฟ้าสยาม" }],
-    locale: "th_TH",
     type: "website",
+    title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+    description: "สอบถามข้อมูลปุ๋ย สั่งซื้อสินค้า ขอรับคำปรึกษาการเกษตรจากฟ้าสยาม",
+    url: currentUrl,
+    siteName: "ฟ้าสยาม SiamAgriTech",
+    images: [{ url: "/background/background1.webp", width: 1200, height: 630, alt: "ติดต่อฟ้าสยาม - ปรึกษาการเกษตร" }],
+    locale: "th_TH",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ติดต่อเรา SiamAgriTech",
-    description: "สอบถามข้อมูลผลิตภัณฑ์ปุ๋ย สั่งซื้อสินค้า หรือปรึกษาปัญหาพืช",
+    title: "ติดต่อเรา | ฟ้าสยาม SiamAgriTech",
+    description: "สอบถามข้อมูลปุ๋ย สั่งซื้อสินค้า ปรึกษาปัญหาพืช",
     images: ["/background/background1.webp"],
   },
 };

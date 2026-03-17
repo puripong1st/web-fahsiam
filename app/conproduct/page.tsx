@@ -6,34 +6,40 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/conproduct`;
 
 export const metadata: Metadata = {
-  title: "ผลิตภัณฑ์ปุ๋ย",
-  description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
+  title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | อินทรีย์เคมี เพิ่มผลผลิด ลดต้นทุน",
+  description: "แคตตาล็อกผลิตภัณฑ์ปุ๋ยฟ้าสยาม อินทรีย์เคมีคุณภาพสูง ได้รับการรับรองจากกรมวิชาการเกษตร เหมาะสำหรับทุเรียน ผัก ไม้ผลทุกชนิด",
   keywords: [
     "ปุ๋ยฟ้าสยาม",
     "แคตตาล็อกปุ๋ย",
     "ปุ๋ยอินทรีย์เคมี",
     "ปุ๋ยทุเรียน",
     "ปุ๋ยผัก",
+    "ปุ๋ยอินทรีย์",
     "ลดต้นทุนเพิ่มผลผลิต",
-    "ผลิตภัณฑ์ฟ้าสยาม"
+    "ผลิตภัณฑ์ฟ้าสยาม",
+    "SiamAgriTech"
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
     canonical: currentUrl,
   },
   openGraph: {
-    title: "ผลิตภัณฑ์ปุ๋ย",
-    description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
+    type: "product.group",
+    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ปุ๋ยอินทรีย์เคมี",
+    description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมีคุณภาพสูง เหมาะสำหรับทุเรียน ผัก ไม้ผลทุกชนิด เพิ่มผลผลิด ลดต้นทุน",
     url: currentUrl,
     siteName: "ฟ้าสยาม SiamAgriTech",
     images: [{ url: "/image/Fertilizer/1.webp", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
     locale: "th_TH",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ผลิตภัณฑ์ปุ๋ย",
-    description: "ปุ๋ยฟ้าสยาม เพิ่มผลผลิต ลดต้นทุน",
-    images: ["/background/background1.webp"],
+    title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม",
+    description: "ปุ๋ยฟ้าสยาม ปุ๋ยอินทรีย์เคมี เพิ่มผลผลิด ลดต้นทุน",
+    images: ["/image/Fertilizer/1.webp"],
   },
 };
 
