@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/conproduct`;
 
 export const metadata: Metadata = {
-  title: "ผลิตภัณฑ์ปุ๋ย ", // ลบช่องว่างส่วนเกิน
+  title: "ผลิตภัณฑ์ปุ๋ย",
   description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน เหมาะกับทุเรียน ผัก และไม้ผลทุกชนิด",
   keywords: [
     "ปุ๋ยฟ้าสยาม",
