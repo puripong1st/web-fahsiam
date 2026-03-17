@@ -31,6 +31,9 @@ export default function Footer() {
           <div className="mt-4 flex gap-3">
             <a
               href="https://www.facebook.com/share/19UpsyudBU/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
               className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10"
             >
               <FaFacebookF />
@@ -38,6 +41,9 @@ export default function Footer() {
 
             <a
               href="https://lin.ee/Xy0naat"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Line"
               className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10"
             >
               <FaLine />
@@ -45,6 +51,9 @@ export default function Footer() {
 
             <a
               href="https://www.youtube.com/@SMARTAgri-Tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
               className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10"
             >
               <FaYoutube />
@@ -156,7 +165,7 @@ export default function Footer() {
           
           <div className="flex items-center gap-4">
             <a
-              href="tel:021234567"
+              href="tel:0825298388"
               className="inline-flex items-center gap-2 hover:underline"
             >
               <FaPhoneAlt /> สายด่วน 082-529-8388

@@ -80,7 +80,7 @@ export async function generateMetadata({
     },
     alternates: { canonical: url },
     openGraph: {
-      type: "product",
+      type: "website",
       url,
       title: seoTitle,
       description: seoDescription,
@@ -205,7 +205,11 @@ export default async function ProductDetailPage({
       returnFees: "https://schema.org/FreeReturn",
     },
     ...(product.benefits?.length > 0 && {
-      description: product.benefits.join(" / "),
+      additionalProperty: product.benefits.map((b) => ({
+        "@type": "PropertyValue",
+        name: "ประโยชน์",
+        value: b,
+      })),
     }),
   };
 

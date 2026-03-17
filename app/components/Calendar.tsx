@@ -106,7 +106,7 @@ export default function CalendarWidget() {
 
   return (
     <>
-    <section className="py-16 bg-white" id="why">
+    <section className="py-16 bg-white" id="calendar">
       <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
         
         <div className="flex flex-col xl:flex-row items-start gap-6 w-full">

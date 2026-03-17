@@ -33,7 +33,7 @@ const Navbar = () => {
             <Link href="/">
               <Image
                 src="/favicon-32x32.png"
-                alt="logo"
+                alt="ปุ๋ยตราฟ้าสยาม SiamAgriTech Logo"
                 width={96}
                 height={96}
                 className="absolute top-15 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-auto object-contain relative -my-6" 
@@ -63,7 +63,7 @@ const Navbar = () => {
         <div className="md:hidden px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
-              <Image src="/favicon-32x32.png" alt="logo" width={32} height={32} className="w-8 h-8" priority />
+              <Image src="/favicon-32x32.png" alt="ปุ๋ยตราฟ้าสยาม SiamAgriTech Logo" width={32} height={32} className="w-8 h-8" priority />
               <span className="font-semibold text-sky-700 text-sm">
                 Smart Agri Tech
               </span>

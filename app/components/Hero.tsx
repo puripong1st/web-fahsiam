@@ -29,12 +29,14 @@ export default function HeroSlider() {
 
   const [current, setCurrent] = useState(0);
 
+  const totalSlides = slides.length;
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setCurrent((prev) => (prev + 1) % totalSlides);
     }, 5000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [totalSlides]);
 
   // ฟังก์ชันเลื่อนภาพไปทางซ้าย
   const prevSlide = () => {

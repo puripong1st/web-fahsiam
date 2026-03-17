@@ -28,18 +28,12 @@ const CookieBanner = dynamic(() => import("./components/Cookie/CookieBanner"));
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
-
   // ── Title ──────────────────────────────────────────────
-  title: {
-    default: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
-    template: "%s | ฟ้าสยาม",
-  },
+  title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
 
   // ── Description ────────────────────────────────────────
-  // เน้นคำสำคัญและทำให้ดึงดูดใจ (150-160 ตัวอักษร) โดยใช้ E-E-A-T
   description:
-    "ปุ๋ยอินทรีย์-อินทรีย์เคมีคุณภาพสูงของฟ้าสยาม ได้รับการรับรองจากกรมวิชาการเกษตร เหมาะสำหรับทุเรียน ยางพารา ข้าว เพิ่มผลผลิตลดต้นทุนยั่งยืน",
+    "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร เหมาะสำหรับทุเรียน ยางพารา ข้าว มันสำปะหลัง และพืชไร่ทุกชนิด ลดต้นทุน เพิ่มผลผลิต",
 
   // ── Keywords ───────────────────────────────────────────
   keywords: [
@@ -65,18 +59,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // ── Robots Config ──────────────────────────────────────
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
   // ── Open Graph (Facebook / Line / etc.) ────────────────
   openGraph: {
     type: "website",
@@ -85,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "ฟ้าสยาม SiamAgriTech",
     title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
     description:
-      "ปุ๋ยอินทรีย์-อินทรีย์เคมีคุณภาพสูง ได้รับการรับรองจากกรมวิชาการเกษตร ลดต้นทุน เพิ่มผลผลิตยั่งยืน",
+      "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร ลดต้นทุน เพิ่มผลผลิตยั่งยืน",
     images: [
       {
         url: "/image/hero/Cover1.webp",

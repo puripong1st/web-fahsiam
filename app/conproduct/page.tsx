@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel
 const currentUrl = `${BASE_URL}/conproduct`;
 
 export const metadata: Metadata = {
-  title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | อินทรีย์เคมี เพิ่มผลผลิด ลดต้นทุน",
+  title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | อินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน",
   description: "แคตตาล็อกผลิตภัณฑ์ปุ๋ยฟ้าสยาม อินทรีย์เคมีคุณภาพสูง ได้รับการรับรองจากกรมวิชาการเกษตร เหมาะสำหรับทุเรียน ผัก ไม้ผลทุกชนิด",
   keywords: [
     "ปุ๋ยฟ้าสยาม",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     canonical: currentUrl,
   },
   openGraph: {
-    type: "product.group",
+    type: "website",
     title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม | ปุ๋ยอินทรีย์เคมี",
-    description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมีคุณภาพสูง เหมาะสำหรับทุเรียน ผัก ไม้ผลทุกชนิด เพิ่มผลผลิด ลดต้นทุน",
+    description: "ปุ๋ยฟ้าสยาม อินทรีย์เคมีคุณภาพสูง เหมาะสำหรับทุเรียน ผัก ไม้ผลทุกชนิด เพิ่มผลผลิต ลดต้นทุน",
     url: currentUrl,
     siteName: "ฟ้าสยาม SiamAgriTech",
     images: [{ url: "/image/Fertilizer/1.webp", width: 1200, height: 630, alt: "ปุ๋ยอินทรีย์เคมีฟ้าสยาม" }],
@@ -38,12 +38,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ผลิตภัณฑ์ปุ๋ยฟ้าสยาม",
-    description: "ปุ๋ยฟ้าสยาม ปุ๋ยอินทรีย์เคมี เพิ่มผลผลิด ลดต้นทุน",
+    description: "ปุ๋ยฟ้าสยาม ปุ๋ยอินทรีย์เคมี เพิ่มผลผลิต ลดต้นทุน",
     images: ["/image/Fertilizer/1.webp"],
   },
 };
 
-export default function ContactPage() {
+export default function ConProductPage() {
   // ── 1. Structured Data สำหรับ Breadcrumb ─────────────────────
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

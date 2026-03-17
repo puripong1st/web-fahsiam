@@ -39,11 +39,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "คู่มือการปลูกพืชเศรษฐกิจ & แนะนำปุ๋ยฟ้าสยาม",
-    description: "เพิ่มผลผลิด ลดต้นทุน ด้วยปุ๋ยฟ้าสยาม - ได้รับการรับรองจากกรมวิชาการเกษตร",
+    description: "เพิ่มผลผลิต ลดต้นทุน ด้วยปุ๋ยฟ้าสยาม - ได้รับการรับรองจากกรมวิชาการเกษตร",
     images: ["/background/background1.webp"],
   },
 };
-export default function ContactPage() {
+export default function PlantsPage() {
   // ── Structured Data สำหรับ Breadcrumb ─────────────────────
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

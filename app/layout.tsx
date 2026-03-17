@@ -36,9 +36,13 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: "website",
     locale: "th_TH",
+    url: BASE_URL,
     siteName: "ฟ้าสยาม SiamAgriTech",
     title: "ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
     description: "ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร",
@@ -49,13 +53,19 @@ export const metadata: Metadata = {
       alt: "ปุ๋ยตราฟ้าสยาม | อินทรีย์–อินทรีย์เคมี เพื่อผลผลิตยั่งยืน",
     }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ฟ้าสยาม | ปุ๋ยอินทรีย์-อินทรีย์เคมี เพื่อผลผลิตยั่งยืน',
+    description: 'ปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ผ่านการรับรองจากกรมวิชาการเกษตร',
+    images: ['/image/hero/Cover1.webp'],
+  },
 };
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "ฟ้าสยาม SiamAgriTech",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app"}/favicon-32x32.png`,
+  url: BASE_URL,
+  logo: `${BASE_URL}/favicon-32x32.png`,
   description: "บริษัทผลิตและจำหน่ายปุ๋ยอินทรีย์และอินทรีย์เคมีคุณภาพสูง ได้รับการรับรองจากกรมวิชาการเกษตร",
   contactPoint: {
     "@type": "ContactPoint",

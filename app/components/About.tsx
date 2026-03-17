@@ -91,7 +91,7 @@ export default function About() {
               {/* จุดที่แก้ไข: เพิ่ม width และ height */}
               <Image  
                 src="/gg1.png" 
-                alt="เกษตรกร" 
+                alt="เกษตรกรไทยใช้ปุ๋ยตราฟ้าสยาม เพิ่มผลผลิตยั่งยืน" 
                 width={500} 
                 height={500} 
                 className="w-full h-full object-cover" 
