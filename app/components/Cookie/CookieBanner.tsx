@@ -1,20 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 export default function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return !Cookies.get("cookie_consent");
-  });
+  // ✅ Start with null to avoid hydration mismatch
+  const [isVisible, setIsVisible] = useState<boolean | null>(null);
+
+  // ✅ Check cookie only on client side
+  useEffect(() => {
+    const consent = Cookies.get("cookie_consent");
+    setIsVisible(!consent);
+  }, []);
 
   const handleAccept = () => {
     Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
     setIsVisible(false);
-
-    // ✅ แทน window.location.reload() — dispatch event ให้ AdTracker รับรู้เลย
-    // ไม่ต้อง reload หน้า ไม่เสีย UX
     window.dispatchEvent(new Event("cookieConsentGranted"));
   };
 
@@ -23,7 +24,8 @@ export default function CookieBanner() {
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
+  // ✅ Don't render anything during SSR or if not visible
+  if (isVisible === null || !isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 animate-in slide-in-from-bottom-5 duration-500">

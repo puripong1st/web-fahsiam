@@ -109,8 +109,24 @@ export default function CalendarWidget() {
 
   return (
     <>
-    <section className="py-16 bg-gradient-to-br from-sky-50 via-white to-blue-50" id="calendar">
-      <div className="max-w-[1400px] w-full mx-auto p-4 my-8">
+    
+    <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-sky-50" id="calendar">
+      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-4">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            ปฏิทินการเกษตร
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
+            วางแผนการ<span className="text-emerald-600">เพาะปลูก</span>ของคุณ
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            เลือกพืชที่ต้องการปลูกเพื่อดูข้อมูลปุ๋ยและอัตราการใช้ที่เหมาะสมสำหรับแต่ละระยะ
+          </p>
+        </div>
         
         <div className="flex flex-col xl:flex-row items-start gap-6 w-full">
 
@@ -208,8 +224,9 @@ export default function CalendarWidget() {
                           key={`widget-plant-${viewMonth}-${widgetPlantIdx}`}
                           src={currentWidgetPlant.image}
                           alt={currentWidgetPlant.name}
-                          width={400} height={400}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          fill
+                          className="object-cover"
+                          sizes="200px"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex flex-col items-center justify-center gap-1">
                           <span className="text-white text-[15px] font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 drop-shadow-md transform group-hover:scale-110">
@@ -242,8 +259,9 @@ export default function CalendarWidget() {
                             key={`${selectedCrop}-${thumbIdx}`}
                             src={thumbSlide.product.image}
                             alt={thumbSlide.product.productName}
-                            width={400} height={400}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            fill
+                            className="object-contain p-2"
+                            sizes="200px"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex flex-col items-center justify-center gap-1 pointer-events-none">
                             <span className="text-white text-[15px] font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 drop-shadow px-2 text-center transform group-hover:scale-110">
