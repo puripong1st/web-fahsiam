@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
@@ -111,21 +112,23 @@ export const metadata: Metadata = {
 };
 export default function LandingPage() {
   return (
-    <main>
-      {/* ✅ โหลดทันที — user เห็นตอนเปิดหน้า */}
-      <Hero />
-      <About />
+    <ErrorBoundary>
+      <main>
+        {/* ✅ โหลดทันที — user เห็นตอนเปิดหน้า */}
+        <Hero />
+        <About />
 
-      {/* ✅ Lazy load — โหลดหลัง above-the-fold เสร็จ */}
-      <Products />
-      <WhyChoose />
-      <Calendar />
-      {/* <FAQSection /> */}
-      <Testimonials />
-      <AdTracker />
-      <CookieBanner />
-      <SpeedInsights />
-      <Analytics/>
-    </main>
+        {/* ✅ Lazy load — โหลดหลัง above-the-fold เสร็จ */}
+        <Products />
+        <WhyChoose />
+        <Calendar />
+        {/* <FAQSection /> */}
+        <Testimonials />
+        {/* <AdTracker /> */}
+        <CookieBanner />
+        <SpeedInsights />
+        <Analytics/>
+      </main>
+    </ErrorBoundary>
   );
 }

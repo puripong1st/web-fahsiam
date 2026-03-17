@@ -1,8 +1,9 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { MOCK_PRODUCTS } from "../data/productsdetail";
 import Image from "next/image";
+import useDebounce from "../hooks/useDebounce"; // Add this line
 
 type Product = {
   id: string
@@ -15,15 +16,16 @@ type Product = {
 
 export default function Products() {
   const [q, setQ] = useState("");
+  const debouncedQ = useDebounce(q, 300);
 
   const filtered = useMemo(() => {
     let arr = [...MOCK_PRODUCTS];
-    if (q.trim()) {
-      const k = q.toLowerCase();
+    if (debouncedQ.trim()) {
+      const k = debouncedQ.toLowerCase();
       arr = arr.filter(p => p.name.toLowerCase().includes(k));
     }
     return arr;
-  }, [q]);
+  }, [debouncedQ]);
 
   return (
     <section className="bg-white pb-20" id="products">
@@ -61,6 +63,7 @@ export default function Products() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="ค้นหาสินค้าที่ท่านต้องการ..."
+              aria-label="ค้นหาสินค้า"
               className="w-full p-3 outline-none text-gray-700 bg-transparent"
             />
           </div>
@@ -84,6 +87,7 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
   return (
     <Link
       href={`/products/${p.id}`}
+      aria-label={`ดูรายละเอียด ${p.name}`}
       className={`animate-scale-in ${stagger} group flex flex-col bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden`}
     >
       <div className="relative w-full aspect-square bg-gray-50 flex items-center justify-center p-4 overflow-hidden">
@@ -93,6 +97,7 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
           width={400}
           height={400}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="lazy"
           className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
         />
 

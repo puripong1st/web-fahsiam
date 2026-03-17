@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin', // ดีต่อ Privacy และ SEO
           },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://placehold.co https://i.pravatar.cc data: blob:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.firebasedatabase.app https://firestore.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+          },
         ],
       },
     ];
