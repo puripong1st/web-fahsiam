@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://placehold.co https://i.pravatar.cc data: blob:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.firebasedatabase.app https://firestore.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://placehold.co https://i.pravatar.cc https://*.google.com https://*.googleapis.com data: blob:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.firebasedatabase.app https://firestore.googleapis.com; frame-src 'self' https://maps.google.com https://www.google.com https://*.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
           },
           {
             key: 'Permissions-Policy',
