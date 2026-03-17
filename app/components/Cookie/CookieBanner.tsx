@@ -14,9 +14,14 @@ export default function CookieBanner() {
   }, []);
 
   const handleAccept = () => {
+    // ✅ Set cookie first
     Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
-    setIsVisible(false);
+    
+    // ✅ Dispatch event to trigger AdTracker
     window.dispatchEvent(new Event("cookieConsentGranted"));
+    
+    // ✅ Hide banner
+    setIsVisible(false);
   };
 
   const handleDecline = () => {

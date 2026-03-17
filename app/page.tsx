@@ -124,7 +124,7 @@ export default function LandingPage() {
         <Calendar />
         {/* <FAQSection /> */}
         <Testimonials />
-        {/* <AdTracker /> */}
+        <AdTracker />
         <CookieBanner />
         <SpeedInsights />
         <Analytics/>

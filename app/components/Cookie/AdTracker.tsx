@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Cookies from "js-cookie";
+import Script from "next/script";
 
 declare global {
   interface Window {
@@ -8,46 +11,52 @@ declare global {
     gtag?: (...args: unknown[]) => void;
   }
 }
-import { usePathname } from "next/navigation";
-import Cookies from "js-cookie";
-import Script from "next/script";
 
-// ใช้ Context หรือ prop drilling เพื่อรับ consent จาก CookieBanner
-// แต่ถ้าอยากให้ standalone ให้ listen cookie change แบบนี้
 export default function AdTracker() {
   const pathname = usePathname();
   const [hasConsent, setHasConsent] = useState(false);
-  const [scriptsLoaded, setScriptsLoaded] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // 🆔 ใส่ ID ของคุณที่นี่
   const FB_PIXEL_ID = "ใส่เลข_FB_PIXEL_ID_ของคุณ";
   const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
 
+  // ✅ Check consent on mount and listen for cookie consent events
   useEffect(() => {
+    setIsClient(true);
+
     const checkConsent = () => {
       const consent = Cookies.get("cookie_consent");
       if (consent === "accepted") {
         setHasConsent(true);
+        
+        // ✅ Generate or retrieve tracking ID
         let userTrackId = Cookies.get("my_ad_tracking_id");
         if (!userTrackId) {
           userTrackId = "usr_" + Math.random().toString(36).substring(2, 15);
           Cookies.set("my_ad_tracking_id", userTrackId, { expires: 30, path: "/" });
         }
+      } else {
+        setHasConsent(false);
       }
     };
 
+    // ✅ Check consent on initial load
     checkConsent();
 
-    // Listen สำหรับกรณีที่ consent เพิ่งถูก set (จาก CookieBanner)
-    // โดยไม่ต้อง reload หน้า
+    // ✅ Listen for cookie consent granted event from CookieBanner
     window.addEventListener("cookieConsentGranted", checkConsent);
-    return () => window.removeEventListener("cookieConsentGranted", checkConsent);
+
+    return () => {
+      window.removeEventListener("cookieConsentGranted", checkConsent);
+    };
   }, []);
 
-  // ยิง PageView เฉพาะตอนเปลี่ยน route — ไม่ยิงตอน init (scripts จะยิงเองอยู่แล้ว)
+  // ✅ Track page views when consent is granted and route changes
   useEffect(() => {
-    if (!hasConsent || !scriptsLoaded) return;
+    if (!hasConsent || !isClient) return;
 
+    // ✅ Fire PageView events on route change
     if (window.fbq) {
       window.fbq("track", "PageView");
     }
@@ -57,17 +66,17 @@ export default function AdTracker() {
         page_path: pathname,
       });
     }
-  }, [pathname, hasConsent, scriptsLoaded, GA_MEASUREMENT_ID]);
+  }, [pathname, hasConsent, GA_MEASUREMENT_ID]);
 
-  if (!hasConsent) return null;
+  // ✅ Don't render scripts if no consent
+  if (!hasConsent || !isClient) return null;
 
   return (
     <>
-      {/* 🔵 Facebook Pixel — init ครั้งเดียว ไม่มี fbq('track', 'PageView') ซ้ำ */}
+      {/* 🔵 Facebook Pixel — only loads when consent is granted */}
       <Script
         id="fb-pixel"
         strategy="afterInteractive"
-        onLoad={() => setScriptsLoaded(true)}
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -84,7 +93,7 @@ export default function AdTracker() {
         }}
       />
 
-      {/* 🟠 Google Analytics (GA4) */}
+      {/* 🟠 Google Analytics (GA4) — only loads when consent is granted */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
