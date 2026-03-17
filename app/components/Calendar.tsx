@@ -184,7 +184,7 @@ export default function CalendarWidget() {
 
           {/* ══════ ขวา: การ์ดข้อมูลการเกษตร ══════ */}
           <div className="w-full xl:w-[62%] bg-white rounded-2xl shadow-xl border border-gray-100 p-6 flex flex-col h-fit hover:shadow-2xl transition-shadow duration-300">
-            <h3 className="w-full text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 pb-3 border-b-2 border-gradient-to-r from-green-200 to-emerald-200 flex items-center justify-center gap-2">
+            <h3 className="w-full text-xl font-bold text-green-700 mb-6 pb-3 border-b-2 border-green-200 flex items-center justify-center gap-2">
               🌿 แนะนำสำหรับเดือนนี้
             </h3>
 
@@ -278,7 +278,7 @@ export default function CalendarWidget() {
                 </div>
 
                 <div className="bg-gradient-to-br from-blue-50 to-sky-50 p-4 xl:p-5 rounded-xl border-2 border-blue-200 shadow-md w-full hover:shadow-lg transition-shadow duration-300">
-                  <h4 className="text-sm xl:text-base font-bold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent mb-3 uppercase tracking-wide text-center">🌾 เลือกพืชของคุณ</h4>
+                  <h4 className="text-sm xl:text-base font-bold text-blue-700 mb-3 uppercase tracking-wide text-center">🌾 เลือกพืชของคุณ</h4>
                   <select
                     value={selectedCrop}
                     onChange={(e) => handleSelectCrop(e.target.value)}
@@ -297,7 +297,7 @@ export default function CalendarWidget() {
               <div className="w-full lg:w-[52%] flex flex-col h-fit">
                 {selectedCrop && usageData && usageData.length > 0 ? (
                   <div className="bg-gradient-to-br from-white to-blue-50/30 p-5 rounded-xl border-2 border-blue-100 shadow-md text-left flex flex-col h-fit hover:shadow-lg transition-shadow duration-300">
-                    <h4 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent mb-4 border-b-2 border-blue-200 pb-3 flex items-center gap-2">
+                    <h4 className="text-lg font-bold text-blue-700 mb-4 border-b-2 border-blue-200 pb-3 flex items-center gap-2">
                       📊 อัตราการใช้ปุ๋ยตามระยะ
                     </h4>
                     <div className="space-y-4 pr-1">
@@ -517,25 +517,38 @@ export default function CalendarWidget() {
               💡 {modalSlide.fertText}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+            <div className="flex flex-col gap-3 mb-4">
               <Link
                 href={`/products/${modalSlide.product.productId}`}
                 onClick={() => setModalOpen(false)}
-                className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl text-center text-sm transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
+                className="relative overflow-hidden group bg-gradient-to-r from-orange-500 via-amber-600 to-yellow-600 hover:from-orange-600 hover:via-amber-700 hover:to-yellow-700 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.98]"
               >
-                🛒 ดูรายละเอียดสินค้า
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div className="relative flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <span className="text-base">ดูรายละเอียดสินค้า</span>
+                </div>
               </Link>
               <a
                 href="https://www.facebook.com/share/p/1ArBAZtMvr/?mibextid=wwXIf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setModalOpen(false)}
-                className="flex-1 bg-gradient-to-r from-[#1877F2] to-blue-600 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
+                className="relative overflow-hidden group bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 hover:from-blue-600 hover:via-sky-700 hover:to-cyan-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.98]"
               >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                สั่งซื้อ Facebook
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div className="relative flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  <span className="text-base">สั่งซื้อผ่าน Facebook</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
               </a>
             </div>
 
