@@ -48,7 +48,7 @@ export default function HeroSlider() {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
-  const heroHeights = "h-[260px] sm:h-[320px] md:h-[480px] lg:h-[600px] xl:h-[720px]";
+  const heroHeights = "h-[300px] sm:h-[360px] md:h-[450px] lg:h-[520px] xl:h-[580px]";
 
   return (
     <section className={`relative w-full overflow-hidden ${heroHeights}`}>
@@ -60,7 +60,7 @@ export default function HeroSlider() {
         {slides.map((slide, i) => (
           <div
             key={i}
-            className={`min-w-full h-full flex items-end justify-start relative`}
+            className={`min-w-full h-full flex items-end justify-start relative bg-black`}
           >
             {/* ✅ ใช้ <Image> แทน backgroundImage — Next.js optimize + preload รูปแรกได้ */}
             <Image
@@ -70,22 +70,25 @@ export default function HeroSlider() {
               className="object-cover object-center"
               priority={i === 0}
               sizes="100vw"
+              quality={75}
             />
-            <div className="absolute inset-0 bg-black/20 md:bg-black/15" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-            <div className="relative z-10 max-w-3xl text-start text-white px-4 sm:px-6 md:px-10 py-6 animate-fade-in-up">
-              {slide.isPrimary ? (
-                <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight drop-shadow-md">
-                  {slide.title}
-                </h1>
-              ) : (
-                <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-md">
-                  {slide.title}
-                </h2>
-              )}
-              <p className="mt-2 sm:mt-4 text-xs sm:text-sm md:text-base lg:text-lg drop-shadow">
-                {slide.desc}
-              </p>
+            <div className="relative z-10 max-w-3xl text-start text-white px-4 sm:px-6 md:px-10 pb-6 sm:pb-8 animate-fade-in-up">
+              <div className="backdrop-blur-sm bg-black/35 px-4 py-3 sm:px-5 sm:py-4 md:px-6 md:py-5 rounded-xl">
+                {slide.isPrimary ? (
+                  <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)' }}>
+                    {slide.title}
+                  </h1>
+                ) : (
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)' }}>
+                    {slide.title}
+                  </h2>
+                )}
+                <p className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg leading-relaxed" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.7)' }}>
+                  {slide.desc}
+                </p>
+              </div>
             </div>
           </div>
         ))}
