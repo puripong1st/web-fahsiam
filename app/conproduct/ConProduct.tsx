@@ -30,7 +30,7 @@ export default function Products() {
       {/* Header with Background */}
       <div
         className="relative bg-slate-100 bg-cover bg-center min-h-[320px] md:min-h-[520px] flex flex-col justify-end pb-12 md:pb-16"
-        style={{ backgroundImage: "url('/image/bg-header.jpg')" }}
+        style={{ backgroundImage: "url('/background/background1.webp')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
 
