@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 export default function CookieBanner() {
-  // ✅ ใช้ initializer function — ไม่ต้องใช้ useEffect สำหรับ initial state
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return !Cookies.get("cookie_consent");
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const hasConsent = Cookies.get("cookie_consent");
+    setIsVisible(!hasConsent);
+  }, []);
 
   const handleAccept = () => {
     Cookies.set("cookie_consent", "accepted", { expires: 365, path: "/" });
@@ -24,7 +27,7 @@ export default function CookieBanner() {
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
+  if (!isMounted || !isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 animate-in slide-in-from-bottom-5 duration-500">
