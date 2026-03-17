@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gradient-to-b from-white to-sky-50">
-      <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-sky-100 max-w-md w-full flex flex-col items-center transition-all hover:shadow-md">
+      <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-sky-100 max-w-md w-full flex flex-col items-center transition-all hover:shadow-md animate-fade-in-up">
         
         {/* ไอคอนแจ้งเตือน */}
         <div className="w-20 h-20 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-inner">

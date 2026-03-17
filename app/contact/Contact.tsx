@@ -5,6 +5,7 @@ import { FaFacebook, FaTiktok } from "react-icons/fa";
 import { SiLine } from "react-icons/si";
 import { useState } from "react";
 import Image from 'next/image';
+import AnimateIn from '../components/AnimateIn';
 
 export default function Contact() {
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
@@ -26,7 +27,7 @@ export default function Contact() {
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">
           <div className="max-w-7xl mx-auto px-4">
-            <h1 className="text-2xl md:text-4xl font-extrabold text-white drop-shadow">ติดต่อเรา</h1>
+            <h1 className="text-2xl md:text-4xl font-extrabold text-white drop-shadow animate-fade-in-up">ติดต่อเรา</h1>
           </div>
         </div>
       </section>
@@ -35,7 +36,7 @@ export default function Contact() {
       <main className="max-w-6xl mx-auto px-4 md:px-6 py-10">
         
         {/* Top Section: Contact & Socials */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <AnimateIn className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {/* Row 1: Contact Info */}
           <InfoCard icon={<FiPhone />} title="โทรศัพท์" value="082-529-8388" href="tel:082-529-8388"/>
           <InfoCard icon={<FiMail />} title="อีเมล" value="admin@smartagritech.co.th" href="mailto:admin@smartagritech.co.th" />
@@ -51,10 +52,10 @@ export default function Contact() {
           <a href="https://www.tiktok.com/@fahsiam0" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 h-[72px] rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-gray-400 hover:bg-gray-50 transition">
             <FaTiktok className="text-black text-3xl" /> <span className="text-lg font-medium text-gray-700">TikTok</span>
           </a>
-        </div>
+        </AnimateIn>
 
         {/* Bottom Section: Map & FAQ */}
-        <div className="grid lg:grid-cols-2 gap-6">
+        <AnimateIn className="grid lg:grid-cols-2 gap-6" delay="0.1s">
           
           {/* Left Column: Office & Map */}
           <section className="flex flex-col h-[500px] lg:h-auto min-h-[500px] rounded-2xl overflow-hidden border border-gray-300 bg-white shadow-sm">
@@ -117,7 +118,7 @@ export default function Contact() {
             </div>
 
           </section>
-        </div>
+        </AnimateIn>
       </main>
     </div>
   );

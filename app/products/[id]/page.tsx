@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import AnimateIn from "../../components/AnimateIn";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";
 
 /* ── ข้อมูล SEO แยกไว้ (ใช้ร่วมกันระหว่าง metadata กับ JSON-LD) ── */
@@ -252,8 +253,8 @@ export default async function ProductDetailPage({
       />
 
       {/* ส่วนหัวสีเขียว (Banner) */}
-      <div className="bg-[#007a33] text-white py-6 md:py-10 text-center">
-        <h1 className="text-2xl md:text-4xl font-bold px-4">
+      <div className="bg-sky-800 text-white py-6 md:py-10 text-center">
+        <h1 className="text-2xl md:text-4xl font-bold px-4 animate-fade-in-up">
           {product.name} 50 กิโลกรัม
         </h1>
       </div>
@@ -261,7 +262,7 @@ export default async function ProductDetailPage({
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* รูปภาพสินค้า */}
-          <div className="rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
+          <AnimateIn className="rounded-3xl overflow-hidden shadow-2xl border border-gray-100" animation="scale-in">
             <Image
               src={product.image}
               alt={product.name}
@@ -271,15 +272,15 @@ export default async function ProductDetailPage({
               className="w-full h-auto object-cover"
               priority
             />
-          </div>
+          </AnimateIn>
 
           {/* รายละเอียดราคาและประโยชน์ */}
-          <div className="flex flex-col">
-            <h2 className="text-3xl font-bold text-[#007a33] leading-tight">
+          <AnimateIn className="flex flex-col" delay="0.15s">
+            <h2 className="text-3xl font-bold text-sky-800 leading-tight">
               {product.name} <br /> 50 กิโลกรัม
             </h2>
             <div className="mt-4 flex items-baseline gap-4">
-              <span className="text-4xl font-black text-blue-800">
+              <span className="text-4xl font-black text-sky-800">
                 ฿ {product.price.toLocaleString()}
               </span>
               {product.oldPrice && (
@@ -291,7 +292,7 @@ export default async function ProductDetailPage({
 
             {/* ดึงข้อมูล "ประโยชน์" มาแสดงแบบอัตโนมัติ */}
             <div className="mt-8">
-              <h3 className="text-xl font-bold text-[#007a33] mb-4">
+              <h3 className="text-xl font-bold text-sky-800 mb-4">
                 ประโยชน์
               </h3>
               <ul className="space-y-2 text-gray-700">
@@ -319,23 +320,23 @@ export default async function ProductDetailPage({
 
             <Link
               href="/conproduct"
-              className="mt-6 text-gray-500 hover:text-emerald-600 text-sm font-medium transition-colors"
+              className="mt-6 text-gray-500 hover:text-sky-600 text-sm font-medium transition-colors"
             >
               ← กลับไปเลือกสินค้าอื่น
             </Link>
-          </div>
+          </AnimateIn>
         </div>
 
         {/* ส่วนล่าง: วิธีใช้ ดึงข้อมูลแบบอัตโนมัติ */}
-        <div className="mt-16 bg-[#f0f9f4] rounded-3xl p-8 md:p-12 border border-emerald-100">
-          <h3 className="text-2xl font-bold text-[#007a33] mb-8 border-b-2 border-emerald-200 pb-2 inline-block">
+        <AnimateIn className="mt-16 bg-sky-50/60 rounded-3xl p-8 md:p-12 border border-sky-100">
+          <h3 className="text-2xl font-bold text-sky-800 mb-8 border-b-2 border-sky-200 pb-2 inline-block">
             วิธีใช้
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-12">
             {product.usages.map((usageGroup, index) => (
               <div key={index} className="space-y-3">
-                <h4 className="text-lg font-extrabold text-[#007a33] border-b border-emerald-100 pb-1">
+                <h4 className="text-lg font-extrabold text-sky-800 border-b border-sky-100 pb-1">
                   {usageGroup.groupName}
                 </h4>
                 <div className="space-y-2">
@@ -349,7 +350,7 @@ export default async function ProductDetailPage({
               </div>
             ))}
           </div>
-        </div>
+        </AnimateIn>
       </div>
     </main>
   );

@@ -73,7 +73,7 @@ export default function HeroSlider() {
             />
             <div className="absolute inset-0 bg-black/20 md:bg-black/15" />
 
-            <div className="relative z-10 max-w-3xl text-start text-white px-4 sm:px-6 md:px-10 py-6">
+            <div className="relative z-10 max-w-3xl text-start text-white px-4 sm:px-6 md:px-10 py-6 animate-fade-in-up">
               {slide.isPrimary ? (
                 <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight drop-shadow-md">
                   {slide.title}
@@ -116,7 +116,7 @@ export default function HeroSlider() {
             key={i}
             onClick={() => setCurrent(i)}
             className={`w-2.5 h-2.5 rounded-full transition ${
-              current === i ? "bg-blue-400" : "bg-white/70"
+              current === i ? "bg-sky-500 scale-125" : "bg-white/70"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

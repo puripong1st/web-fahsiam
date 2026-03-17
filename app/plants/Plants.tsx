@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { plants } from "../data/datafame";
 import Image from "next/image";
+import AnimateIn from "../components/AnimateIn";
 
 type Sort = "nameAsc" | "nameDesc" | "steps" | "fert";
 
@@ -42,7 +43,7 @@ export default function PlantsPage() {
         </div>
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-x-0 bottom-6 md:bottom-10">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 animate-fade-in-up">
             <h1 className="text-2xl md:text-4xl font-extrabold text-white drop-shadow-md">
               🌱 พืชทั้งหมด
             </h1>
@@ -57,7 +58,7 @@ export default function PlantsPage() {
       <main className="max-w-7xl mx-auto px-6 py-10">
         
         {/* ✅ CONTROLS SECTION - ธีมสีฟ้าสดใส น่าดึงดูด */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-b border-gray-100 pb-8">
+        <AnimateIn className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-b border-gray-100 pb-8">
           
           {/* จำนวนผลลัพธ์ */}
           <div className="flex items-center gap-3">
@@ -108,10 +109,10 @@ export default function PlantsPage() {
               </svg>
             </div>
           </div>
-        </div>
+        </AnimateIn>
 
         {/* ✅ PLANT GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <AnimateIn className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" animation="fade-in" delay="0.1s">
           {list.map((p) => (
             <Link
               href={`/plants/${p.id}`} 
@@ -167,7 +168,7 @@ export default function PlantsPage() {
               </div>
             </Link>
           ))}
-        </div>
+        </AnimateIn>
 
         {/* ✅ EMPTY STATE */}
         {list.length === 0 && (

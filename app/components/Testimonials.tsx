@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { TESTIMONIALS } from "../data/testimonialsData";
+import AnimateIn from "./AnimateIn";
 
 export default function Testimonials() {
   const autoplayOptions = {
@@ -26,13 +27,14 @@ export default function Testimonials() {
     <section className="py-20 bg-gradient-to-b from-white to-sky-50" id="testimonials">
       <div className="max-w-7xl mx-auto px-4">
         {/* ส่วนหัวข้อ */}
-        <div className="text-center mb-12">
+        <AnimateIn className="text-center mb-12">
           <p className="text-sky-700 font-semibold tracking-wide uppercase text-sm">ลูกค้าพูดถึงเรา</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">เสียงจากผู้ใช้งานจริง</h2>
           <div className="h-1.5 w-20 bg-sky-500 mx-auto mt-4 rounded-full" />
-        </div>
+        </AnimateIn>
 
         {/* ตัว Carousel */}
+        <AnimateIn animation="fade-in" delay="0.1s">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex -ml-6">
             {TESTIMONIALS.map((t, i) => (
@@ -82,6 +84,7 @@ export default function Testimonials() {
             ))}
           </div>
         </div>
+        </AnimateIn>
 
         {/* คำแนะนำเพิ่มเติมด้านล่าง */}
         <p className="text-center text-gray-400 text-sm mt-8">

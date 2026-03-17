@@ -163,27 +163,25 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-sky-100">
           <p>© {year} SiamAgriTech — All rights reserved.</p>
           
-          <div className="flex items-center gap-4">
-            <a
-              href="tel:0825298388"
-              className="inline-flex items-center gap-2 hover:underline"
-            >
-              <FaPhoneAlt /> สายด่วน 082-529-8388
-            </a>
-
-            {/* ปุ่มขึ้นบนสุด */}
-            <button
-              aria-label="Back to top"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-1 
-             rounded-full bg-sky-600 px-3 py-3 text-white shadow-lg 
-             hover:bg-sky-700 transition duration-200 animate-bounce"
-            >
-              <FiArrowUp className="font-bold text-2xl" />
-            </button>
-          </div>
+          <a
+            href="tel:0825298388"
+            className="inline-flex items-center gap-2 hover:underline"
+          >
+            <FaPhoneAlt /> สายด่วน 082-529-8388
+          </a>
         </div>
       </div>
+
+      {/* ปุ่มขึ้นบนสุด */}
+      <button
+        aria-label="Back to top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center 
+          rounded-full bg-sky-600 p-3 text-white shadow-lg 
+          hover:bg-sky-700 hover:-translate-y-0.5 transition-all duration-200"
+      >
+        <FiArrowUp className="text-xl" />
+      </button>
 
     </footer>
   );
