@@ -17,7 +17,7 @@ export default function Contact() {
         <div className="relative w-full h-48 md:h-80 overflow-hidden">
           <Image 
             src="/background/background1.webp" 
-            alt="ติดต่อเรา" 
+            alt="แผนที่และข้อมูลติดต่อฟ้าสยาม SiamAgriTech" 
             fill
             sizes="100vw"
             className="object-cover"
