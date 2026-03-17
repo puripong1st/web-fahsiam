@@ -1,55 +1,46 @@
 ---
 name: seo-expert
-description: ทักษะการวิเคราะห์และปรับปรุง SEO (Search Engine Optimization) และ Metadata ระดับสูง เพื่อให้เว็บไซต์ติดอันดับ Google Search อย่างมีประสิทธิภาพสูงสุด ใช้สำหรับการทำ Keyword Research, การปรับปรุง On-page/Technical SEO, การกำหนด Metadata และ Schema.org (JSON-LD)
+description: ทักษะระดับ "SEO Titan & Semantic Engine" สำหรับการวิเคราะห์และปรับปรุง SEO/Metadata ขั้นสูง เพื่อพิชิตอันดับ Google Search อย่างโหดที่สุด ใช้สำหรับการทำ Automated SEO Audit, Semantic Logic Analysis, Topic Authority Building, Advanced Schema.org (JSON-LD)
 ---
 
-# SEO & Metadata Expert Skill
+# SEO Titan & Semantic Engine Skill
 
-ทักษะนี้ออกแบบมาเพื่อให้ Manus ทำหน้าที่เป็นผู้เชี่ยวชาญด้าน SEO และ Metadata ระดับแนวหน้า โดยเน้นความสมบูรณ์แบบในทุกรายละเอียด ตั้งแต่การวิเคราะห์คำค้นหาไปจนถึงการปรับปรุงโครงสร้างทางเทคนิคหลังบ้าน
+ทักษะระดับ Elite นี้ออกแบบมาเพื่อยกระดับ Manus ให้เป็นเครื่องจักรทำ SEO ที่ทรงพลังที่สุด โดยเน้นการวิเคราะห์เชิงเทคนิค (Technical Logic) และความเข้าใจเชิงความหมาย (Semantic Understanding) ในระดับที่ Algorithm ของ Google ต้องการ
 
-## ความสามารถหลัก (Core Capabilities)
+## ขีดความสามารถระดับสูงสุด (Titan Capabilities)
 
-ทักษะนี้ช่วยให้ Manus สามารถดำเนินการดังต่อไปนี้ได้อย่างมืออาชีพ:
+1.  **Automated Technical Audit:** ใช้ Python Scripts เพื่อดึงข้อมูลและวิเคราะห์ Meta Tags, Headings, และ Image Alt Texts จากไฟล์ HTML หรือ URL จริงได้อย่างแม่นยำ
+2.  **Semantic Core Analysis:** วิเคราะห์ความเชื่อมโยงของเนื้อหาผ่าน Entity Mapping และ LSI เพื่อสร้าง Topic Authority ที่เหนือกว่าคู่แข่ง
+3.  **Advanced Schema Factory:** ออกแบบโครงสร้าง JSON-LD ที่ซับซ้อน (Product, FAQ, Organization, LocalBusiness) เพื่อสร้าง Rich Snippets ที่โดดเด่นบนผลการค้นหา
+4.  **Strategic Content Engineering:** วางแผนโครงสร้างเนื้อหาแบบ Pillar-Cluster เพื่อส่งค่าความน่าเชื่อถือ (Link Equity) ไปยังหน้าสำคัญอย่างมีประสิทธิภาพ
+5.  **Competitive Gap Analysis:** วิเคราะห์จุดอ่อนของคู่แข่งและหาโอกาสใน Keyword ที่มีการแข่งขันต่ำแต่มีคุณภาพสูง
 
-1.  **Keyword Research:** วิเคราะห์คำค้นหาหลัก (Primary), คำค้นหาเฉพาะเจาะจง (Long-tail), และคำที่เกี่ยวข้องทางความหมาย (LSI) เพื่อเจาะกลุ่มเป้าหมายได้อย่างแม่นยำ
-2.  **On-page Optimization:** ปรับแต่งเนื้อหา, Title Tag, Meta Description, Heading Tags (H1-H6), และรูปภาพ (Alt Text) ให้สอดคล้องกับ Keyword และดึงดูดการคลิก
-3.  **Technical SEO:** จัดการโครงสร้างทางเทคนิค เช่น Sitemap, Robots.txt, Canonical URLs, และ Page Speed Optimization
-4.  **Structured Data (Schema.org):** ติดตั้ง JSON-LD สำหรับ Organization, Product, Article, FAQ เพื่อสร้าง Rich Snippets บนผลการค้นหา
-5.  **Metadata Management:** กำหนด Metadata สำหรับ Next.js, Open Graph (Facebook/Line), และ Twitter Card อย่างครบถ้วน
+## ขั้นตอนการทำงานแบบ "โหดสุดยอด" (Elite Workflow)
 
-## ขั้นตอนการทำงาน (Workflow)
+### ขั้นที่ 1: Deep Technical Audit (การตรวจสอบเชิงลึก)
+*   **Action:** รันสคริปต์ `/home/ubuntu/skills/seo-expert/scripts/seo_audit.py` กับหน้าเว็บเป้าหมาย
+*   **Output:** รายงานข้อผิดพลาดเชิงเทคนิค (Technical Flaws) เช่น Title ยาวเกินไป, H1 ซ้ำซ้อน, หรือรูปภาพขาด Alt Text
 
-เมื่อได้รับมอบหมายให้ทำ SEO หรือปรับปรุง Metadata ให้ปฏิบัติตามขั้นตอนดังนี้:
+### ขั้นที่ 2: Semantic Keyword Intelligence (การวิเคราะห์คำค้นหาเชิงลึก)
+*   **Action:** ระบุ "Entity" หลักและรองของหน้าเว็บ (อ้างอิงไฟล์ `/home/ubuntu/skills/seo-expert/references/semantic_seo_elite.md`)
+*   **Goal:** สร้างรายการ Keyword ที่ครอบคลุมทั้ง Primary, Long-tail และ LSI เพื่อสร้างความลึกของเนื้อหา (Content Depth)
 
-### ขั้นที่ 1: การสำรวจและวิเคราะห์ (Audit & Analysis)
-*   สำรวจโครงสร้าง HTML และ Metadata ปัจจุบันของเว็บไซต์
-*   ตรวจสอบไฟล์เทคนิคสำคัญ เช่น `sitemap.ts/xml` และ `robots.txt`
-*   วิเคราะห์คู่แข่งและกลุ่มเป้าหมายเพื่อหาช่องว่างในการทำ SEO
+### ขั้นที่ 3: Semantic Implementation (การปรับปรุงเชิงความหมาย)
+*   **Action:** ปรับปรุงเนื้อหาตามหลัก E-E-A-T และ Topic Clusters
+*   **Goal:** ใช้เทมเพลตจาก `/home/ubuntu/skills/seo-expert/templates/metadata_templates.md` เพื่อติดตั้ง Metadata และ Schema.org ขั้นสูง
 
-### ขั้นที่ 2: การวิจัยคำค้นหา (Keyword Research)
-*   ระบุ Keyword หลักที่มีปริมาณการค้นหาสูงและเกี่ยวข้องกับธุรกิจ
-*   หา Keyword รองและ Long-tail เพื่อเพิ่มโอกาสในการติดอันดับในกลุ่มที่เฉพาะเจาะจง
-*   วิเคราะห์ User Intent (สิ่งที่ผู้ใช้ต้องการจริงๆ เมื่อค้นหาคำนั้นๆ)
-
-### ขั้นที่ 3: การวางแผนและปรับปรุง (Implementation Plan)
-*   จัดทำแผนการปรับปรุง On-page SEO สำหรับหน้าสำคัญ
-*   เตรียม Metadata และ Schema.org JSON-LD ที่เหมาะสม
-*   ใช้ไฟล์อ้างอิงและเทมเพลตในทักษะนี้เพื่อความถูกต้องแม่นยำ
-
-### ขั้นที่ 4: การตรวจสอบความสมบูรณ์ (Validation)
-*   ใช้รายการตรวจสอบ (Checklist) เพื่อให้มั่นใจว่าไม่มีจุดใดขาดตกบกพร่อง
-*   ตรวจสอบความถูกต้องของ JSON-LD และการตั้งค่า Metadata ทั้งหมด
+### ขั้นที่ 4: Final Validation & Optimization (การตรวจสอบและปรับแต่ง)
+*   **Action:** ใช้ Checklist ระดับ Elite ใน `/home/ubuntu/skills/seo-expert/references/seo_checklist.md` เพื่อตรวจสอบความสมบูรณ์แบบ 100%
 
 ## ทรัพยากรสนับสนุน (Bundled Resources)
 
-เพื่อความสมบูรณ์แบบสูงสุด ให้ใช้ทรัพยากรที่แนบมาพร้อมกับทักษะนี้:
+*   **Scripts:** `/home/ubuntu/skills/seo-expert/scripts/seo_audit.py` - สคริปต์ตรวจสอบ SEO อัตโนมัติ
+*   **Elite Guide:** `/home/ubuntu/skills/seo-expert/references/semantic_seo_elite.md` - คู่มือ Semantic SEO ระดับสูง
+*   **Checklist:** `/home/ubuntu/skills/seo-expert/references/seo_checklist.md` - รายการตรวจสอบความสมบูรณ์แบบ
+*   **Templates:** `/home/ubuntu/skills/seo-expert/templates/metadata_templates.md` - รวมเทมเพลต Metadata และ Schema.org
 
-*   **รายการตรวจสอบ (Checklist):** อ่านไฟล์ `/home/ubuntu/skills/seo-expert/references/seo_checklist.md` เพื่อตรวจสอบความครบถ้วนของงาน SEO ในทุกมิติ
-*   **เทมเพลต (Templates):** ใช้ไฟล์ `/home/ubuntu/skills/seo-expert/templates/metadata_templates.md` สำหรับการคัดลอกและปรับแต่ง Metadata, Schema.org (JSON-LD) และ Next.js Configuration
+## มาตรฐานระดับ Titan (Titan Standards)
 
-## ข้อกำหนดและมาตรฐาน (Standards)
-
-*   **ความยาวของ Title:** 50-60 ตัวอักษร (แสดงผลได้ดีที่สุดบน Google)
-*   **ความยาวของ Meta Description:** 150-160 ตัวอักษร
-*   **ภาษา:** ใช้ภาษาที่สละสลวย ดึงดูดใจ และมีความเป็นธรรมชาติ ไม่ยัดเยียด Keyword จนเกินไป
-*   **ความเร็ว:** ให้ความสำคัญกับ Page Speed และ Core Web Vitals เสมอในการแนะนำเทคนิคต่างๆ
+*   **Logic Over Keywords:** เน้นการสร้างความหมายและบริบทที่ Google เข้าใจได้ มากกว่าการยัด Keyword
+*   **Rich Snippets Focus:** ทุกหน้าสำคัญต้องมี Schema.org ที่ถูกต้องเพื่อเพิ่ม CTR (Click-Through Rate)
+*   **Technical Precision:** ห้ามมีข้อผิดพลาดพื้นฐาน (เช่น 404, Redirect Loop, Missing Alt) แม้แต่จุดเดียว
