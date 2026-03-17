@@ -2,14 +2,15 @@ import "./globals.css";
 import { Sarabun } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import type { Metadata, Viewport } from "next";
+import { Metadata, Viewport } from "next";
 
 const sarabun = Sarabun({
   subsets: ["thai", "latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal"],
   display: "swap",
   variable: "--font-sarabun",
+  preload: true,
 });
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-fahsiam.vercel.app";

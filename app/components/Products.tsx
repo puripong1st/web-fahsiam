@@ -64,6 +64,9 @@ export default function Products() {
                       alt={p.name}
                       fill
                       className="object-contain"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      loading="lazy"
+                      quality={80}
                     />
                   </div>
 

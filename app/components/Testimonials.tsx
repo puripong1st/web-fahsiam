@@ -70,6 +70,7 @@ export default function Testimonials() {
                         alt={t.name} 
                         width={48}
                         height={48}
+                        loading="lazy"
                         className="w-12 h-12 rounded-full object-cover border-2 border-sky-100"
                       />
                       <div className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white" title="Verified Buyer" />
