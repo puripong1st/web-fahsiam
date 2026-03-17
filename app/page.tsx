@@ -18,6 +18,10 @@ const Calendar = dynamic(() => import("./components/Calendar"), {
   loading: () => <div className="h-96 bg-white animate-pulse" />,
 });
 
+const FAQSection = dynamic(() => import("./components/FAQSection"), {
+  loading: () => <div className="h-64 bg-gray-50 animate-pulse" />,
+});
+
 const Testimonials = dynamic(() => import("./components/Testimonials"), {
   loading: () => <div className="h-64 bg-sky-50 animate-pulse" />,
 });
@@ -116,6 +120,7 @@ export default function LandingPage() {
       <Products />
       <WhyChoose />
       <Calendar />
+      {/* <FAQSection /> */}
       <Testimonials />
       <AdTracker />
       <CookieBanner />
