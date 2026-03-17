@@ -86,13 +86,14 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
       href={`/products/${p.id}`}
       className={`animate-scale-in ${stagger} group flex flex-col bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden`}
     >
-      <div className="relative w-full aspect-square bg-gray-50 p-6 overflow-hidden">
+      <div className="relative w-full aspect-square bg-gray-50 flex items-center justify-center p-4 overflow-hidden">
         <Image
           src={p.image}
           alt={p.name}
           width={400}
           height={400}
-          className="object-contain w-full h-full mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Badges */}
