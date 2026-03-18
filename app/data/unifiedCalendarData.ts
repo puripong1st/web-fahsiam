@@ -155,7 +155,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "kluai-khai",
     name: "กล้วยไข่",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Kluai+Khai",
+    image: "/image/Tree/กล้วยไข่.webp",
     description: "กล้วยไข่ผลอ้วนกลม ไม่มีเหลี่ยม นิยมรับประทานสด",
     harvestNote: "กล้วยมีอายุ 60-70 วันเริ่มเก็บเกี่ยวได้",
     monthlyActivities: createMonthlyActivities({
@@ -173,7 +173,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "durian-produce",
     name: "ทุเรียน (ให้ผลผลิต)",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian",
+    image: "/image/Tree/รูปต้นทุเรียน ให้ผลผลิต.webp",
     description: "ราชาแห่งผลไม้ มีกลิ่นเฉพาะตัว เนื้อหวานมัน",
     harvestNote: "ทุเรียนเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -193,7 +193,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "durian-0-1",
     name: "ทุเรียน (ยังไม่ให้ผลผลิต) 0-1 ปี",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian+Small",
+    image: "/image/Tree/ต้นทุเรียน 0-1ปี.webp",
     description: "ทุเรียนปลูกใหม่ เน้นการสร้างรากและลำต้นให้แข็งแรง",
     harvestNote: "-",
     monthlyActivities: createMonthlyActivities({
@@ -210,7 +210,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "durian-2-3",
     name: "ทุเรียน (ยังไม่ให้ผลผลิต) 2-3 ปี",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian+Medium",
+    image: "/image/Tree/รูปต้นทุเรียน  2-3ปี.webp",
     description: "ทุเรียนระยะเติบโต เน้นการสร้างทรงพุ่มและใบ",
     harvestNote: "-",
     monthlyActivities: createMonthlyActivities({
@@ -228,7 +228,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "jackfruit",
     name: "ขนุน",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Jackfruit",
+    image: "/image/Tree/ขนุน.png",
     description: "ผลใหญ่ เนื้อหวาน นิยมรับประทานสดหรือแปรรูป",
     harvestNote: "ขนุนเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -246,7 +246,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rose-apple",
     name: "ชมพู่",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Rose+Apple",
+    image: "/image/Tree/ชมพู่.webp",
     description: "ผลกรอบ รสชาติหวานอมเปรี้ยว นิยมรับประทานสด",
     harvestNote: "ชมพู่เก็บเกี่ยวได้หลังจากดอกบานแล้ว 30-35 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -264,7 +264,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "longan-inseason",
     name: "ลำไยในฤดู",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Longan",
+    image: "/image/Tree/ลำไยทั้งในและนอก.webp",
     description: "ลำไยฤดูกาลปกติ ผลหวานหอม เนื้อใส",
     harvestNote: "ลำไยเก็บเกี่ยวได้ในระยะหลังดอกบาน 180-210 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -282,7 +282,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "longan-offseason",
     name: "ลำไยนอกฤดู",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Longan",
+    image: "/image/Tree/ลำไยทั้งในและนอก.webp",
     description: "ลำไยนอกฤดูกาล เก็บเกี่ยวช่วงต้นปี ราคาดี",
     harvestNote: "ลำไยเก็บเกี่ยวได้ในระยะหลังดอกบาน 180-210 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -298,9 +298,9 @@ export const PLANT_DATA: PlantInfo[] = [
   },
   {
     id: "longkong",
-    name: "ลองกอง",
+    name: "/image/Tree/ลองกอง.webp",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Longkong",
+    image: "ลองกอง.webp",
     description: "ผลคล้ายลำไย แต่เปลือกนิ่ม เนื้อหวานอมเปรี้ยว",
     harvestNote: "ลองกองเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -318,7 +318,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "lychee",
     name: "ลิ้นจี่",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Lychee",
+    image: "/image/Tree/ลั้นจี่.webp",
     description: "ผลหวานหอม เนื้อใส เปลือกแดงสด",
     harvestNote: "ลิ้นจี่เริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -336,7 +336,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "mango-inseason",
     name: "มะม่วงในฤดู",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Mango",
+    image: "/image/Tree/มะม่วงทั้งในและนอก.webp",
     description: "มะม่วงฤดูกาลปกติ หลากหลายสายพันธุ์",
     harvestNote: "มะม่วงเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -354,7 +354,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "mango-offseason",
     name: "มะม่วงนอกฤดู",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Mango",
+    image: "/image/Tree/มะม่วงทั้งในและนอก.webp",
     description: "มะม่วงนอกฤดูกาล เก็บเกี่ยวช่วงต้นปี",
     harvestNote: "มะม่วงเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -372,7 +372,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "mangosteen",
     name: "มังคุด",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Mangosteen",
+    image: "/image/Tree/มังคุด.webp",
     description: "ราชินีแห่งผลไม้ เปลือกม่วง เนื้อขาวหวาน",
     harvestNote: "มังคุดเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -390,7 +390,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "pomelo-inseason",
     name: "ส้มโอในฤดู",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Pomelo",
+    image: "/image/Tree/ส้มโอ.webp",
     description: "ส้มโอฤดูกาลปกติ ผลใหญ่ เนื้อหวานฉ่ำ",
     harvestNote: "ส้มโอเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 210 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -408,7 +408,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "pomelo-tawhai",
     name: "ส้มโอทะวาย",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Pomelo+Tawhai",
+    image: "/image/Tree/ส้มโอ.webp",
     description: "ส้มโอทะวาย ผลกลม เนื้อสีชมพูหรือแดง",
     harvestNote: "ส้มโอเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 210 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -426,7 +426,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rambutan",
     name: "เงาะ",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Rambutan",
+    image: "/image/Tree/เงาะ.webp",
     description: "ผลมีหนาม เนื้อขาวหวาน นิยมรับประทานสด",
     harvestNote: "เงาะเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -444,7 +444,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "sugar-apple",
     name: "น้อยหน่า",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Sugar+Apple",
+    image: "/image/Tree/น้อยหน่า.webp",
     description: "ผลมีเกล็ด เนื้อหวานมัน นิยมรับประทานสด",
     harvestNote: "น้อยหน่าเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -462,7 +462,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "sweet-tamarind",
     name: "มะขามหวาน",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Sweet+Tamarind",
+    image: "/image/Tree/มะขามหวาน.webp",
     description: "มะขามสายพันธุ์หวาน รับประทานสดได้",
     harvestNote: "มะขามหวานเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -480,7 +480,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "marian-plum",
     name: "มะปราง",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Marian+Plum",
+    image: "/image/Tree/มะปราง.webp",
     description: "ผลเหลืองส้ม รสชาติหวานอมเปรี้ยว",
     harvestNote: "มะปรางเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -498,7 +498,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "guava",
     name: "ฝรั่ง",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Guava",
+    image: "/image/Tree/ฝรั่ง.webp",
     description: "ผลกรอบ รสหวาน นิยมรับประทานสด",
     harvestNote: "ฝรั่งเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -516,7 +516,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "fruit-tree-not-produce",
     name: "ไม้ผล (ยังไม่ให้ผลผลิต)",
     category: "ไม้ผลเมืองร้อน",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Small+Fruit+Tree",
+    image: "/image/Tree/fruit-root-vegetable.webp",
     description: "สำหรับไม้ผลเพิ่งลงปลูก หรือยังไม่ถึงวัยเจริญพันธุ์",
     harvestNote: "เน้นการเจริญเติบโตของลำต้นและใบ",
     monthlyActivities: createMonthlyActivities({
@@ -537,7 +537,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "strawberry",
     name: "สตรอเบอรี่",
     category: "ไม้ผลเมืองหนาว",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Strawberry",
+    image: "/image/Tree/สตรอเบอรี่.webp",
     description: "ผลสีแดง รสหวานอมเปรี้ยว นิยมปลูกในแปลงยกแคร่",
     harvestNote: "สตรอเบอรี่เริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -555,7 +555,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "grape",
     name: "องุ่น",
     category: "ไม้ผลเมืองร้อน", // (สามารถใส่หมวดไม้ผลเมืองร้อนได้ตามบริบท)
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Grape",
+    image: "/image/Tree/องุ่น.webp",
     description: "ผลกลม รสหวาน นิยมปลูกเป็นรั้ว",
     harvestNote: "องุ่นเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -577,7 +577,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "coffee-year1",
     name: "กาแฟ ปีที่ 1",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    image: "/image/Tree/กาแฟ 1 ปี.webp",
     description: "กาแฟปีแรก เน้นการดูแลต้นกล้าให้เจริญเติบโต",
     harvestNote: "ต้นกล้ามีอายุ 6-14 เดือน หรือมีความสูงอย่างน้อย 20 เซนติเมตร",
     monthlyActivities: createMonthlyActivities({
@@ -596,7 +596,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "coffee-year2",
     name: "กาแฟ ปีที่ 2",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    image: "/image/Tree/กาแฟ 2 ปี.webp",
     description: "กาแฟปีที่ 2 เน้นการเจริญเติบโตของลำต้นและใบ",
     harvestNote: "หากดินมีค่า pH ต่ำกว่า 5.5 ควรใส่ปูนโดโลไมต์ปรับสภาพดิน",
     monthlyActivities: createMonthlyActivities({
@@ -615,7 +615,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "coffee-year3",
     name: "กาแฟ ปีที่ 3 (ให้ผลผลิต)",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    image: "/image/Tree/กาแฟ 3  ปี.webp",
     description: "กาแฟปีที่ 3 เริ่มให้ผลผลิต เน้นบำรุงดอกและผล",
     harvestNote: "ใส่ปุ๋ยอินทรีย์ร่วมกับปุ๋ยเคมี ช่วงที่ผลผลิตออกมาก คือ ธ.ค. - ม.ค.",
     monthlyActivities: createMonthlyActivities({
@@ -635,7 +635,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "coconut-year1-3",
     name: "มะพร้าว ปีที่ 1-3",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Coconut",
+    image: "/image/Tree/มะพร้าว 1-3ปี.webp",
     description: "มะพร้าวช่วง 3 ปีแรก เน้นการเจริญเติบโตของต้น",
     harvestNote: "มะพร้าวสามารถเก็บเกี่ยวทุก 45-60 วัน มะพร้าวแกงให้ผลปีที่ 5, น้ำหอมปีที่ 4",
     monthlyActivities: createMonthlyActivities({
@@ -653,7 +653,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "coconut-year4-5",
     name: "มะพร้าว ปีที่ 4-5",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Coconut",
+    image: "/image/Tree/มะพร้าว 4-5 ปี.webp",
     description: "มะพร้าวเริ่มให้ผลผลิต เน้นการดูแลและเก็บเกี่ยว",
     harvestNote: "ควรทำความสะอาดคอมะพร้าวอย่างสม่ำเสมอเพื่อไม่ให้เป็นแหล่งสะสมโรค",
     monthlyActivities: createMonthlyActivities({
@@ -670,7 +670,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "tea-year1-3",
     name: "ชา ปีที่ 1-3",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Tea",
+    image: "/image/Tree/ชา 1-3 ปี.webp",
     description: "ชาช่วง 3 ปีแรก เน้นการเจริญเติบโตของต้น",
     harvestNote: "การเก็บเกี่ยวยอดชา เก็บทุก 45-50 วันเกือบตลอดปี",
     monthlyActivities: createMonthlyActivities({
@@ -689,7 +689,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "tea-year4-5",
     name: "ชา ปีที่ 4-5",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Tea",
+    image: "/image/Tree/ชา 4-5.png",
     description: "ชาเริ่มให้ผลผลิต เน้นการเก็บเกี่ยวและบำรุง",
     harvestNote: "ควรให้น้ำชาอย่างสม่ำเสมอ เนื่องจากชาเป็นพืชที่ต้องการความชื้นตลอดทั้งปี",
     monthlyActivities: createMonthlyActivities({
@@ -707,7 +707,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "oil-palm-start",
     name: "ปาล์มน้ำมัน (เริ่มปลูก)",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Oil+Palm",
+    image: "/image/Tree/ปาล์มน้ำมันเริ่มปลูก.webp",
     description: "ปาล์มน้ำมันระยะเริ่มปลูก ปีที่ 1-3",
     harvestNote: "เริ่มให้ผลผลิตประมาณปีที่ 3-4",
     monthlyActivities: createMonthlyActivities({
@@ -724,7 +724,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "oil-palm-mature",
     name: "ปาล์มน้ำมัน (ตั้งแต่ ปี 4 ขึ้นไป)",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Oil+Palm",
+    image: "/image/Tree/ปาาล์มน้ำมันตั้งแต่ 4 ปีขึ้นไป.webp",
     description: "ปาล์มน้ำมันที่ให้ผลผลิตแล้ว ปีที่ 4 ขึ้นไป",
     harvestNote: "ตัดทะลายได้ทุกๆ 15-20 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -741,7 +741,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rubber-start",
     name: "ยางพารา (เริ่มปลูก 1-6 ปี)",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Rubber+Tree",
+    image: "/image/Tree/ยางพารา 1-6 ปี.webp",
     description: "ต้นยางพาราก่อนเปิดกรีด เน้นการสร้างขนาดลำต้น",
     harvestNote: "-",
     monthlyActivities: createMonthlyActivities({
@@ -758,7 +758,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rubber-mature",
     name: "ยางพารา (เริ่มกรีด 7 ปี ขึ้นไป)",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Rubber+Tree",
+    image: "/image/Tree/ยางพารา 7 ปี ขั้นไป.webp",
     description: "ยางพาราที่เปิดกรีดแล้ว เน้นความสมบูรณ์และปริมาณน้ำยาง",
     harvestNote: "ควรพักหน้ายางในช่วงผลัดใบ (กุมภาพันธ์-เมษายน)",
     monthlyActivities: createMonthlyActivities({
@@ -775,7 +775,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "tobacco",
     name: "ยาสูบ",
     category: "พืชเศรษฐกิจ",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Tobacco",
+    image: "/image/Tree/ยาสูบ.webp",
     description: "พืชใบเศรษฐกิจ ต้องการบำรุงใบและกลิ่น",
     harvestNote: "เก็บเกี่ยวตามอายุใบจากล่างขึ้นบน",
     monthlyActivities: createMonthlyActivities({
@@ -797,7 +797,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rice",
     name: "นาข้าว",
     category: "พืชผัก", // จัดอยู่ในพืชไร่ (ตาม Type ปัจจุบันใช้ "พืชผัก")
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Rice", 
+    image: "/image/Tree/rice.webp", 
     description: "พืชเศรษฐกิจหลักของไทย ต้องการน้ำและธาตุอาหารสูงในช่วงแตกกอและรับรวง",
     harvestNote: "เก็บเกี่ยวเมื่อรวงข้าวเหลืองอร่าม อายุประมาณ 110-120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -815,7 +815,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "corn",
     name: "ข้าวโพด",
     category: "พืชผัก", 
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Corn",
+    image: "/image/Tree/RP6.webp",
     description: "พืชไร่อายุสั้น ทนแล้งได้ดี ต้องการปุ๋ยในช่วงเร่งต้นและบำรุงฝัก",
     harvestNote: "เก็บเกี่ยวหลังปลูกประมาณ 110-120 วัน",
     monthlyActivities: createMonthlyActivities({
@@ -833,7 +833,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "sugarcane",
     name: "อ้อย",
     category: "พืชผัก",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Sugarcane",
+    image: "/image/Tree/sugarcane.jpg",
     description: "พืชไร่อายุยาว ต้องการธาตุโพแทสเซียมเพื่อสร้างความหวาน",
     harvestNote: "ตัดอ้อยเข้าโรงงานในช่วงฤดูแล้ง",
     monthlyActivities: createMonthlyActivities({
@@ -851,7 +851,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "cassava",
     name: "มันสำปะหลัง",
     category: "พืชผัก",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Cassava",
+    image: "/image/Tree/cassava.webp",
     description: "พืชทนแล้ง ต้องการการระเบิดหัวในช่วงปลายการเจริญเติบโต",
     harvestNote: "ขุดมันได้ตั้งแต่อายุ 8-12 เดือน",
     monthlyActivities: createMonthlyActivities({
@@ -869,7 +869,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "leafy-veg",
     name: "พืชผัก (กินใบ)",
     category: "พืชผัก",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Leafy+Veg",
+    image: "/image/Tree/leafy-vegetable.webp",
     description: "พืชอายุสั้น เช่น คะน้า กวางตุ้ง ผักกาด ต้องการไนโตรเจนสูง",
     harvestNote: "เก็บเกี่ยวได้รวดเร็วตามอายุผักแต่ละชนิด (30-45 วัน)",
     monthlyActivities: createMonthlyActivities({
@@ -887,7 +887,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "fruit-root-veg",
     name: "พืชผัก (กินผล/หัว)",
     category: "พืชผัก",
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Fruit+Root+Veg",
+    image: "/image/Tree/fruit-root-vegetable.webp",
     description: "เช่น แตงกวา ถั่วฝักยาว พริก มะเขือ เน้นบำรุงผล",
     harvestNote: "เก็บเกี่ยวผลผลิตตามระยะของพืช",
     monthlyActivities: createMonthlyActivities({
@@ -905,7 +905,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "papaya",
     name: "มะละกอ",
     category: "พืชผัก", // (อนุโลมตามของเดิม)
-    image: "https://placehold.co/400x400/dcfce7/166534?text=Papaya",
+    image: "/image/Tree/มะละกอ.webp",
     description: "ผลยาว รับประทานสดหรือแกงได้ สรรพคุณทางยาสูง",
     harvestNote: "เก็บเกี่ยวได้หลังออกดอก 3-4 เดือน",
     monthlyActivities: createMonthlyActivities({

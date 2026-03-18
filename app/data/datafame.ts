@@ -358,7 +358,7 @@ export const plants: Plant[] = [
     id: "corn",
     updatedAt: "2026-03-12",
     name: "ข้าวโพด",
-    image: "/image/Tree/RP6.jpg",
+    image: "/image/Tree/ข้าวโพด.webp",
     desc: "ให้คุณภาพสูง เหมาะสำหรับการเลี้ยงสัตว์ทุกชนิด",
     sunlight: "ต้องการแสงแดดจัดเต็มวัน",
     watering:
@@ -448,7 +448,7 @@ export const plants: Plant[] = [
     id: "rubber",
     updatedAt: "2026-03-12",
     name: "ยางพารา",
-    image: "/image/Tree/ya1.jpg",
+    image: "/image/Tree/ยางพารา 7 ปี ขั้นไป.webp",
     desc: "ปลูกและดูแลโดยทีมงานมืออาชีพเพื่อผลผลิตสูง",
     sunlight: "ชอบแสงแดดจัดเต็มวัน และสภาพอากาศร้อนชื้น",
     watering:
@@ -553,7 +553,7 @@ export const plants: Plant[] = [
     id: "oilpalm",
     updatedAt: "2026-03-12",
     name: "ปาล์มน้ำมัน",
-    image: "/image/Tree/oilpalm.webp",
+    image: "/image/Tree/ปาาล์มน้ำมันตั้งแต่ 4 ปีขึ้นไป.webp",
     desc: "เน้นการจัดการสวนแบบยั่งยืนและได้ผลผลิตต่อเนื่อง",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน วันละ 5-7 ชั่วโมงเป็นอย่างน้อย",
@@ -681,7 +681,7 @@ export const plants: Plant[] = [
     id: "durian",
     updatedAt: "2026-03-12",
     name: "ทุเรียน",
-    image: "/image/Tree/shutterstock.jpg",
+    image: "/image/Tree/รูปต้นทุเรียน ให้ผลผลิต.webp",
     desc: "คัดเกรดผลผลิตคุณภาพ รสชาติหวานมันตามธรรมชาติ",
     sunlight:
       "ต้นอ่อน (1-2 ปีแรก) ชอบแดดรำไร พลางแสง 50% ต้นโตเต็มที่ต้องการแสงแดดจัดเต็มวัน",
@@ -844,7 +844,7 @@ export const plants: Plant[] = [
     id: "longan",
     updatedAt: "2026-03-12",
     name: "ไม้ผล",
-    image: "/image/Tree/longan.webp",
+    image: "/image/Tree/fruit-root-vegetable.webp",
     desc: "ดูแลด้วยมาตรฐานสูง เพื่อผลผลิตที่สม่ำเสมอและใหญ่เต็มลูก",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน ทรงพุ่มต้องโปร่งให้แสงส่องถึง",
@@ -962,7 +962,7 @@ export const plants: Plant[] = [
     id: "coffee",
     updatedAt: "2026-03-12",
     name: "กาแฟ",
-    image: "/image/Tree/coffee.jpg",
+    image: "/image/Tree/coffee.webp",
     desc: "ปลูกในสภาพแวดล้อมที่เหมาะสม ได้กลิ่นและรสชาติเป็นเอกลักษณ์",
     sunlight:
       "ชอบแสงแดดรำไร (มีร่มเงาจากไม้ยืนต้นอื่น) หรือแสงแดดครึ่งวัน ไม่ทนต่อแดดจัดและอากาศร้อนจัด",
@@ -1233,7 +1233,7 @@ export const plants: Plant[] = [
     id: "tobacco",
     updatedAt: "2026-03-13",
     name: "ยาสูบ",
-    image: "/image/Tree/tobacco.webp",
+    image: "/image/Tree/ยาสูบ.webp",
     desc: "ปลูกในสภาพอากาศเหมาะสม ให้ใบคุณภาพดี กลิ่นหอมเป็นเอกลักษณ์",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน เพื่อให้ใบสมบูรณ์และมีคุณภาพสูง",
