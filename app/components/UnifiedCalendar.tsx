@@ -153,21 +153,23 @@ function ActivityBadge({
 }) {
   const colors = ACTIVITY_COLORS[activity.color];
   const sizeClasses = {
-    sm: "px-2 py-0.5 text-[10px]",
-    md: "px-2.5 py-1 text-xs",
-    lg: "px-3 py-1.5 text-sm",
+    sm: "px-2.5 py-1 text-[11px]",
+    md: "px-3 py-1.5 text-xs",
+    lg: "px-3.5 py-2 text-sm",
   };
 
   return (
     <div
       className={`
-        inline-flex items-center gap-1 rounded-full font-medium
-        border ${colors.bg} ${colors.text} ${colors.border}
+        inline-flex items-center gap-1.5 rounded-full font-semibold
+        border transition-all duration-200
+        ${colors.bg} ${colors.text} ${colors.border}
         ${sizeClasses[size]}
+        hover:shadow-md hover:scale-105
       `}
     >
-      <span className="text-xs">{activity.icon}</span>
-      <span className="truncate max-w-[80px]">{activity.activity}</span>
+      <span className="flex-shrink-0">{activity.icon}</span>
+      <span className="truncate max-w-[85px]">{activity.activity}</span>
     </div>
   );
 }
@@ -187,25 +189,35 @@ function MonthActivityCard({
     <div
       onClick={onClick}
       className={`
-        relative overflow-hidden rounded-xl p-3 cursor-pointer
-        transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5
-        ${isCurrentMonth ? "ring-2 ring-offset-2 ring-green-500" : ""}
-        ${hasActivities ? "bg-white shadow-md" : "bg-gray-50"}
+        relative overflow-hidden rounded-xl p-3.5 cursor-pointer
+        transition-all duration-300 ease-out
+        hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400
+        active:scale-[0.97]
+        ${isCurrentMonth ? "ring-2 ring-offset-2 ring-green-500 shadow-lg" : "shadow-sm"}
+        ${hasActivities ? "bg-white border border-gray-100" : "bg-gray-50 border border-gray-100"}
       `}
       style={{
-        borderLeft: hasActivities ? `4px solid ${monthData.themeColor}` : "4px solid transparent",
+        borderLeft: hasActivities ? `5px solid ${monthData.themeColor}` : "5px solid transparent",
+      }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && onClick) {
+          onClick();
+        }
       }}
     >
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-medium text-gray-500">{monthData.monthShort}</span>
+      <div className="flex items-center justify-between mb-2.5">
+        <span className="text-xs font-semibold text-gray-600">{monthData.monthShort}</span>
         {isCurrentMonth && (
-          <span className="px-2 py-0.5 text-[10px] font-bold text-white bg-green-500 rounded-full">
+          <span className="px-2 py-0.5 text-[10px] font-bold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-sm">
             เดือนนี้
           </span>
         )}
       </div>
 
-      <div className="space-y-1.5">
+      <div className="space-y-1">
         {monthData.activities.map((activity, idx) => (
           <ActivityBadge key={idx} activity={activity} size="sm" />
         ))}
@@ -246,47 +258,50 @@ function TreeDetailModal({
     <>
       <div
         onClick={onClose}
-        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md transition-opacity duration-200 animate-in fade-in"
       />
 
       <div
         className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 
                    md:w-full md:max-w-4xl md:max-h-[85vh]
-                   bg-white rounded-2xl shadow-2xl z-50 overflow-hidden"
+                   bg-white rounded-3xl shadow-2xl z-50 overflow-hidden
+                   animate-in zoom-in-95 duration-300 ease-out"
       >
         <div className="flex flex-col h-full max-h-[85vh]">
-          <div className="relative p-6 bg-gradient-to-br from-green-50 to-emerald-50">
+          <div className="relative px-6 py-7 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-b border-green-100">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+              className="absolute top-4 right-4 p-2.5 rounded-full bg-white hover:bg-red-50 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+              aria-label="Close modal"
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors" />
             </button>
 
             <div className="flex items-start gap-4">
-              <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-gray-100 shadow-lg">
+              <div className="relative w-28 h-28 rounded-2xl overflow-hidden bg-gray-100 shadow-md flex-shrink-0 border border-green-100">
                 <Image
                   src={tree.image}
                   alt={tree.name}
                   fill
                   className="object-cover"
+                  priority
                 />
               </div>
-              <div className="flex-1">
-                <span className="inline-block px-3 py-1 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mb-2">
+              <div className="flex-1 min-w-0">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mb-2 shadow-sm">
                   {tree.category}
                 </span>
-                <h2 className="text-2xl font-bold text-gray-900 mb-1">{tree.name}</h2>
-                <p className="text-sm text-gray-600">{tree.description}</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-1 line-clamp-2">{tree.name}</h2>
+                <p className="text-sm text-gray-600 line-clamp-2">{tree.description}</p>
               </div>
             </div>
 
             {tree.harvestNote && (
-              <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-                <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-blue-500 mt-0.5" />
+              <div className="mt-4 p-3.5 bg-blue-50 rounded-xl border border-blue-100 shadow-sm">
+                <div className="flex items-start gap-2.5">
+                  <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">หมายเหตุการเก็บเกี่ยว</p>
+                    <p className="text-xs font-semibold text-blue-700 mb-1">หมายเหตุการเก็บเกี่ยว</p>
                     <p className="text-sm text-blue-600">{tree.harvestNote}</p>
                   </div>
                 </div>
@@ -294,24 +309,24 @@ function TreeDetailModal({
             )}
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-green-500" />
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div>
+              <h3 className="text-sm font-bold text-gray-900 mb-3.5 flex items-center gap-2.5 text-green-700">
+                <Calendar className="w-5 h-5" />
                 กิจกรรมเดือน{getThaiMonthName(currentMonth)} (เดือนนี้)
               </h3>
-              <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
-                <div className="flex flex-wrap gap-2">
+              <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 shadow-sm">
+                <div className="flex flex-wrap gap-2.5">
                   {currentMonthData?.activities.map((act, idx) => (
                     <ActivityBadge key={idx} activity={act} size="lg" />
-                  )) || <span className="text-gray-500">ไม่มีกิจกรรม</span>}
+                  )) || <span className="text-gray-500 text-sm">ไม่มีกิจกรรม</span>}
                 </div>
               </div>
             </div>
 
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">ปฏิทินทั้งปี</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <div>
+              <h3 className="text-sm font-bold text-gray-900 mb-3.5">ปฏิทินทั้งปี</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
                 {tree.monthlyActivities.map((monthData, idx) => (
                   <MonthActivityCard
                     key={idx}
@@ -324,30 +339,30 @@ function TreeDetailModal({
 
             {tree.fertilizers.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                  <Droplet className="w-4 h-4 text-blue-500" />
-                  ตารางปุ๋ย
+                <h3 className="text-sm font-bold text-gray-900 mb-3.5 flex items-center gap-2.5 text-blue-700">
+                  <Droplet className="w-5 h-5" />
+                  ตารางปุ๋ยสำหรับปี
                 </h3>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-gray-50">
-                        <th className="px-4 py-2 text-left font-medium text-gray-700 rounded-l-lg">เดือน</th>
-                        <th className="px-4 py-2 text-left font-medium text-gray-700">ชนิด</th>
-                        <th className="px-4 py-2 text-left font-medium text-gray-700">สูตร</th>
-                        <th className="px-4 py-2 text-left font-medium text-gray-700">อัตรา</th>
-                        <th className="px-4 py-2 text-left font-medium text-gray-700 rounded-r-lg">วัตถุประสงค์</th>
+                      <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+                        <th className="px-4 py-3 text-left font-semibold text-gray-700">เดือน</th>
+                        <th className="px-4 py-3 text-left font-semibold text-gray-700">ชนิด</th>
+                        <th className="px-4 py-3 text-left font-semibold text-gray-700">สูตร</th>
+                        <th className="px-4 py-3 text-left font-semibold text-gray-700">อัตรา</th>
+                        <th className="px-4 py-3 text-left font-semibold text-gray-700">วัตถุประสงค์</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {tree.fertilizers.map((fert, idx) => (
-                        <tr key={idx} className="hover:bg-gray-50">
+                        <tr key={idx} className="hover:bg-gray-50 transition-colors duration-150">
                           <td className="px-4 py-3 font-medium text-gray-900">
                             {getThaiMonthName(fert.month)}
                           </td>
                           <td className="px-4 py-3 text-gray-600">{fert.type}</td>
                           <td className="px-4 py-3">
-                            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded">
+                            <span className="inline-flex px-2.5 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-lg">
                               {fert.formula}
                             </span>
                           </td>
@@ -386,47 +401,65 @@ function TreeCard({
   return (
     <div
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick();
+        }
+      }}
       className={`
         relative overflow-hidden rounded-2xl cursor-pointer
-        transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg
+        transition-all duration-300 ease-out
+        hover:scale-[1.03] hover:-translate-y-1.5 hover:shadow-xl
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400
+        active:scale-[0.98]
         ${isSelected ? "ring-2 ring-green-500 shadow-xl" : "shadow-md"}
+        border border-gray-100
       `}
     >
-      <div className="relative h-40 bg-gray-100">
-        <Image src={tree.image} alt={tree.name} fill className="object-cover" />
+      <div className="relative h-40 bg-gray-100 overflow-hidden group">
+        <Image 
+          src={tree.image} 
+          alt={tree.name} 
+          fill 
+          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="lazy"
+        />
         
-        <div className="absolute top-3 left-3">
-          <span className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-white bg-black/50 backdrop-blur-sm rounded-full">
+        <div className="absolute top-3 left-3 z-10">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-white bg-black/50 backdrop-blur-sm rounded-full shadow-md">
             {CATEGORY_ICONS[tree.category]}
             {tree.category}
           </span>
         </div>
 
         {hasHarvest && (
-          <div className="absolute top-3 right-3">
-            <span className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-white bg-blue-500 rounded-full animate-pulse">
-              <ShoppingBag className="w-3 h-3" />
+          <div className="absolute top-3 right-3 z-10">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-white bg-blue-500 rounded-full shadow-md animate-pulse">
+              <ShoppingBag className="w-3.5 h-3.5" />
               เก็บเกี่ยว
             </span>
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 right-0 p-3">
-          <h3 className="text-lg font-bold text-white">{tree.name}</h3>
+        <div className="absolute bottom-0 left-0 right-0 p-3.5">
+          <h3 className="text-lg font-bold text-white drop-shadow-lg line-clamp-2">{tree.name}</h3>
         </div>
       </div>
 
-      <div className="p-3 bg-white">
-        <p className="text-xs text-gray-500 line-clamp-2 mb-2">{tree.description}</p>
+      <div className="p-3.5 bg-white">
+        <p className="text-xs text-gray-600 line-clamp-2 mb-2.5 leading-relaxed">{tree.description}</p>
         
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {currentMonthData?.activities.slice(0, 2).map((act, idx) => (
             <ActivityBadge key={idx} activity={act} size="sm" />
           ))}
           {(currentMonthData?.activities.length || 0) > 2 && (
-            <span className="text-[10px] text-gray-400 px-1">+{currentMonthData!.activities.length - 2}</span>
+            <span className="text-xs text-gray-400 px-1 font-medium">+{currentMonthData!.activities.length - 2}</span>
           )}
         </div>
       </div>
@@ -580,13 +613,14 @@ export default function UnifiedCalendar() {
   const renderCalendarTab = () => (
     <div className="flex flex-col xl:flex-row items-start gap-6 w-full animate-in fade-in duration-300">
       {/* ══════ ซ้าย: การ์ดปฏิทิน ══════ */}
-      <div className="w-full xl:w-[38%] bg-white rounded-2xl shadow-xl border border-gray-100 p-6 flex flex-col h-fit hover:shadow-2xl transition-shadow duration-300">
+      <div className="w-full xl:w-[38%] bg-white rounded-2xl shadow-xl border border-gray-100 p-6 flex flex-col h-fit hover:shadow-2xl transition-all duration-300">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-6 gap-4">
           <div className="flex flex-col items-center md:items-start w-full md:w-auto">
-            <div className="flex items-center justify-center gap-3 mb-2 w-full">
+            <div className="flex items-center justify-center gap-2 mb-2 w-full">
               <button
                 onClick={() => handleSetViewDate(new Date(viewYear, viewMonth - 1, 1))}
-                className="p-2 rounded-full hover:bg-gradient-to-r hover:from-sky-100 hover:to-blue-100 text-gray-600 hover:text-sky-700 transition-all duration-200 hover:scale-110"
+                className="p-2.5 rounded-full hover:bg-gradient-to-r hover:from-sky-100 hover:to-blue-100 text-gray-600 hover:text-sky-700 transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-300"
+                aria-label="Previous month"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -595,14 +629,15 @@ export default function UnifiedCalendar() {
               </h2>
               <button
                 onClick={() => handleSetViewDate(new Date(viewYear, viewMonth + 1, 1))}
-                className="p-2 rounded-full hover:bg-gradient-to-r hover:from-sky-100 hover:to-blue-100 text-gray-600 hover:text-sky-700 transition-all duration-200 hover:scale-110"
+                className="p-2.5 rounded-full hover:bg-gradient-to-r hover:from-sky-100 hover:to-blue-100 text-gray-600 hover:text-sky-700 transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-300"
+                aria-label="Next month"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
             <button
               onClick={() => handleSetViewDate(new Date())}
-              className="text-sm font-medium text-sky-600 hover:text-sky-800 hover:underline px-2 text-center md:text-left w-full md:w-auto transition-all duration-200 hover:scale-105"
+              className="text-sm font-semibold text-sky-600 hover:text-sky-800 hover:underline px-2 text-center md:text-left w-full md:w-auto transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-300 rounded"
             >
               🔄 กลับไปเดือนปัจจุบัน
             </button>
@@ -612,7 +647,7 @@ export default function UnifiedCalendar() {
               {viewDate.toLocaleDateString("th-TH", { year: "numeric" })}
             </div>
             <div className="text-xl font-mono font-bold text-sky-700 bg-gradient-to-r from-sky-50 to-blue-50 px-4 py-2 rounded-xl shadow-sm border border-sky-100 flex items-center gap-2">
-              <Clock className="w-5 h-5" />
+              <Clock className="w-5 h-5 flex-shrink-0" />
               {currentTime
                 ? currentTime.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
                 : "--:--:--"}
@@ -638,7 +673,7 @@ export default function UnifiedCalendar() {
               : false;
             return (
               <div key={day} className={`p-2 min-h-[4rem] md:min-h-[5rem] hover:bg-gradient-to-br hover:from-sky-50 hover:to-blue-50 transition-all duration-200 cursor-pointer ${isToday ? "bg-gradient-to-br from-sky-50 to-blue-50" : "bg-white"}`}>
-                <div className={`w-7 h-7 mx-auto flex items-center justify-center rounded-full text-sm font-medium transition-all duration-200 ${isToday ? "bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg scale-110 animate-pulse" : "text-gray-700 hover:bg-sky-100 hover:scale-105"}`}>
+                <div className={`w-7 h-7 mx-auto flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-200 ${isToday ? "bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg scale-110 animate-pulse" : "text-gray-700 hover:bg-sky-100 hover:scale-105"}`}>
                   {day}
                 </div>
               </div>
@@ -752,14 +787,14 @@ export default function UnifiedCalendar() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-sky-50 p-4 xl:p-5 rounded-xl border-2 border-blue-200 shadow-md w-full hover:shadow-lg transition-shadow duration-300">
-              <h4 className="text-sm xl:text-base font-bold text-blue-700 mb-3 uppercase tracking-wide text-center flex items-center justify-center gap-2">
-                <Sprout className="w-5 h-5" /> เลือกพืชของคุณ
+            <div className="bg-gradient-to-br from-blue-50 to-sky-50 p-5 rounded-xl border-2 border-blue-200 shadow-md w-full hover:shadow-lg transition-all duration-300 hover:border-blue-300">
+              <h4 className="text-sm font-bold text-blue-700 mb-3.5 uppercase tracking-wide text-center flex items-center justify-center gap-2">
+                <Sprout className="w-5 h-5 flex-shrink-0" /> เลือกพืชของคุณ
               </h4>
               <select
                 value={selectedCrop}
                 onChange={(e) => handleSelectCrop(e.target.value)}
-                className="w-full bg-white text-blue-800 text-[14px] xl:text-[16px] font-bold py-3 px-4 rounded-lg border-2 border-blue-300 hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md"
+                className="w-full bg-white text-blue-800 text-sm font-semibold py-3 px-4 rounded-lg border-2 border-blue-300 hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 outline-none cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 <option value="" disabled>-- กรุณาเลือกพืช --</option>
                 {[...CROP_OPTIONS].map((c) => (
@@ -827,10 +862,10 @@ export default function UnifiedCalendar() {
   const renderFruitTreeTab = () => (
     <div className="animate-in fade-in duration-300">
       {/* Header with Search */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 mb-6">
+      <div className="bg-white rounded-2xl shadow-sm p-4 mb-6 border border-gray-100">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl">
+            <div className="p-2.5 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-md">
               <TreePine className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -842,14 +877,14 @@ export default function UnifiedCalendar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <div className="relative flex-1 md:flex-none">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               <input
                 type="text"
                 placeholder="ค้นหาไม้ผล..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl text-sm focus:ring-2 focus:ring-green-500 w-full md:w-64"
+                className="pl-10 pr-4 py-2.5 bg-gray-100 border-0 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:bg-white transition-all duration-200 w-full md:w-64 shadow-sm"
               />
             </div>
           </div>
@@ -861,10 +896,12 @@ export default function UnifiedCalendar() {
           <button
             onClick={() => setSelectedCategory("all")}
             className={`
-              px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
+              px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-out
+              focus:outline-none focus:ring-2 focus:ring-offset-2
+              active:scale-95
               ${selectedCategory === "all"
-                ? "bg-green-500 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-green-500 text-white shadow-md scale-105 focus:ring-green-400"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-gray-400"
               }
             `}
           >
@@ -875,10 +912,12 @@ export default function UnifiedCalendar() {
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={`
-                px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
+                px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-out
+                focus:outline-none focus:ring-2 focus:ring-offset-2
+                active:scale-95
                 ${selectedCategory === cat
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-green-500 text-white shadow-md scale-105 focus:ring-green-400"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-gray-400"
                 }
               `}
             >
@@ -974,10 +1013,12 @@ export default function UnifiedCalendar() {
               <button
                 onClick={() => setActiveTab("calendar")}
                 className={`
-                  px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2
+                  px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ease-out flex items-center gap-2
+                  focus:outline-none focus:ring-2 focus:ring-offset-2
+                  active:scale-95
                   ${activeTab === "calendar"
-                    ? "bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-lg scale-105"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    ? "bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-lg scale-105 focus:ring-sky-400"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-400"
                   }
                 `}
               >
@@ -987,10 +1028,12 @@ export default function UnifiedCalendar() {
               <button
                 onClick={() => setActiveTab("fruittree")}
                 className={`
-                  px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2
+                  px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ease-out flex items-center gap-2
+                  focus:outline-none focus:ring-2 focus:ring-offset-2
+                  active:scale-95
                   ${activeTab === "fruittree"
-                    ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105 focus:ring-green-400"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-400"
                   }
                 `}
               >
@@ -1012,16 +1055,19 @@ export default function UnifiedCalendar() {
       {/* Plant Detail Modal */}
       {plantModalOpen && activeModalPlant && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in duration-200"
           onClick={() => setPlantModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
         >
           <div
-            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col animate-in zoom-in-95 duration-300"
+            className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col animate-in zoom-in-95 duration-300 ease-out"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setPlantModalOpen(false)}
-              className="absolute top-3 right-3 z-30 bg-white/90 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+              className="absolute top-4 right-4 z-30 bg-white/95 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+              aria-label="Close modal"
             >
               <X className="h-5 w-5" />
             </button>
@@ -1034,18 +1080,20 @@ export default function UnifiedCalendar() {
                 fill
                 className="object-contain p-6"
                 loading="lazy"
-                quality={75}
+                quality={80}
               />
               
               {totalPlants > 1 && (
                 <>
                   <button
                     onClick={() => moveModalPlant(-1)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50"
+                    aria-label="Previous"
                   >‹</button>
                   <button
                     onClick={() => moveModalPlant(1)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50"
+                    aria-label="Next"
                   >›</button>
 
                   <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
@@ -1053,9 +1101,10 @@ export default function UnifiedCalendar() {
                       <button
                         key={i}
                         onClick={() => setModalPlantIdx(i)}
-                        className={`rounded-full transition-all duration-300 ${
-                          i === modalPlantIdx ? "bg-gradient-to-r from-green-500 to-emerald-600 w-5 h-2.5 shadow-md" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500 hover:scale-125"
+                        className={`rounded-full transition-all duration-300 ease-out ${
+                          i === modalPlantIdx ? "bg-gradient-to-r from-green-500 to-emerald-600 w-5 h-2.5 shadow-md" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500 hover:scale-125 active:scale-100"
                         }`}
+                        aria-label={`Go to plant ${i + 1}`}
                       />
                     ))}
                   </div>
@@ -1068,13 +1117,13 @@ export default function UnifiedCalendar() {
             </div>
 
             <div className="p-6">
-              <h2 className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent leading-tight mb-2">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent leading-tight mb-3">
                 {activeModalPlant.name}
               </h2>
               
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 mt-4 shadow-sm">
-                <h3 className="text-sm font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent mb-1 flex items-center gap-1.5">
-                  <Info className="w-4 h-4" /> พืชที่เหมาะกับการปลูก
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 shadow-sm">
+                <h3 className="text-sm font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent mb-2 flex items-center gap-1.5">
+                  <Info className="w-4 h-4 flex-shrink-0" /> พืชที่เหมาะกับการปลูก
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
                   {activeModalPlant.description || "พืชชนิดนี้เหมาะสำหรับการปลูกในเดือนนี้ ตามข้อมูลจากปฏิทินไม้ผล"}
@@ -1083,7 +1132,7 @@ export default function UnifiedCalendar() {
               
               <button
                 onClick={() => setPlantModalOpen(false)}
-                className="w-full mt-6 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-bold py-2.5 px-4 rounded-xl text-center text-sm transition-all duration-200 shadow-sm hover:shadow-md"
+                className="w-full mt-6 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-bold py-3 px-4 rounded-xl text-center text-sm transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
               >
                 ปิดหน้าต่าง
               </button>
@@ -1095,16 +1144,19 @@ export default function UnifiedCalendar() {
       {/* Fertilizer Modal */}
       {modalOpen && modalSlide && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in duration-200"
           onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
         >
           <div
-            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300"
+            className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 ease-out max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-3 right-3 z-30 bg-white/90 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+              className="absolute top-4 right-4 z-30 bg-white/95 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+              aria-label="Close modal"
             >
               <X className="h-5 w-5" />
             </button>
@@ -1117,18 +1169,20 @@ export default function UnifiedCalendar() {
                 fill
                 className="object-contain p-6"
                 loading="lazy"
-                quality={75}
+                quality={80}
               />
 
               {totalFert > 1 && (
                 <>
                   <button
                     onClick={() => moveFertModal(-1)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50"
+                    aria-label="Previous"
                   >‹</button>
                   <button
                     onClick={() => moveFertModal(1)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-black/70 text-white text-2xl flex items-center justify-center transition-all duration-200 shadow-lg hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50"
+                    aria-label="Next"
                   >›</button>
                 </>
               )}
@@ -1145,9 +1199,10 @@ export default function UnifiedCalendar() {
                     <button
                       key={i}
                       onClick={() => setModalIdx(i)}
-                      className={`rounded-full transition-all duration-300 ${
-                        i === modalIdx ? "bg-gradient-to-r from-blue-500 to-sky-600 w-5 h-2.5 shadow-md" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500 hover:scale-125"
+                      className={`rounded-full transition-all duration-300 ease-out ${
+                        i === modalIdx ? "bg-gradient-to-r from-blue-500 to-sky-600 w-5 h-2.5 shadow-md" : "bg-gray-400/70 w-2.5 h-2.5 hover:bg-gray-500 hover:scale-125 active:scale-100"
                       }`}
+                      aria-label={`Go to product ${i + 1}`}
                     />
                   ))}
                 </div>
@@ -1155,11 +1210,11 @@ export default function UnifiedCalendar() {
             </div>
 
             <div className="p-6">
-              <div className="flex items-start justify-between gap-3 mb-2">
+              <div className="flex items-start justify-between gap-3 mb-3">
                 <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent leading-tight flex-1">
                   {modalSlide.product.productName}
                 </h2>
-                <div className="flex flex-col items-end gap-0.5">
+                <div className="flex flex-col items-end gap-1 flex-shrink-0">
                   <span className="text-sm text-gray-400 line-through">
                     ฿{modalSlide.product.oldPrice.toLocaleString()}
                   </span>
@@ -1169,7 +1224,7 @@ export default function UnifiedCalendar() {
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600 mb-2 leading-relaxed">
+              <p className="text-sm text-gray-600 mb-3 leading-relaxed">
                 {modalSlide.product.description}
               </p>
 
@@ -1181,7 +1236,7 @@ export default function UnifiedCalendar() {
                 <Link
                   href={`/products/${modalSlide.product.productId}`}
                   onClick={() => setModalOpen(false)}
-                  className="relative overflow-hidden group bg-gradient-to-r from-orange-500 via-amber-600 to-yellow-600 hover:from-orange-600 hover:via-amber-700 hover:to-yellow-700 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.98]"
+                  className="relative overflow-hidden group bg-gradient-to-r from-orange-500 via-amber-600 to-yellow-600 hover:from-orange-600 hover:via-amber-700 hover:to-yellow-700 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   <div className="relative flex items-center justify-center gap-2">
@@ -1197,7 +1252,7 @@ export default function UnifiedCalendar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setModalOpen(false)}
-                  className="relative overflow-hidden group bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 hover:from-blue-600 hover:via-sky-700 hover:to-cyan-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.98]"
+                  className="relative overflow-hidden group bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 hover:from-blue-600 hover:via-sky-700 hover:to-cyan-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   <div className="relative flex items-center justify-center gap-2">
@@ -1213,17 +1268,18 @@ export default function UnifiedCalendar() {
               </div>
 
               {totalFert > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-1 pt-1 border-t border-gray-100">
+                <div className="flex gap-2 overflow-x-auto pb-2 pt-2 border-t border-gray-100">
                   {slides.map((slide, i) => (
                     <button
                       key={i}
                       onClick={() => setModalIdx(i)}
                       title={slide.product.productName}
-                      className={`flex-shrink-0 w-14 h-14 rounded-lg border-2 overflow-hidden transition-all duration-300 ${
+                      className={`flex-shrink-0 w-14 h-14 rounded-lg border-2 overflow-hidden transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                         i === modalIdx
-                          ? "border-blue-500 scale-110 shadow-lg ring-2 ring-blue-200"
-                          : "border-gray-200 opacity-55 hover:opacity-90 hover:scale-105"
+                          ? "border-blue-500 scale-110 shadow-lg ring-2 ring-blue-200 focus:ring-blue-400"
+                          : "border-gray-200 opacity-55 hover:opacity-90 hover:scale-105 focus:ring-gray-400"
                       }`}
+                      aria-label={`Select product ${i + 1}`}
                     >
                       <Image
                         src={slide.product.image}
