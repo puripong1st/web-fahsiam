@@ -15,10 +15,7 @@ const WhyChoose = dynamic(() => import("./components/WhyChoose"), {
   loading: () => <div className="h-64 bg-gray-50 animate-pulse" />,
 });
 
-const Calendar = dynamic(() => import("./components/Calendar"), {
-  loading: () => <div className="h-96 bg-white animate-pulse" />,
-});
-const FruitTreeCalendar = dynamic(() => import("./components/FruitTreeCalendar"), {
+const Calendar = dynamic(() => import("./components/UnifiedCalendar"), {
   loading: () => <div className="h-96 bg-white animate-pulse" />,
 });
 const FAQSection = dynamic(() => import("./components/FAQSection"), {
@@ -124,7 +121,6 @@ export default function LandingPage() {
         <Products />
         <WhyChoose />
         <Calendar />
-        <FruitTreeCalendar />
 
         {/* <FAQSection /> */}
         <Testimonials />
