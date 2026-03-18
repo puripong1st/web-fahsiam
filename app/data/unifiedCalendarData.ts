@@ -300,7 +300,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "longkong",
     name: "ลองกอง",
     category: "ไม้ผลเมืองร้อน",
-    image: "ลองกอง.webp",
+    image: "/image/Tree/ลองกอง.webp",
     description: "ผลคล้ายลำไย แต่เปลือกนิ่ม เนื้อหวานอมเปรี้ยว",
     harvestNote: "ลองกองเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
     monthlyActivities: createMonthlyActivities({
