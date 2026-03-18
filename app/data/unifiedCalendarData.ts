@@ -1,0 +1,926 @@
+// app/data/unifiedCalendarData.ts
+
+import { MOCK_PRODUCTS } from "./productsdetail";
+
+// ═══════════════════════════════════════════════════════════════
+// TYPES & INTERFACES
+// ═══════════════════════════════════════════════════════════════
+
+export type ActivityColor = "green" | "blue" | "orange" | "purple" | "pink" | "yellow" | "red" | "cyan" | "gray";
+export type ActivityIcon = "🌱" | "🌸" | "🍊" | "🧺" | "✂️" | "💧" | "🌿" | "🔧" | "🌳" | "⏸️" | "❓";
+
+export interface PlantActivity {
+  activity: string;
+  color: ActivityColor;
+  icon: ActivityIcon;
+}
+
+export interface MonthlyActivity {
+  month: number;
+  monthName: string;
+  monthShort: string;
+  activities: PlantActivity[];
+  themeColor: string;
+}
+
+export interface FertilizerSchedule {
+  month: number;
+  type: string;
+  formula: string;
+  rate: string;
+  purpose: string;
+}
+
+export type PlantCategory = "ไม้ผลเมืองร้อน" | "ไม้ผลเมืองหนาว" | "พืชเศรษฐกิจ" | "พืชผัก" | "พืชอื่นๆ";
+
+export interface PlantInfo {
+  id: string;
+  name: string;
+  category: PlantCategory;
+  image: string;
+  description: string;
+  harvestNote: string;
+  monthlyActivities: MonthlyActivity[];
+  fertilizers: FertilizerSchedule[];
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CONSTANTS & HELPERS
+// ═══════════════════════════════════════════════════════════════
+
+export const THAI_MONTHS = [
+  { full: "มกราคม", short: "ม.ค." },
+  { full: "กุมภาพันธ์", short: "ก.พ." },
+  { full: "มีนาคม", short: "มี.ค." },
+  { full: "เมษายน", short: "เม.ย." },
+  { full: "พฤษภาคม", short: "พ.ค." },
+  { full: "มิถุนายน", short: "มิ.ย." },
+  { full: "กรกฎาคม", short: "ก.ค." },
+  { full: "สิงหาคม", short: "ส.ค." },
+  { full: "กันยายน", short: "ก.ย." },
+  { full: "ตุลาคม", short: "ต.ค." },
+  { full: "พฤศจิกายน", short: "พ.ย." },
+  { full: "ธันวาคม", short: "ธ.ค." },
+];
+
+export const ACTIVITY_COLORS: Record<ActivityColor, { bg: string; text: string; border: string }> = {
+  green: { bg: "bg-green-100", text: "text-green-700", border: "border-green-300" },
+  blue: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-300" },
+  orange: { bg: "bg-orange-100", text: "text-orange-700", border: "border-orange-300" },
+  purple: { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-300" },
+  pink: { bg: "bg-pink-100", text: "text-pink-700", border: "border-pink-300" },
+  yellow: { bg: "bg-yellow-100", text: "text-yellow-700", border: "border-yellow-300" },
+  red: { bg: "bg-red-100", text: "text-red-700", border: "border-red-300" },
+  cyan: { bg: "bg-cyan-100", text: "text-cyan-700", border: "border-cyan-300" },
+  gray: { bg: "bg-gray-100", text: "text-gray-700", border: "border-gray-300" },
+};
+
+function getActivityColor(activity: string): ActivityColor {
+  const act = activity.toLowerCase();
+  if (act.includes("ปลูก")) return "green";
+  if (act.includes("ออกดอก") || act.includes("แทงช่อ")) return "pink";
+  if (act.includes("ผล") || act.includes("หัว") || act.includes("ติดผล")) return "orange";
+  if (act.includes("เก็บเกี่ยว")) return "blue";
+  if (act.includes("ตัดแต่ง")) return "purple";
+  if (act.includes("ใส่ปุ๋ย") || act.includes("ให้น้ำ")) return "yellow";
+  if (act.includes("แตกใบ") || act.includes("ใบอ่อน")) return "red";
+  if (act.includes("ดูแล") || act.includes("บำรุง")) return "cyan";
+  if (act.includes("เตรียม") || act.includes("พักต้น")) return "gray";
+  return "gray";
+}
+
+function getActivityIcon(activity: string): ActivityIcon {
+  const act = activity.toLowerCase();
+  if (act.includes("ปลูก")) return "🌱";
+  if (act.includes("ดอก")) return "🌸";
+  if (act.includes("ผล") || act.includes("หัว")) return "🍊";
+  if (act.includes("เก็บเกี่ยว")) return "🧺";
+  if (act.includes("ตัดแต่ง")) return "✂️";
+  if (act.includes("ปุ๋ย") || act.includes("น้ำ")) return "💧";
+  if (act.includes("แตกใบ") || act.includes("ใบอ่อน")) return "🌳";
+  if (act.includes("เตรียม") || act.includes("พัก")) return "⏸️";
+  return "🌿";
+}
+
+export function createMonthlyActivities(monthData: Record<string, string>): MonthlyActivity[] {
+  return THAI_MONTHS.map((m, index) => {
+    const activityText = monthData[m.short] || "-";
+    const parts = activityText.split(/[-/]+/).map(s => s.trim()).filter(Boolean);
+    const activities = parts.length > 0 ? parts.map(part => ({
+      activity: part,
+      color: getActivityColor(part),
+      icon: getActivityIcon(part),
+    })) : [{ activity: "-", color: "gray" as ActivityColor, icon: "⏸️" as ActivityIcon }];
+
+    return {
+      month: index,
+      monthName: m.full,
+      monthShort: m.short,
+      activities,
+      themeColor: "#10B981",
+    };
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// การดึงข้อมูลผลิตภัณฑ์ปุ๋ยอ้างอิงจาก productsdetail.ts
+// ═══════════════════════════════════════════════════════════════
+
+export function getFertilizerDetails(formula: string) {
+  if (!formula) return null;
+  // ทำการ Match สูตรปุ๋ยกับ Product
+  if (formula.includes("12-3-5")) return MOCK_PRODUCTS.find(p => p.id === "organic-chemical-12-3-5-growth");
+  if (formula.includes("3-6-15")) return MOCK_PRODUCTS.find(p => p.id === "organic-chemical-3-6-15-bloom");
+  if (formula.includes("0-0-30")) return MOCK_PRODUCTS.find(p => p.id === "chemical-fertilizer-0-0-30-sweetness");
+  if (formula.includes("OM 25") || formula.includes("OM ผง")) return MOCK_PRODUCTS.find(p => p.id === "organic-powder-om-25-soil-booster");
+  if (formula.includes("OM 20") || formula.includes("OM เม็ด")) return MOCK_PRODUCTS.find(p => p.id === "organic-pellet-om-20-slow-release");
+  if (formula.includes("6-3-3")) return MOCK_PRODUCTS.find(p => p.id === "organic-chemical-6-3-3-all-purpose");
+  return null;
+}
+
+export function getFertilizerImageByFormula(formula: string): string {
+  const details = getFertilizerDetails(formula);
+  return details ? details.image : "/image/Logo.png";
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FULL MERGED DATA (ไม้ผล + พืชเศรษฐกิจ + พืชไร่ + ผัก)
+// ═══════════════════════════════════════════════════════════════
+
+export const PLANT_DATA: PlantInfo[] = [
+  // -------------------------------------------------------------
+  // หมวดหมู่: ไม้ผลเมืองร้อน
+  // -------------------------------------------------------------
+  {
+    id: "kluai-khai",
+    name: "กล้วยไข่",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Kluai+Khai",
+    description: "กล้วยไข่ผลอ้วนกลม ไม่มีเหลี่ยม นิยมรับประทานสด",
+    harvestNote: "กล้วยมีอายุ 60-70 วันเริ่มเก็บเกี่ยวได้",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ปลูก", "ก.พ.": "ปลูก", "มี.ค.": "ออกผล", "เม.ย.": "ออกผล",
+      "พ.ค.": "ออกดอก-ผลแก่", "มิ.ย.": "ออกดอก-ผลแก่", "ก.ค.": "ออกดอก-ผลแก่", 
+      "ส.ค.": "เก็บเกี่ยว", "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "-", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-300 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "200-300 กรัม/ต้น", purpose: "บำรุงผล" },
+    ]
+  },
+  {
+    id: "durian-produce",
+    name: "ทุเรียน (ให้ผลผลิต)",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian",
+    description: "ราชาแห่งผลไม้ มีกลิ่นเฉพาะตัว เนื้อหวานมัน",
+    harvestNote: "ทุเรียนเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแล", "ก.พ.": "ดูแลผลแก่-เก็บเกี่ยว", "มี.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "เม.ย.": "ดูแลเก็บเกี่ยว-แตกใบอ่อน",
+      "พ.ค.": "ดูแลเก็บเกี่ยว-แตกใบอ่อน", "มิ.ย.": "ดูแลเก็บเกี่ยว-แตกใบอ่อน", "ก.ค.": "ดูแลเก็บเกี่ยว-แตกใบอ่อน", 
+      "ส.ค.": "ดูแลเก็บเกี่ยว-แตกใบอ่อน", "ก.ย.": "ดูแลเริ่มออกดอก", "ต.ค.": "ออกดอก-ติดผล", "พ.ย.": "ออกดอก-ติดผล", "ธ.ค.": "ดูแล"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "1-2 กก./ต้น", purpose: "ฟื้นฟูสภาพต้น บำรุงดิน (หลังเก็บเกี่ยว)" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3 และ 12-3-5", rate: "1-3 กก./ต้น", purpose: "บำรุงต้น-บำรุงใบ ระยะทำใบ" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "1-2 กก./ต้น", purpose: "สะสมอาหาร สร้างตาดอก (ก่อนออกดอก)" },
+      { month: 10, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "1-3 กก./ต้น", purpose: "บำรุงลูก ระยะไข่ไก่-ผลกลาง" },
+      { month: 11, type: "เคมี", formula: "0-0-30", rate: "1-3 กก./ต้น", purpose: "ขยายผล ระยะเบ่งพู ใกล้เก็บเกี่ยว" },
+    ]
+  },
+  {
+    id: "durian-0-1",
+    name: "ทุเรียน (ยังไม่ให้ผลผลิต) 0-1 ปี",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian+Small",
+    description: "ทุเรียนปลูกใหม่ เน้นการสร้างรากและลำต้นให้แข็งแรง",
+    harvestNote: "-",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแล", "ก.พ.": "ดูแล", "มี.ค.": "ดูแล", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก/ต้นตั้งตัว", "มิ.ย.": "ดูแล", "ก.ค.": "ดูแล", "ส.ค.": "ดูแล",
+      "ก.ย.": "ดูแล", "ต.ค.": "ดูแล", "พ.ย.": "ดูแล", "ธ.ค.": "ดูแล"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50-100 กรัม/ต้น", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "50-100 กรัม/ต้น", purpose: "ต้นตั้งตัว" },
+    ]
+  },
+  {
+    id: "durian-2-3",
+    name: "ทุเรียน (ยังไม่ให้ผลผลิต) 2-3 ปี",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Durian+Medium",
+    description: "ทุเรียนระยะเติบโต เน้นการสร้างทรงพุ่มและใบ",
+    harvestNote: "-",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "บำรุงใบ", "ก.พ.": "บำรุงใบ", "มี.ค.": "บำรุงใบ", "เม.ย.": "ปรับดิน",
+      "พ.ค.": "ขยายพุ่ม", "มิ.ย.": "ขยายพุ่ม", "ก.ค.": "ขยายพุ่ม", "ส.ค.": "ปรับดิน",
+      "ก.ย.": "บำรุงใบ", "ต.ค.": "บำรุงใบ", "พ.ย.": "บำรุงใบ", "ธ.ค.": "บำรุงใบ"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "200-300 กรัม/ต้น", purpose: "ปรับดิน" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "300-500 กรัม/ต้น", purpose: "บำรุงใบขยายทรงพุ่ม" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "500-1000 กรัม/ต้น", purpose: "เร่งต้น บำรุงใบ ขยายพุ่ม" },
+    ]
+  },
+  {
+    id: "jackfruit",
+    name: "ขนุน",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Jackfruit",
+    description: "ผลใหญ่ เนื้อหวาน นิยมรับประทานสดหรือแปรรูป",
+    harvestNote: "ขนุนเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "ก.พ.": "ดูแลผลแก่-เก็บเกี่ยว", "มี.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "เม.ย.": "ดูแลผลแก่-เก็บเกี่ยว",
+      "พ.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "มิ.ย.": "ดูแลผลแก่-เก็บเกี่ยว", "ก.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "ส.ค.": "ดูแลผลแก่-เก็บเกี่ยว",
+      "ก.ย.": "ดูแลผลแก่-เก็บเกี่ยว", "ต.ค.": "ดูแลผลแก่-เก็บเกี่ยว", "พ.ย.": "ดูแลผลแก่-เก็บเกี่ยว", "ธ.ค.": "ดูแลผลแก่-เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 2, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "500-800 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "บำรุงผล" },
+    ]
+  },
+  {
+    id: "rose-apple",
+    name: "ชมพู่",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Rose+Apple",
+    description: "ผลกรอบ รสชาติหวานอมเปรี้ยว นิยมรับประทานสด",
+    harvestNote: "ชมพู่เก็บเกี่ยวได้หลังจากดอกบานแล้ว 30-35 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เตรียมต้น/ตัดแต่ง", "ก.พ.": "เตรียมต้น/ตัดแต่ง", "มี.ค.": "เตรียมการออกผล", "เม.ย.": "ออกดอก-ผลแก่",
+      "พ.ค.": "ออกดอก-ผลแก่", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "-", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 3, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "300-500 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+      { month: 5, type: "เคมี", formula: "0-0-30", rate: "300-500 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "longan-inseason",
+    name: "ลำไยในฤดู",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Longan",
+    description: "ลำไยฤดูกาลปกติ ผลหวานหอม เนื้อใส",
+    harvestNote: "ลำไยเก็บเกี่ยวได้ในระยะหลังดอกบาน 180-210 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เตรียมต้น", "ก.พ.": "เตรียมต้น", "มี.ค.": "เตรียมการออกผล", "เม.ย.": "ออกดอกผลแก่",
+      "พ.ค.": "ออกดอกผลแก่", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "เตรียมต้น/ตัดแต่งกิ่ง", "พ.ย.": "เตรียมต้น/ตัดแต่งกิ่ง", "ธ.ค.": "เตรียมต้น/ตัดแต่งกิ่ง"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 3, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "500-800 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "longan-offseason",
+    name: "ลำไยนอกฤดู",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Longan",
+    description: "ลำไยนอกฤดูกาล เก็บเกี่ยวช่วงต้นปี ราคาดี",
+    harvestNote: "ลำไยเก็บเกี่ยวได้ในระยะหลังดอกบาน 180-210 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เตรียมต้น/ตัดแต่งกิ่ง", "เม.ย.": "เตรียมต้น/ตัดแต่งกิ่ง",
+      "พ.ค.": "เตรียมต้น/ตัดแต่งกิ่ง", "มิ.ย.": "เตรียมต้น/ตัดแต่งกิ่ง", "ก.ค.": "ออกดอก", "ส.ค.": "ออกดอก",
+      "ก.ย.": "ดูแลระยะติดผล-ผลแก่", "ต.ค.": "ดูแลระยะติดผล-ผลแก่", "พ.ย.": "ดูแลระยะติดผล-ผลแก่", "ธ.ค.": "ดูแลระยะติดผล-ผลแก่"
+    }),
+    fertilizers: [
+      { month: 0, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 2, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 6, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "longkong",
+    name: "ลองกอง",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Longkong",
+    description: "ผลคล้ายลำไย แต่เปลือกนิ่ม เนื้อหวานอมเปรี้ยว",
+    harvestNote: "ลองกองเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เตรียมต้น/ตัดแต่งกิ่ง", "ก.พ.": "เตรียมต้น/ตัดแต่งกิ่ง", "มี.ค.": "เตรียมต้น/ตัดแต่งกิ่ง", "เม.ย.": "เตรียมต้น/ตัดแต่งกิ่ง",
+      "พ.ค.": "ดูแลระยะติดผล-ผลแก่", "มิ.ย.": "ดูแลระยะติดผล-ผลแก่", "ก.ค.": "ดูแลระยะติดผล-ผลแก่", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "ดูแลระยะพักต้น", "พ.ย.": "ดูแลระยะพักต้น", "ธ.ค.": "ดูแลระยะพักต้น"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 7, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "lychee",
+    name: "ลิ้นจี่",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Lychee",
+    description: "ผลหวานหอม เนื้อใส เปลือกแดงสด",
+    harvestNote: "ลิ้นจี่เริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ออกดอก", "ก.พ.": "ออกดอก", "มี.ค.": "ออกดอก", "เม.ย.": "เก็บเกี่ยว",
+      "พ.ค.": "เก็บเกี่ยว", "มิ.ย.": "ตัดแต่ง", "ก.ค.": "แตกใบอ่อน", "ส.ค.": "แตกใบอ่อน",
+      "ก.ย.": "แตกใบอ่อน", "ต.ค.": "แตกใบอ่อน", "พ.ย.": "แตกใบอ่อน", "ธ.ค.": "แตกใบอ่อน"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+      { month: 3, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 5, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+    ]
+  },
+  {
+    id: "mango-inseason",
+    name: "มะม่วงในฤดู",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Mango",
+    description: "มะม่วงฤดูกาลปกติ หลากหลายสายพันธุ์",
+    harvestNote: "มะม่วงเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแลระยะดอก-ผลแก่", "ก.พ.": "ดูแลระยะดอก-ผลแก่", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "เก็บเกี่ยว",
+      "พ.ค.": "เตรียมต้น", "มิ.ย.": "เตรียมต้น", "ก.ค.": "เตรียมต้น", "ส.ค.": "เตรียมการออกดอก",
+      "ก.ย.": "เตรียมการออกดอก", "ต.ค.": "เตรียมการออกดอก", "พ.ย.": "ดูแลระยะดอก-ผลแก่", "ธ.ค.": "ดูแลระยะดอก-ผลแก่"
+    }),
+    fertilizers: [
+      { month: 2, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 4, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "mango-offseason",
+    name: "มะม่วงนอกฤดู",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Mango",
+    description: "มะม่วงนอกฤดูกาล เก็บเกี่ยวช่วงต้นปี",
+    harvestNote: "มะม่วงเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เตรียมต้น", "มี.ค.": "เตรียมต้น", "เม.ย.": "เตรียมต้น",
+      "พ.ค.": "เตรียมต้น/ออกดอก", "มิ.ย.": "เตรียมต้น/ออกดอก", "ก.ค.": "เตรียมต้น/ออกดอก", "ส.ค.": "ดูแลระยะดอก-ผลแก่",
+      "ก.ย.": "ดูแลระยะดอก-ผลแก่", "ต.ค.": "ดูแลระยะดอก-ผลแก่", "พ.ย.": "ดูแลระยะดอก-ผลแก่", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 1, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "mangosteen",
+    name: "มังคุด",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Mangosteen",
+    description: "ราชินีแห่งผลไม้ เปลือกม่วง เนื้อขาวหวาน",
+    harvestNote: "มังคุดเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "แตกใบอ่อน/ออกดอก", "ก.พ.": "ออกดอก", "มี.ค.": "ออกดอก", "เม.ย.": "ออกผล/บำรุงผล",
+      "พ.ค.": "ออกผล/บำรุงผล", "มิ.ย.": "ออกผล/บำรุงผล", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "ตัดแต่งกิ่ง", "ต.ค.": "ตัดแต่งกิ่ง", "พ.ย.": "ตัดแต่งกิ่ง", "ธ.ค.": "แตกใบอ่อน/ออกดอก"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 1, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+      { month: 6, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "pomelo-inseason",
+    name: "ส้มโอในฤดู",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Pomelo",
+    description: "ส้มโอฤดูกาลปกติ ผลใหญ่ เนื้อหวานฉ่ำ",
+    harvestNote: "ส้มโอเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 210 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ออกดอก", "ก.พ.": "ออกดอก", "มี.ค.": "ออกดอก", "เม.ย.": "ดูแลระยะดอก-ผลแก่",
+      "พ.ค.": "ดูแลระยะดอก-ผลแก่", "มิ.ย.": "ดูแลระยะดอก-ผลแก่", "ก.ค.": "ดูแลระยะดอก-ผลแก่", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "เตรียมต้น", "พ.ย.": "เตรียมต้น", "ธ.ค.": "เตรียมต้น"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "3-5 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 3, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "1-2 กก./ต้น", purpose: "บำรุงต้น" },
+      { month: 7, type: "เคมี", formula: "0-0-30", rate: "1-2 กก./ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "pomelo-tawhai",
+    name: "ส้มโอทะวาย",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Pomelo+Tawhai",
+    description: "ส้มโอทะวาย ผลกลม เนื้อสีชมพูหรือแดง",
+    harvestNote: "ส้มโอเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 210 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแลระยะดอก-ผลแก่", "ก.พ.": "ดูแลระยะดอก-ผลแก่", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "เก็บเกี่ยว",
+      "พ.ค.": "เตรียมต้น", "มิ.ย.": "เตรียมต้น", "ก.ค.": "เตรียมต้น", "ส.ค.": "เตรียมออกดอก",
+      "ก.ย.": "เตรียมออกดอก", "ต.ค.": "เตรียมออกดอก", "พ.ย.": "ดูแลระยะดอก-ผลแก่", "ธ.ค.": "ดูแลระยะดอก-ผลแก่"
+    }),
+    fertilizers: [
+      { month: 2, type: "เคมี", formula: "0-0-30", rate: "1-2 กก./ต้น", purpose: "ขยายผล" },
+      { month: 4, type: "อินทรีย์", formula: "OM 25%", rate: "3-5 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "1-2 กก./ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "rambutan",
+    name: "เงาะ",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Rambutan",
+    description: "ผลมีหนาม เนื้อขาวหวาน นิยมรับประทานสด",
+    harvestNote: "เงาะเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแลระยะดอก-ผลแก่", "ก.พ.": "ดูแลระยะดอก-ผลแก่", "มี.ค.": "ดูแลระยะดอก-ผลแก่", "เม.ย.": "ดูแลระยะดอก-ผลแก่",
+      "พ.ค.": "เก็บเกี่ยว", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "ปลูก", "ส.ค.": "ปลูก",
+      "ก.ย.": "ปลูก", "ต.ค.": "เตรียมออกดอก", "พ.ย.": "เตรียมออกดอก", "ธ.ค.": "เตรียมออกดอก"
+    }),
+    fertilizers: [
+      { month: 4, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 6, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "sugar-apple",
+    name: "น้อยหน่า",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Sugar+Apple",
+    description: "ผลมีเกล็ด เนื้อหวานมัน นิยมรับประทานสด",
+    harvestNote: "น้อยหน่าเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เตรียมต้น", "ก.พ.": "เตรียมต้น", "มี.ค.": "ติดผล-ผลพัฒนา", "เม.ย.": "ติดผล-ผลพัฒนา",
+      "พ.ค.": "ติดผล-ผลพัฒนา", "มิ.ย.": "ติดผล-ผลพัฒนา", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "แตกใบใหม่/แทงช่อดอก", "พ.ย.": "แตกใบใหม่/แทงช่อดอก", "ธ.ค.": "แตกใบใหม่/แทงช่อดอก"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 2, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "300-500 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 6, type: "เคมี", formula: "0-0-30", rate: "300-500 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "sweet-tamarind",
+    name: "มะขามหวาน",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Sweet+Tamarind",
+    description: "มะขามสายพันธุ์หวาน รับประทานสดได้",
+    harvestNote: "มะขามหวานเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "ตัดแต่งกิ่ง", "เม.ย.": "ตัดแต่งกิ่ง",
+      "พ.ค.": "ออกดอก", "มิ.ย.": "ติดผล/ผลพัฒนา", "ก.ค.": "ติดผล/ผลพัฒนา", "ส.ค.": "ติดผล/ผลพัฒนา",
+      "ก.ย.": "ติดผล/ผลพัฒนา", "ต.ค.": "เตรียมเก็บเกี่ยว", "พ.ย.": "เตรียมเก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 2, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+      { month: 9, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+  {
+    id: "marian-plum",
+    name: "มะปราง",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Marian+Plum",
+    description: "ผลเหลืองส้ม รสชาติหวานอมเปรี้ยว",
+    harvestNote: "มะปรางเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ติดผล", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "ตัดแต่งกิ่ง",
+      "พ.ค.": "แตกใบอ่อน", "มิ.ย.": "แตกใบอ่อน", "ก.ค.": "แตกใบอ่อน", "ส.ค.": "แตกใบอ่อน",
+      "ก.ย.": "แตกใบอ่อน", "ต.ค.": "ดูแลระยะพักต้น", "พ.ย.": "ดูแลระยะพักต้น", "ธ.ค.": "ออกดอก"
+    }),
+    fertilizers: [
+      { month: 1, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+      { month: 3, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 11, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "กระตุ้นดอก" },
+    ]
+  },
+  {
+    id: "guava",
+    name: "ฝรั่ง",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Guava",
+    description: "ผลกรอบ รสหวาน นิยมรับประทานสด",
+    harvestNote: "ฝรั่งเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ติดผล-ผลแก่", "ก.พ.": "ติดผล-ผลแก่", "มี.ค.": "เตรียมต้น", "เม.ย.": "เตรียมต้น",
+      "พ.ค.": "เตรียมออกดอก", "มิ.ย.": "เตรียมออกดอก", "ก.ค.": "ติดผล-ผลแก่", "ส.ค.": "ติดผล-ผลแก่",
+      "ก.ย.": "ติดผล-ผลแก่", "ต.ค.": "ติดผล-ผลแก่", "พ.ย.": "ติดผล-ผลแก่", "ธ.ค.": "ติดผล-ผลแก่"
+    }),
+    fertilizers: [
+      { month: 2, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "300-500 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 6, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "300-500 กรัม/ต้น", purpose: "บำรุงผล" },
+    ]
+  },
+  {
+    id: "fruit-tree-not-produce",
+    name: "ไม้ผล (ยังไม่ให้ผลผลิต)",
+    category: "ไม้ผลเมืองร้อน",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Small+Fruit+Tree",
+    description: "สำหรับไม้ผลเพิ่งลงปลูก หรือยังไม่ถึงวัยเจริญพันธุ์",
+    harvestNote: "เน้นการเจริญเติบโตของลำต้นและใบ",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "บำรุงต้น", "ก.พ.": "บำรุงต้น", "มี.ค.": "บำรุงต้น", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "เร่งต้น-ใบ/ตัดแต่งกิ่ง", "มิ.ย.": "เร่งต้น-ใบ", "ก.ค.": "เร่งต้น-ใบ", "ส.ค.": "ขยายพุ่ม",
+      "ก.ย.": "ขยายพุ่ม", "ต.ค.": "บำรุงต้น", "พ.ย.": "บำรุงต้น", "ธ.ค.": "บำรุงต้น"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50-100 กรัม/ต้น", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "1-2 กก./ต้น", purpose: "เร่งต้น-ใบ ตัดแต่งกิ่ง ขยายพุ่ม" },
+    ]
+  },
+
+  // -------------------------------------------------------------
+  // หมวดหมู่: ไม้ผลเมืองหนาว & อื่นๆ
+  // -------------------------------------------------------------
+  {
+    id: "strawberry",
+    name: "สตรอเบอรี่",
+    category: "ไม้ผลเมืองหนาว",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Strawberry",
+    description: "ผลสีแดง รสหวานอมเปรี้ยว นิยมปลูกในแปลงยกแคร่",
+    harvestNote: "สตรอเบอรี่เริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 90 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ออกดอก-ผลแก่-เก็บเกี่ยว", "ก.พ.": "ออกดอก-ผลแก่-เก็บเกี่ยว", "มี.ค.": "ออกดอก-ผลแก่-เก็บเกี่ยว", "เม.ย.": "ออกดอก-ผลแก่-เก็บเกี่ยว",
+      "พ.ค.": "เตรียมต้นไหล", "มิ.ย.": "เตรียมต้นไหล", "ก.ค.": "เตรียมต้นไหล", "ส.ค.": "เตรียมต้นไหล",
+      "ก.ย.": "นำต้นลงแปลงปลูก", "ต.ค.": "นำต้นลงแปลงปลูก", "พ.ย.": "นำต้นลงแปลงปลูก", "ธ.ค.": "ออกดอก"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "200-300 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 8, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-300 กรัม/ต้น", purpose: "เร่งต้น" },
+    ]
+  },
+  {
+    id: "grape",
+    name: "องุ่น",
+    category: "ไม้ผลเมืองร้อน", // (สามารถใส่หมวดไม้ผลเมืองร้อนได้ตามบริบท)
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Grape",
+    description: "ผลกลม รสหวาน นิยมปลูกเป็นรั้ว",
+    harvestNote: "องุ่นเริ่มเก็บเกี่ยวได้ในระยะหลังดอกบาน 120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เตรียมต้น", "ก.พ.": "ติดผล-ผลแก่", "มี.ค.": "ติดผล-ผลแก่", "เม.ย.": "ติดผล-ผลแก่",
+      "พ.ค.": "เตรียมต้น", "มิ.ย.": "เตรียมต้น", "ก.ค.": "เตรียมต้น", "ส.ค.": "ติดผล-ผลแก่",
+      "ก.ย.": "ติดผล-ผลแก่", "ต.ค.": "เตรียมต้น", "พ.ย.": "เตรียมต้น", "ธ.ค.": "เตรียมต้น"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 1, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 7, type: "เคมี", formula: "0-0-30", rate: "500-800 กรัม/ต้น", purpose: "ขยายผล" },
+    ]
+  },
+
+  // -------------------------------------------------------------
+  // หมวดหมู่: พืชเศรษฐกิจ
+  // -------------------------------------------------------------
+  {
+    id: "coffee-year1",
+    name: "กาแฟ ปีที่ 1",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    description: "กาแฟปีแรก เน้นการดูแลต้นกล้าให้เจริญเติบโต",
+    harvestNote: "ต้นกล้ามีอายุ 6-14 เดือน หรือมีความสูงอย่างน้อย 20 เซนติเมตร",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "-", "ก.พ.": "-", "มี.ค.": "-", "เม.ย.": "-",
+      "พ.ค.": "ปลูก", "มิ.ย.": "ใส่ปุ๋ย", "ก.ค.": "-", "ส.ค.": "ใส่ปุ๋ย",
+      "ก.ย.": "-", "ต.ค.": "ใส่ปุ๋ย", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50-100 กรัม/ต้น", purpose: "รองก้นหลุม/เตรียมดิน" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "100-200 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "100-200 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "100-200 กรัม/ต้น", purpose: "บำรุงต้น" },
+    ]
+  },
+  {
+    id: "coffee-year2",
+    name: "กาแฟ ปีที่ 2",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    description: "กาแฟปีที่ 2 เน้นการเจริญเติบโตของลำต้นและใบ",
+    harvestNote: "หากดินมีค่า pH ต่ำกว่า 5.5 ควรใส่ปูนโดโลไมต์ปรับสภาพดิน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "-", "ก.พ.": "-", "มี.ค.": "-", "เม.ย.": "-",
+      "พ.ค.": "ใส่ปุ๋ย", "มิ.ย.": "ใส่ปุ๋ย", "ก.ค.": "-", "ส.ค.": "ใส่ปุ๋ย",
+      "ก.ย.": "-", "ต.ค.": "ใส่ปุ๋ย", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "200-400 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-400 กรัม/ต้น", purpose: "บำรุงใบ" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "200-400 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-400 กรัม/ต้น", purpose: "บำรุงใบ" },
+    ]
+  },
+  {
+    id: "coffee-year3",
+    name: "กาแฟ ปีที่ 3 (ให้ผลผลิต)",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Coffee",
+    description: "กาแฟปีที่ 3 เริ่มให้ผลผลิต เน้นบำรุงดอกและผล",
+    harvestNote: "ใส่ปุ๋ยอินทรีย์ร่วมกับปุ๋ยเคมี ช่วงที่ผลผลิตออกมาก คือ ธ.ค. - ม.ค.",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว/ตัดแต่งกิ่ง/ใส่ปุ๋ย", "มี.ค.": "เก็บเกี่ยว/ตัดแต่งกิ่ง/ใส่ปุ๋ย", "เม.ย.": "-",
+      "พ.ค.": "ใส่ปุ๋ย", "มิ.ย.": "ใส่ปุ๋ย", "ก.ค.": "-", "ส.ค.": "ใส่ปุ๋ย",
+      "ก.ย.": "-", "ต.ค.": "เก็บเกี่ยว/ใส่ปุ๋ย", "พ.ย.": "เก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "600-800 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 1, type: "อินทรีย์", formula: "OM 20%", rate: "1-2 กก./ต้น", purpose: "ฟื้นฟูต้น" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "400-600 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "400-600 กรัม/ต้น", purpose: "บำรุงใบ" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "600-800 กรัม/ต้น", purpose: "บำรุงผล" },
+    ]
+  },
+  {
+    id: "coconut-year1-3",
+    name: "มะพร้าว ปีที่ 1-3",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Coconut",
+    description: "มะพร้าวช่วง 3 ปีแรก เน้นการเจริญเติบโตของต้น",
+    harvestNote: "มะพร้าวสามารถเก็บเกี่ยวทุก 45-60 วัน มะพร้าวแกงให้ผลปีที่ 5, น้ำหอมปีที่ 4",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "-", "ก.พ.": "-", "มี.ค.": "-", "เม.ย.": "-",
+      "พ.ค.": "ปลูก/ใส่ปุ๋ย", "มิ.ย.": "ปลูก/ใส่ปุ๋ย", "ก.ค.": "-", "ส.ค.": "-",
+      "ก.ย.": "-", "ต.ค.": "ใส่ปุ๋ย", "พ.ย.": "ใส่ปุ๋ย", "ธ.ค.": "ใส่ปุ๋ย"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "รองก้นหลุม" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "300-500 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "300-500 กรัม/ต้น", purpose: "บำรุงต้น" },
+    ]
+  },
+  {
+    id: "coconut-year4-5",
+    name: "มะพร้าว ปีที่ 4-5",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Coconut",
+    description: "มะพร้าวเริ่มให้ผลผลิต เน้นการดูแลและเก็บเกี่ยว",
+    harvestNote: "ควรทำความสะอาดคอมะพร้าวอย่างสม่ำเสมอเพื่อไม่ให้เป็นแหล่งสะสมโรค",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "เก็บเกี่ยว",
+      "พ.ค.": "เก็บเกี่ยว/ใส่ปุ๋ย", "มิ.ย.": "เก็บเกี่ยว/ใส่ปุ๋ย", "ก.ค.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว", "ส.ค.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว",
+      "ก.ย.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว", "ต.ค.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว/ใส่ปุ๋ย", "พ.ย.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว/ใส่ปุ๋ย", "ธ.ค.": "เก็บเกี่ยว/ทำความสะอาดคอมะพร้าว/ใส่ปุ๋ย"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "500-800 กรัม/ต้น", purpose: "บำรุงผล" },
+      { month: 9, type: "อินทรีย์", formula: "OM 25%", rate: "3-5 กก./ต้น", purpose: "บำรุงดิน" },
+    ]
+  },
+  {
+    id: "tea-year1-3",
+    name: "ชา ปีที่ 1-3",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Tea",
+    description: "ชาช่วง 3 ปีแรก เน้นการเจริญเติบโตของต้น",
+    harvestNote: "การเก็บเกี่ยวยอดชา เก็บทุก 45-50 วันเกือบตลอดปี",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "-", "ก.พ.": "-", "มี.ค.": "-", "เม.ย.": "-",
+      "พ.ค.": "ปลูก", "มิ.ย.": "ปลูก/ใส่ปุ๋ย", "ก.ค.": "-", "ส.ค.": "ใส่ปุ๋ย",
+      "ก.ย.": "-", "ต.ค.": "ใส่ปุ๋ย", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "รองก้นหลุม" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "200-300 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-300 กรัม/ต้น", purpose: "บำรุงใบ" },
+      { month: 9, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "200-300 กรัม/ต้น", purpose: "บำรุงต้น" },
+    ]
+  },
+  {
+    id: "tea-year4-5",
+    name: "ชา ปีที่ 4-5",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Tea",
+    description: "ชาเริ่มให้ผลผลิต เน้นการเก็บเกี่ยวและบำรุง",
+    harvestNote: "ควรให้น้ำชาอย่างสม่ำเสมอ เนื่องจากชาเป็นพืชที่ต้องการความชื้นตลอดทั้งปี",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "เก็บเกี่ยว/ใส่ปุ๋ย",
+      "พ.ค.": "เก็บเกี่ยว", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว/ใส่ปุ๋ย",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "เก็บเกี่ยว", "พ.ย.": "เก็บเกี่ยว/ใส่ปุ๋ย/ตัดแต่งกิ่ง", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "300-500 กรัม/ต้น", purpose: "บำรุงใบ" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "6-3-3", rate: "300-500 กรัม/ต้น", purpose: "บำรุงต้น" },
+      { month: 10, type: "อินทรีย์", formula: "OM 25%", rate: "2-3 กก./ต้น", purpose: "บำรุงดิน" },
+    ]
+  },
+  {
+    id: "oil-palm-start",
+    name: "ปาล์มน้ำมัน (เริ่มปลูก)",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Oil+Palm",
+    description: "ปาล์มน้ำมันระยะเริ่มปลูก ปีที่ 1-3",
+    harvestNote: "เริ่มให้ผลผลิตประมาณปีที่ 3-4",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแล", "ก.พ.": "ดูแล", "มี.ค.": "ดูแล", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก", "มิ.ย.": "ปาล์มเล็กบำรุงลำต้น", "ก.ค.": "บำรุงลำต้น", "ส.ค.": "บำรุงลำต้น",
+      "ก.ย.": "บำรุงลำต้น", "ต.ค.": "บำรุงลำต้น", "พ.ย.": "บำรุงลำต้น", "ธ.ค.": "บำรุงลำต้น"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "100-200 กรัม/ต้น", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3 สลับ 12-3-5", rate: "1.5-6 กก./ต้น/ปี", purpose: "ปาล์มเล็ก บำรุงต้น เร่งโต (ปี 1-3)" },
+    ]
+  },
+  {
+    id: "oil-palm-mature",
+    name: "ปาล์มน้ำมัน (ตั้งแต่ ปี 4 ขึ้นไป)",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Oil+Palm",
+    description: "ปาล์มน้ำมันที่ให้ผลผลิตแล้ว ปีที่ 4 ขึ้นไป",
+    harvestNote: "ตัดทะลายได้ทุกๆ 15-20 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เก็บเกี่ยว", "เม.ย.": "เก็บเกี่ยว",
+      "พ.ค.": "ใส่ปุ๋ย", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "ใส่ปุ๋ย", "ต.ค.": "เก็บเกี่ยว", "พ.ย.": "เก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์เคมี", formula: "12-3-5 สลับ 3-6-15", rate: "6.5-7 กก./ต้น/ปี", purpose: "เร่งต้น สลับ บำรุงผล เพิ่มทะลาย" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "1.5-2 กก./ต้น/ปี", purpose: "ปาล์มใหญ่ เพิ่มน้ำหนักทะลาย" },
+    ]
+  },
+  {
+    id: "rubber-start",
+    name: "ยางพารา (เริ่มปลูก 1-6 ปี)",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Rubber+Tree",
+    description: "ต้นยางพาราก่อนเปิดกรีด เน้นการสร้างขนาดลำต้น",
+    harvestNote: "-",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ดูแล", "ก.พ.": "ดูแล", "มี.ค.": "ดูแล", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก", "มิ.ย.": "บำรุงต้น", "ก.ค.": "บำรุงต้น", "ส.ค.": "บำรุงต้น",
+      "ก.ย.": "บำรุงต้น", "ต.ค.": "บำรุงต้น", "พ.ย.": "บำรุงต้น", "ธ.ค.": "ดูแล"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50-100 กรัม/ต้น", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 5, type: "อินทรีย์เคมี", formula: "6-3-3 สลับ 12-3-5", rate: "400-800 กรัม/ต้น/ปี", purpose: "บำรุงราก ลำต้น เร่งการเจริญเติบโต" },
+    ]
+  },
+  {
+    id: "rubber-mature",
+    name: "ยางพารา (เริ่มกรีด 7 ปี ขึ้นไป)",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Rubber+Tree",
+    description: "ยางพาราที่เปิดกรีดแล้ว เน้นความสมบูรณ์และปริมาณน้ำยาง",
+    harvestNote: "ควรพักหน้ายางในช่วงผลัดใบ (กุมภาพันธ์-เมษายน)",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "พักต้น", "มี.ค.": "พักต้น", "เม.ย.": "พักต้น",
+      "พ.ค.": "เริ่มเก็บเกี่ยว", "มิ.ย.": "เก็บเกี่ยว", "ก.ค.": "เก็บเกี่ยว", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "เก็บเกี่ยว", "พ.ย.": "เก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "1.5-2 กก./ต้น/ปี", purpose: "ใช้เดี่ยว บำรุงต้น เพิ่มน้ำยาง" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "12-3-5 ผสม 3-6-15", rate: "1.5-2 กก./ต้น/ปี", purpose: "ใช้ผสม 1:1 บำรุงผลผลิต เพิ่มน้ำยาง" },
+    ]
+  },
+  {
+    id: "tobacco",
+    name: "ยาสูบ",
+    category: "พืชเศรษฐกิจ",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Tobacco",
+    description: "พืชใบเศรษฐกิจ ต้องการบำรุงใบและกลิ่น",
+    harvestNote: "เก็บเกี่ยวตามอายุใบจากล่างขึ้นบน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "-", "เม.ย.": "-",
+      "พ.ค.": "เตรียมดิน", "มิ.ย.": "ปลูก", "ก.ค.": "เร่งต้น", "ส.ค.": "บำรุงใบ",
+      "ก.ย.": "บำรุงดอก", "ต.ค.": "เพิ่มกลิ่น", "พ.ย.": "เริ่มเก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 4, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 6, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "50 กก./ไร่", purpose: "ครั้งที่ 1 เร่งต้น บำรุงใบ" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "50 กก./ไร่", purpose: "ครั้งที่ 2 บำรุงดอก เพิ่มกลิ่น" },
+    ]
+  },
+
+  // -------------------------------------------------------------
+  // หมวดหมู่: พืชผักและพืชไร่
+  // -------------------------------------------------------------
+  {
+    id: "rice",
+    name: "นาข้าว",
+    category: "พืชผัก", // จัดอยู่ในพืชไร่ (ตาม Type ปัจจุบันใช้ "พืชผัก")
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Rice", 
+    description: "พืชเศรษฐกิจหลักของไทย ต้องการน้ำและธาตุอาหารสูงในช่วงแตกกอและรับรวง",
+    harvestNote: "เก็บเกี่ยวเมื่อรวงข้าวเหลืองอร่าม อายุประมาณ 110-120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "พักดิน", "ก.พ.": "พักดิน", "มี.ค.": "พักดิน", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก/หว่าน", "มิ.ย.": "ดูแล", "ก.ค.": "แตกกอ", "ส.ค.": "ดูแล",
+      "ก.ย.": "รับรวง", "ต.ค.": "ออกรวง", "พ.ย.": "เก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 6, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "25 กก./ไร่", purpose: "แตกกอ เร่งเขียว" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "25-35 กก./ไร่", purpose: "รับรวง เพิ่มน้ำหนัก" },
+    ]
+  },
+  {
+    id: "corn",
+    name: "ข้าวโพด",
+    category: "พืชผัก", 
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Corn",
+    description: "พืชไร่อายุสั้น ทนแล้งได้ดี ต้องการปุ๋ยในช่วงเร่งต้นและบำรุงฝัก",
+    harvestNote: "เก็บเกี่ยวหลังปลูกประมาณ 110-120 วัน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "-", "ก.พ.": "-", "มี.ค.": "-", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก/รองพื้น", "มิ.ย.": "เร่งต้น", "ก.ค.": "ออกดอก", "ส.ค.": "บำรุงฝัก",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "-", "พ.ย.": "-", "ธ.ค.": "-"
+    }),
+    fertilizers: [
+      { month: 3, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "25-50 กก./ไร่", purpose: "รองพื้นปลูก เร่งต้น" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "35-50 กก./ไร่", purpose: "บำรุงฝัก เร่งผลผลิต" },
+    ]
+  },
+  {
+    id: "sugarcane",
+    name: "อ้อย",
+    category: "พืชผัก",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Sugarcane",
+    description: "พืชไร่อายุยาว ต้องการธาตุโพแทสเซียมเพื่อสร้างความหวาน",
+    harvestNote: "ตัดอ้อยเข้าโรงงานในช่วงฤดูแล้ง",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เตรียมดินก่อนปลูก", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก/รองพื้น", "มิ.ย.": "เร่งต้น", "ก.ค.": "แตกกอ", "ส.ค.": "ยืดปล้อง",
+      "ก.ย.": "เพิ่มความหวาน", "ต.ค.": "เพิ่มความหวาน", "พ.ย.": "สะสมน้ำตาล", "ธ.ค.": "เริ่มเก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 2, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "50 กก./ไร่", purpose: "รองพื้นปลูก เร่งต้น" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "50 กก./ไร่", purpose: "เพิ่มความหวาน" },
+    ]
+  },
+  {
+    id: "cassava",
+    name: "มันสำปะหลัง",
+    category: "พืชผัก",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Cassava",
+    description: "พืชทนแล้ง ต้องการการระเบิดหัวในช่วงปลายการเจริญเติบโต",
+    harvestNote: "ขุดมันได้ตั้งแต่อายุ 8-12 เดือน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "เก็บเกี่ยว", "ก.พ.": "เก็บเกี่ยว", "มี.ค.": "เตรียมดินก่อนปลูก", "เม.ย.": "เตรียมดินก่อนปลูก",
+      "พ.ค.": "ปลูก/รองพื้น", "มิ.ย.": "เร่งต้น", "ก.ค.": "เร่งต้น", "ส.ค.": "ลงหัว",
+      "ก.ย.": "ระเบิดหัว", "ต.ค.": "ระเบิดหัว", "พ.ย.": "สะสมแป้ง", "ธ.ค.": "สะสมแป้ง"
+    }),
+    fertilizers: [
+      { month: 2, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "เตรียมดินก่อนปลูก" },
+      { month: 4, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "50 กก./ไร่", purpose: "รองพื้นปลูก เร่งต้น" },
+      { month: 8, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "50 กก./ไร่", purpose: "ระเบิดหัว เร่งแป้ง" },
+    ]
+  },
+  {
+    id: "leafy-veg",
+    name: "พืชผัก (กินใบ)",
+    category: "พืชผัก",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Leafy+Veg",
+    description: "พืชอายุสั้น เช่น คะน้า กวางตุ้ง ผักกาด ต้องการไนโตรเจนสูง",
+    harvestNote: "เก็บเกี่ยวได้รวดเร็วตามอายุผักแต่ละชนิด (30-45 วัน)",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ปลูก/เก็บเกี่ยว", "ก.พ.": "ปลูก/เก็บเกี่ยว", "มี.ค.": "ปลูก/เก็บเกี่ยว", "เม.ย.": "ปลูก/เก็บเกี่ยว",
+      "พ.ค.": "ปลูก/เก็บเกี่ยว", "มิ.ย.": "ปลูก/เก็บเกี่ยว", "ก.ค.": "ปลูก/เก็บเกี่ยว", "ส.ค.": "ปลูก/เก็บเกี่ยว",
+      "ก.ย.": "ปลูก/เก็บเกี่ยว", "ต.ค.": "ปลูก/เก็บเกี่ยว", "พ.ย.": "ปลูก/เก็บเกี่ยว", "ธ.ค.": "ปลูก/เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "ก่อนปลูก เตรียมดิน" },
+      { month: 1, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "30-50 กก./ไร่", purpose: "ครั้งที่ 1 เร่งต้น เร่งใบ" },
+      { month: 2, type: "อินทรีย์เคมี", formula: "3-6-15 ผสม 0-0-30", rate: "30-50 กก./ไร่", purpose: "ครั้งที่ 2 เพิ่มรสชาติ (ผสมอัตรา 1:1)" },
+    ]
+  },
+  {
+    id: "fruit-root-veg",
+    name: "พืชผัก (กินผล/หัว)",
+    category: "พืชผัก",
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Fruit+Root+Veg",
+    description: "เช่น แตงกวา ถั่วฝักยาว พริก มะเขือ เน้นบำรุงผล",
+    harvestNote: "เก็บเกี่ยวผลผลิตตามระยะของพืช",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ปลูก/เก็บเกี่ยว", "ก.พ.": "ปลูก/เก็บเกี่ยว", "มี.ค.": "ปลูก/เก็บเกี่ยว", "เม.ย.": "ปลูก/เก็บเกี่ยว",
+      "พ.ค.": "ปลูก/เก็บเกี่ยว", "มิ.ย.": "ปลูก/เก็บเกี่ยว", "ก.ค.": "ปลูก/เก็บเกี่ยว", "ส.ค.": "ปลูก/เก็บเกี่ยว",
+      "ก.ย.": "ปลูก/เก็บเกี่ยว", "ต.ค.": "ปลูก/เก็บเกี่ยว", "พ.ย.": "ปลูก/เก็บเกี่ยว", "ธ.ค.": "ปลูก/เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25% หรือ OM 20%", rate: "50 กก./ไร่", purpose: "ก่อนปลูก เตรียมดิน" },
+      { month: 1, type: "อินทรีย์เคมี", formula: "6-3-3 หรือ 12-3-5", rate: "30-50 กก./ไร่", purpose: "ครั้งที่ 1 บำรุงต้น บำรุงใบ" },
+      { month: 2, type: "อินทรีย์เคมี", formula: "3-6-15 หรือ 0-0-30", rate: "30-50 กก./ไร่", purpose: "ครั้งที่ 2 บำรุงผล ขยายหัว" },
+    ]
+  },
+  {
+    id: "papaya",
+    name: "มะละกอ",
+    category: "พืชผัก", // (อนุโลมตามของเดิม)
+    image: "https://placehold.co/400x400/dcfce7/166534?text=Papaya",
+    description: "ผลยาว รับประทานสดหรือแกงได้ สรรพคุณทางยาสูง",
+    harvestNote: "เก็บเกี่ยวได้หลังออกดอก 3-4 เดือน",
+    monthlyActivities: createMonthlyActivities({
+      "ม.ค.": "ให้น้ำ", "ก.พ.": "ให้น้ำ", "มี.ค.": "กำจัดวัชพืช", "เม.ย.": "กำจัดวัชพืช",
+      "พ.ค.": "กำจัดวัชพืช", "มิ.ย.": "กำจัดวัชพืช", "ก.ค.": "กำจัดวัชพืช", "ส.ค.": "เก็บเกี่ยว",
+      "ก.ย.": "เก็บเกี่ยว", "ต.ค.": "เก็บเกี่ยว", "พ.ย.": "เก็บเกี่ยว", "ธ.ค.": "เก็บเกี่ยว"
+    }),
+    fertilizers: [
+      { month: 0, type: "อินทรีย์", formula: "OM 25%", rate: "1-2 กก./ต้น", purpose: "บำรุงดิน" },
+      { month: 2, type: "อินทรีย์เคมี", formula: "12-3-5", rate: "200-300 กรัม/ต้น", purpose: "เร่งต้น" },
+      { month: 7, type: "อินทรีย์เคมี", formula: "3-6-15", rate: "200-300 กรัม/ต้น", purpose: "บำรุงผล" },
+    ]
+  }
+];
+
+export function getAllCategories(): PlantCategory[] {
+  return ["ไม้ผลเมืองร้อน", "ไม้ผลเมืองหนาว", "พืชเศรษฐกิจ", "พืชผัก", "พืชอื่นๆ"];
+}
