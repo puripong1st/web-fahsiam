@@ -516,7 +516,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "fruit-tree-not-produce",
     name: "ไม้ผล (ยังไม่ให้ผลผลิต)",
     category: "ไม้ผลเมืองร้อน",
-    image: "/image/Tree/fruit-root-vegetable.webp",
+    image: "/image/Tree/longan.webp",
     description: "สำหรับไม้ผลเพิ่งลงปลูก หรือยังไม่ถึงวัยเจริญพันธุ์",
     harvestNote: "เน้นการเจริญเติบโตของลำต้นและใบ",
     monthlyActivities: createMonthlyActivities({
@@ -689,7 +689,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "tea-year4-5",
     name: "ชา ปีที่ 4-5",
     category: "พืชเศรษฐกิจ",
-    image: "/image/Tree/ชา 4-5.png",
+    image: "/image/Tree/ชา 4-5 ปี.webp",
     description: "ชาเริ่มให้ผลผลิต เน้นการเก็บเกี่ยวและบำรุง",
     harvestNote: "ควรให้น้ำชาอย่างสม่ำเสมอ เนื่องจากชาเป็นพืชที่ต้องการความชื้นตลอดทั้งปี",
     monthlyActivities: createMonthlyActivities({
@@ -758,7 +758,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "rubber-mature",
     name: "ยางพารา (เริ่มกรีด 7 ปี ขึ้นไป)",
     category: "พืชเศรษฐกิจ",
-    image: "/image/Tree/ยางพารา 7 ปี ขั้นไป.webp",
+    image: "/image/Tree/ยางพาราเริ่มกรีด 7 ปี 2webp.webp",
     description: "ยางพาราที่เปิดกรีดแล้ว เน้นความสมบูรณ์และปริมาณน้ำยาง",
     harvestNote: "ควรพักหน้ายางในช่วงผลัดใบ (กุมภาพันธ์-เมษายน)",
     monthlyActivities: createMonthlyActivities({

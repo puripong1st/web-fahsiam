@@ -448,7 +448,7 @@ export const plants: Plant[] = [
     id: "rubber",
     updatedAt: "2026-03-12",
     name: "ยางพารา",
-    image: "/image/Tree/ยางพารา 7 ปี ขั้นไป.webp",
+    image: "/image/Tree/ยางพาราเริ่มกรีด 7 ปี 2webp.webp",
     desc: "ปลูกและดูแลโดยทีมงานมืออาชีพเพื่อผลผลิตสูง",
     sunlight: "ชอบแสงแดดจัดเต็มวัน และสภาพอากาศร้อนชื้น",
     watering:
@@ -844,7 +844,7 @@ export const plants: Plant[] = [
     id: "longan",
     updatedAt: "2026-03-12",
     name: "ไม้ผล",
-    image: "/image/Tree/fruit-root-vegetable.webp",
+    image: "/image/Tree/longan.webp",
     desc: "ดูแลด้วยมาตรฐานสูง เพื่อผลผลิตที่สม่ำเสมอและใหญ่เต็มลูก",
     sunlight:
       "ต้องการแสงแดดจัดเต็มวัน ทรงพุ่มต้องโปร่งให้แสงส่องถึง",
