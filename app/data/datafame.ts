@@ -962,7 +962,7 @@ export const plants: Plant[] = [
     id: "coffee",
     updatedAt: "2026-03-12",
     name: "กาแฟ",
-    image: "/image/Tree/coffee.webp",
+    image: "/image/Tree/coffe.webp",
     desc: "ปลูกในสภาพแวดล้อมที่เหมาะสม ได้กลิ่นและรสชาติเป็นเอกลักษณ์",
     sunlight:
       "ชอบแสงแดดรำไร (มีร่มเงาจากไม้ยืนต้นอื่น) หรือแสงแดดครึ่งวัน ไม่ทนต่อแดดจัดและอากาศร้อนจัด",

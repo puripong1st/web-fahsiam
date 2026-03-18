@@ -298,7 +298,7 @@ export const PLANT_DATA: PlantInfo[] = [
   },
   {
     id: "longkong",
-    name: "/image/Tree/ลองกอง.webp",
+    name: "ลองกอง",
     category: "ไม้ผลเมืองร้อน",
     image: "ลองกอง.webp",
     description: "ผลคล้ายลำไย แต่เปลือกนิ่ม เนื้อหวานอมเปรี้ยว",
