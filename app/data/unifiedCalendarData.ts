@@ -724,7 +724,7 @@ export const PLANT_DATA: PlantInfo[] = [
     id: "oil-palm-mature",
     name: "ปาล์มน้ำมัน (ตั้งแต่ ปี 4 ขึ้นไป)",
     category: "พืชเศรษฐกิจ",
-    image: "/image/Tree/ปาาล์มน้ำมันตั้งแต่ 4 ปีขึ้นไป.webp",
+    image: "/image/Tree/ปาล์มน้ำมัน 4ปี.webp",
     description: "ปาล์มน้ำมันที่ให้ผลผลิตแล้ว ปีที่ 4 ขึ้นไป",
     harvestNote: "ตัดทะลายได้ทุกๆ 15-20 วัน",
     monthlyActivities: createMonthlyActivities({
